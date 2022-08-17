@@ -1,0 +1,27 @@
+.game {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.game button {
+    margin-top: 10px;
+}
+.action {
+    font-size: 200px;
+    font-weight: 500;
+    color: #01205e;
+}
+.answer_input {
+    display: flex;
+    /*justify-content: space-around;*/
+    align-items: baseline;
+}
+.answer_input input{
+    display: block;
+    width: 40px
+}
+.answer_input button {
+    display: block;
+}
+

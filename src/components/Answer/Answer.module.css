@@ -1,0 +1,9 @@
+
+.answer {
+    font-size: 200px;
+    font-weight: 500;
+    color: #03993d;
+}
+.wrong {
+    color: #d90202;
+}
