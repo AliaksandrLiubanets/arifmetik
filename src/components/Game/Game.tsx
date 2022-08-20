@@ -35,13 +35,11 @@ export const Game: FC<Props> = ({
     const [showAnswer, setShowAnswer] = useState(false)
     const [focus, setFocus] = useState(true)
 
-    useEffect(() => {
-        makeActionsArrayAndAnswer()
-    }, [])
+    console.log('actionsArray in Game', actionsArray)
+    console.log('answer in Game', answer)
 
     const [right] = useSound(right_sound)
     const [wrong] = useSound(wrong_sound)
-
 
     const answerSound = () => inputAnswer === answer ? right() : wrong()
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => setInputAnswer(e.currentTarget.valueAsNumber)
@@ -55,9 +53,10 @@ export const Game: FC<Props> = ({
         }
     }
     const nextExercise = () => {
-        setRestart(!restart)
-        setFocus( false)
         makeActionsArrayAndAnswer()
+        setRestart(!restart)
+        setShowAnswer(false)
+        setFocus( false)
     }
 
     return (

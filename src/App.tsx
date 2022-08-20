@@ -15,11 +15,20 @@ function App() {
 
     const makeActionsArrayAndAnswer = useCallback(() => {
         const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(actionsCount, numberComp)
-        setActionsArray(arrayOfCalculations)
+        const copyArray = [...arrayOfCalculations]
+        setActionsArray(copyArray)
         console.log('actionsArray', actionsArray)
         console.log('answer', answer)
         setAnswer(answer)
-    }, [actionsCount, numberComp, actionsArray])
+    }, [actionsArray, numberComp, timeoutValue, actionsCount, restart])
+
+    // const makeActionsArrayAndAnswer = () => {
+    //     const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(actionsCount, numberComp)
+    //     setActionsArray(arrayOfCalculations)
+    //     console.log('actionsArray', actionsArray)
+    //     console.log('answer', answer)
+    //     setAnswer(answer)
+    // }
 
     return (
         <div className="App">
