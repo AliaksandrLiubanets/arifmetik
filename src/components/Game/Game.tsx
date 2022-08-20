@@ -53,10 +53,11 @@ export const Game: FC<Props> = ({
         }
     }
     const nextExercise = () => {
+        setShowAnswer(false)
+        setShowInput(false)
+        setFocus(false)
         makeActionsArrayAndAnswer()
         setRestart(!restart)
-        setShowAnswer(false)
-        setFocus(false)
     }
 
     return (
