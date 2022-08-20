@@ -7,7 +7,7 @@ import {getArrayOfCalculationsAndAnswer} from './utils/getResultAndAction'
 function App() {
     const [isStarted, setIsStarted] = React.useState(false)
     const [numberComp, setNumberComp] = React.useState(10)
-    const [timeoutValue, setTimeoutValue] = React.useState(1)
+    const [speed, setSpeed] = React.useState(1)
     const [actionsCount, setActionsCount] = React.useState(4)
     const [restart, setRestart] = React.useState(false)
     const [actionsArray, setActionsArray] = React.useState<string[]>([])
@@ -20,38 +20,34 @@ function App() {
         console.log('actionsArray', actionsArray)
         console.log('answer', answer)
         setAnswer(answer)
-    }, [actionsArray, numberComp, timeoutValue, actionsCount, restart])
+    }, [actionsArray, numberComp, speed, actionsCount, restart])
 
-    // const makeActionsArrayAndAnswer = () => {
-    //     const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(actionsCount, numberComp)
-    //     setActionsArray(arrayOfCalculations)
-    //     console.log('actionsArray', actionsArray)
-    //     console.log('answer', answer)
-    //     setAnswer(answer)
-    // }
-
+    const restartGame = useCallback(() => setRestart(!restart), [])
+    const startGame = useCallback((isStarted: boolean) => setIsStarted(isStarted), [])
+    const setCountOfActions = useCallback((value: number) => setActionsCount(value), [])
+    const setNumberComposition = useCallback((value: number) => setNumberComp(value), [])
+    const setTimeoutValue = useCallback((value: number) => setSpeed(value), [])
+    console.log('App')
     return (
         <div className="App">
             {isStarted
                 ? <Game numberComp={numberComp}
-                        timeoutValue={timeoutValue}
+                        timeoutValue={speed}
                         actionsCount={actionsCount}
-                        setIsStarted={setIsStarted}
-                        setRestart={setRestart}
-                        restart={restart}
                         actionsArray={actionsArray}
                         answer={answer}
+                        startGame={startGame}
+                        restartGame={restartGame}
                         makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
                 />
-                : <Settings setIsStarted={setIsStarted}
-                            restart={restart}
-                            actionsCount={actionsCount}
-                            timeoutValue={timeoutValue}
+                : <Settings actionsCount={actionsCount}
+                            timeoutValue={speed}
                             numberComp={numberComp}
-                            setActionsCount={setActionsCount}
-                            setNumberComp={setNumberComp}
+                            startGame={startGame}
+                            restartGame={restartGame}
+                            setCountOfActions={setCountOfActions}
+                            setNumberComposition={setNumberComposition}
                             setTimeoutValue={setTimeoutValue}
-                            setRestart={setRestart}
                             makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
                 />
             }

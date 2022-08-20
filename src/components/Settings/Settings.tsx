@@ -1,80 +1,78 @@
-import React, {ChangeEvent, FC, FocusEvent} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, memo} from 'react'
 import s from './Settings.module.css'
 
 type Props = {
     numberComp: number
     timeoutValue: number
     actionsCount: number
-    setIsStarted: (isStarted: boolean) => void
-    setNumberComp: (numberComp: number) => void
+    startGame: (isStarted: boolean) => void
+    setNumberComposition: (numberComp: number) => void
     setTimeoutValue: (timeoutValue: number) => void
-    setActionsCount: (actionsCount: number) => void
-    setRestart: (restart: boolean) => void
-    restart: boolean
+    setCountOfActions: (actionsCount: number) => void
+    restartGame: () => void
     makeActionsArrayAndAnswer: () => void
 }
 
-export const Settings: FC<Props> = ({
-                                        numberComp,
-                                        timeoutValue,
-                                        actionsCount,
-                                        setIsStarted,
-                                        restart,
-                                        setNumberComp,
-                                        setTimeoutValue,
-                                        setActionsCount,
-                                        setRestart,
-                                        makeActionsArrayAndAnswer
-                                    }) => {
+export const Settings: FC<Props> = memo(({
+                                             numberComp,
+                                             timeoutValue,
+                                             actionsCount,
+                                             startGame,
+                                             setNumberComposition,
+                                             setTimeoutValue,
+                                             setCountOfActions,
+                                             restartGame,
+                                             makeActionsArrayAndAnswer
+                                         }) => {
 
-    const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
-    const onChangeNumberComp = (e: ChangeEvent<HTMLInputElement>) => setNumberComp(e.currentTarget.valueAsNumber)
-    const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => setTimeoutValue(e.currentTarget.valueAsNumber)
-    const onChangeActionsCount = (e: ChangeEvent<HTMLInputElement>) => setActionsCount(e.currentTarget.valueAsNumber)
+        const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
+        const onChangeNumberComp = (e: ChangeEvent<HTMLInputElement>) => setNumberComposition(e.currentTarget.valueAsNumber)
+        const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => setTimeoutValue(e.currentTarget.valueAsNumber)
+        const onChangeActionsCount = (e: ChangeEvent<HTMLInputElement>) => setCountOfActions(e.currentTarget.valueAsNumber)
 
-    return (
-        <div className={s.container}>
-            <div className={s.settings_block}>
-                <div>Состав числа:</div>
-                <input
-                    value={numberComp}
-                    type="number"
-                    onChange={onChangeNumberComp}
-                    onFocus={handleFocus}
-                />
-            </div>
+        return (
+            <div className={s.container}>
+                <div className={s.settings_block}>
+                    <div>Состав числа:</div>
+                    <input
+                        value={numberComp}
+                        type="number"
+                        onChange={onChangeNumberComp}
+                        onFocus={handleFocus}
+                    />
+                </div>
 
-            <div className={s.settings_block}>
-                <div>Скорость:</div>
-                <input
-                    value={timeoutValue}
-                    type="number"
-                    onChange={onChangeTimeOutValue}
-                    onFocus={handleFocus}
-                />
-            </div>
-            <div className={s.settings_block}>
-                <div>Количество действий:</div>
-                <input
-                    value={actionsCount}
-                    type="number"
-                    onChange={onChangeActionsCount}
-                    onFocus={handleFocus}
-                />
-            </div>
+                <div className={s.settings_block}>
+                    <div>Скорость:</div>
+                    <input
+                        value={timeoutValue}
+                        type="number"
+                        onChange={onChangeTimeOutValue}
+                        onFocus={handleFocus}
+                    />
+                </div>
+                <div className={s.settings_block}>
+                    <div>Количество действий:</div>
+                    <input
+                        value={actionsCount}
+                        type="number"
+                        onChange={onChangeActionsCount}
+                        onFocus={handleFocus}
+                    />
+                </div>
 
-            <button
+                <button
                     onClick={() => {
-                        setIsStarted(true)
-                        setRestart(!restart)
+                        startGame(true)
+                        restartGame()
                         makeActionsArrayAndAnswer()
                     }}
-            >
-                Старт
-            </button>
+                >
+                    Старт
+                </button>
 
 
-        </div>
-    )
-}
-
+            </div>
+        )
+    }
+)

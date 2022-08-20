@@ -42,7 +42,6 @@ export const getArrayOfCalculationsAndAnswer = (actionsCount: number, numberComp
         arrayOfCalculations.push(action)
     }
     let answer: number = arrayOfCalculations.reduce((acc, el) => acc + Number(el), 0 )
-    console.log('arrayOfCalculations', arrayOfCalculations)
-    console.log('answer', answer)
+
     return {arrayOfCalculations, answer}
 }
