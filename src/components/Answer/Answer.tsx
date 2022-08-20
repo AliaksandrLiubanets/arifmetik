@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, memo} from 'react'
 import s from './Answer.module.css'
 
 type Props = {
@@ -6,11 +6,12 @@ type Props = {
     inputAnswer: number
 }
 
-export const Answer: FC<Props> = ({answer, inputAnswer}) => {
+export const Answer: FC<Props> = memo(({answer, inputAnswer}) => {
 
-    const answerStyle = `${s.answer} ${inputAnswer !== answer ? s.wrong : ''}`
+        const answerStyle = `${s.answer} ${inputAnswer !== answer ? s.wrong : ''}`
 
-    return <>
-        <div className={answerStyle}>{answer}</div>
-    </>
-}
+        return <>
+            <div className={answerStyle}>{answer}</div>
+        </>
+    }
+)
