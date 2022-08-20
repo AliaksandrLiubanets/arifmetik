@@ -29,10 +29,10 @@ type Props = {
     numberComp: number
     actionsArray: string[]
     showInput: (isShowAnswer: boolean) => void
-    focusElement: (focus: boolean) => void
+    focusOnElement: (focus: boolean) => void
 }
 
-export const Actions: FC<Props> = memo(({actionsArray, timeoutValue, actionsCount, focusElement, showInput}) => {
+export const Actions: FC<Props> = memo(({actionsArray, timeoutValue, actionsCount, focusOnElement, showInput}) => {
         const [calc, setCalc] = useState<string>('')
         const [index, setIndex] = useState<number>(0)
 
@@ -52,7 +52,7 @@ export const Actions: FC<Props> = memo(({actionsArray, timeoutValue, actionsCoun
             if (index === actionsCount) {
                 actionSound()
                 showInput(true)
-                focusElement(true)
+                focusOnElement(true)
             }
         }, [calc, actionsCount, actionsArray, showInput, timeoutValue])
 

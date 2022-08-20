@@ -31,7 +31,7 @@ export const Game: FC<Props> = memo(({
         const [inputAnswer, setInputAnswer] = useState(0)
         const [isShowInput, setIsShowInput] = useState(false)
         const [isShowAnswer, setIsShowAnswer] = useState(false)
-        const [focus, setFocus] = useState(true)
+        const [isFocus, setIsFocus] = useState(true)
 
         console.log('actionsArray in Game', actionsArray)
         console.log('answer in Game', answer)
@@ -46,20 +46,20 @@ export const Game: FC<Props> = memo(({
         const handleEnterPress = (e: KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Enter') {
                 setIsShowAnswer(true)
-                setFocus(false)
+                setIsFocus(false)
                 answerSound()
             }
         }
-        const nextExercise = () => {
+        const nextExercise = useCallback(() => {
             setIsShowAnswer(false)
             setIsShowInput(false)
-            setFocus(false)
+            setIsFocus(false)
             makeActionsArrayAndAnswer()
             restartGame()
-        }
-        const setShowAnswer = useCallback((isShowAnswer: boolean) => setIsShowAnswer(isShowAnswer), [])
+        }, [])
+
         const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
-        const focusElement = useCallback((isFocus: boolean) => setFocus(isFocus), [])
+        const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
 
         return (
             <div className={s.game}>
@@ -69,23 +69,23 @@ export const Game: FC<Props> = memo(({
                                numberComp={numberComp}
                                timeoutValue={timeoutValue}
                                showInput={showInput}
-                               focusElement={focusElement}
+                               focusOnElement={focusOnElement}
                     />
                     : <Answer answer={answer} inputAnswer={inputAnswer}/>
                 }
                 {isShowInput &&
                 <div className={s.answer_input}>
                     <button onClick={handleBackToSettings}>Назад</button>
-                    {focus
+                    {isFocus
                         ? <input
                             type="number"
                             value={inputAnswer}
                             onChange={handleChange}
                             onFocus={handleFocus}
-                            autoFocus={focus}
+                            autoFocus={isFocus}
                             onKeyPress={handleEnterPress}
                         />
-                        : <ButtonNext isOnFocus={!focus} callback={nextExercise}/>
+                        : <ButtonNext isOnFocus={!isFocus} callback={nextExercise}/>
                     }
 
                 </div>
