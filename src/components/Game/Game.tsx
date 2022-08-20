@@ -54,6 +54,7 @@ export const Game: FC<Props> = memo(({
             setIsShowAnswer(false)
             setIsShowInput(false)
             setIsFocus(false)
+            setInputAnswer(0)
             makeActionsArrayAndAnswer()
             restartGame()
         }, [])
