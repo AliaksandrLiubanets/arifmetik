@@ -32,7 +32,6 @@ type Props = {
     setFocus: (focus: boolean) => void
 }
 
-
 export const Actions: FC<Props> = ({actionsArray, timeoutValue, actionsCount, setFocus, setShowInput}) => {
     const [calc, setCalc] = useState<string>('')
     const [index, setIndex] = useState<number>(0)
