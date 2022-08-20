@@ -37,20 +37,21 @@ export const Actions: FC<Props> = ({actionsArray, timeoutValue, actionsCount, se
     const [calc, setCalc] = useState<string>('')
     const [index, setIndex] = useState<number>(0)
 
-
     useEffect(() => {
         if (index < actionsCount) {
+            actionSound()
             setShowInput(false)
             let id = setTimeout(() => {
                 setCalc(actionsArray[index])
                 setIndex(prevState => prevState + 1)
-                actionSound()
+
             }, 1000 * timeoutValue)
             return () => {
                 clearInterval(id)
             }
         }
         if (index === actionsCount) {
+            actionSound()
             setShowInput(true)
             setFocus(true)
         }
