@@ -46,9 +46,9 @@ export const Game: FC<Props> = ({
     const handleBackToSettings = () => setIsStarted(false)
     const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
     const handleEnterPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        if(e.key === 'Enter') {
+        if (e.key === 'Enter') {
             setShowAnswer(true)
-            setFocus( false)
+            setFocus(false)
             answerSound()
         }
     }
@@ -56,7 +56,7 @@ export const Game: FC<Props> = ({
         makeActionsArrayAndAnswer()
         setRestart(!restart)
         setShowAnswer(false)
-        setFocus( false)
+        setFocus(false)
     }
 
     return (
@@ -67,20 +67,21 @@ export const Game: FC<Props> = ({
                            numberComp={numberComp}
                            timeoutValue={timeoutValue}
                            setShowInput={setShowInput}
+                           setFocus={setFocus}
                 />
                 : <Answer answer={answer} inputAnswer={inputAnswer}/>
             }
             {showInput &&
             <div className={s.answer_input}>
                 <button onClick={handleBackToSettings}>Назад</button>
-                {focus ?
-                <input
-                    type="number"
-                    value={inputAnswer}
-                    onChange={handleChange}
-                    onFocus={handleFocus}
-                    autoFocus={focus}
-                    onKeyPress={handleEnterPress}
+                {focus
+                    ? <input
+                        type="number"
+                        value={inputAnswer}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        autoFocus={focus}
+                        onKeyPress={handleEnterPress}
                     />
                     : <ButtonNext isOnFocus={!focus} callback={nextExercise}/>
                 }

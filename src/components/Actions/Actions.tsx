@@ -29,16 +29,18 @@ type Props = {
     numberComp: number
     actionsArray: string[]
     setShowInput: (isShowAnswer: boolean) => void
+    setFocus: (focus: boolean) => void
 }
 
 
-export const Actions: FC<Props> = ({actionsArray, timeoutValue, actionsCount, numberComp, setShowInput}) => {
+export const Actions: FC<Props> = ({actionsArray, timeoutValue, actionsCount, setFocus, setShowInput}) => {
     const [calc, setCalc] = useState<string>('')
     const [index, setIndex] = useState<number>(0)
 
 
     useEffect(() => {
         if (index < actionsCount) {
+            setShowInput(false)
             let id = setTimeout(() => {
                 setCalc(actionsArray[index])
                 setIndex(prevState => prevState + 1)
@@ -50,6 +52,7 @@ export const Actions: FC<Props> = ({actionsArray, timeoutValue, actionsCount, nu
         }
         if (index === actionsCount) {
             setShowInput(true)
+            setFocus(true)
         }
     }, [calc, actionsCount, actionsArray, setShowInput, timeoutValue])
 
