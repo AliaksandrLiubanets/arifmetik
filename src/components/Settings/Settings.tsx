@@ -11,6 +11,7 @@ type Props = {
     setActionsCount: (actionsCount: number) => void
     setRestart: (restart: boolean) => void
     restart: boolean
+    makeActionsArrayAndAnswer: () => void
 }
 
 export const Settings: FC<Props> = ({
@@ -22,7 +23,8 @@ export const Settings: FC<Props> = ({
                                         setNumberComp,
                                         setTimeoutValue,
                                         setActionsCount,
-                                        setRestart
+                                        setRestart,
+                                        makeActionsArrayAndAnswer
                                     }) => {
 
     const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
@@ -65,6 +67,7 @@ export const Settings: FC<Props> = ({
                     onClick={() => {
                         setIsStarted(true)
                         setRestart(!restart)
+                        makeActionsArrayAndAnswer()
                     }}
             >
                 Старт
