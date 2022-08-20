@@ -28,17 +28,20 @@ type Props = {
     timeoutValue: number
     numberComp: number
     actionsArray: string[]
+    isSoundOn: boolean
     showInput: (isShowAnswer: boolean) => void
     focusOnElement: (focus: boolean) => void
 }
 
-export const Actions: FC<Props> = memo(({actionsArray, timeoutValue, actionsCount, focusOnElement, showInput}) => {
+export const Actions: FC<Props> = memo(({actionsArray, timeoutValue, actionsCount, focusOnElement, showInput, isSoundOn}) => {
         const [calc, setCalc] = useState<string>('')
         const [index, setIndex] = useState<number>(0)
 
         useEffect(() => {
             if (index < actionsCount) {
-                actionSound()
+                if(isSoundOn) {
+                    actionSound()
+                }
                 showInput(false)
                 let id = setTimeout(() => {
                     setCalc(actionsArray[index])
@@ -50,7 +53,9 @@ export const Actions: FC<Props> = memo(({actionsArray, timeoutValue, actionsCoun
                 }
             }
             if (index === actionsCount) {
-                actionSound()
+                if(isSoundOn) {
+                    actionSound()
+                }
                 showInput(true)
                 focusOnElement(true)
             }

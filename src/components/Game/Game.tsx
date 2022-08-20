@@ -16,25 +16,24 @@ type Props = {
     makeActionsArrayAndAnswer: () => void
     actionsArray: string[]
     answer: number
+    isSoundOn: boolean
 }
 
 export const Game: FC<Props> = memo(({
-                                               numberComp,
-                                               timeoutValue,
-                                               actionsCount,
-                                               startGame,
-                                               restartGame,
-                                               actionsArray,
-                                               answer,
-                                               makeActionsArrayAndAnswer
-                                           }) => {
+                                         numberComp,
+                                         timeoutValue,
+                                         actionsCount,
+                                         startGame,
+                                         restartGame,
+                                         actionsArray,
+                                         answer,
+                                         isSoundOn,
+                                         makeActionsArrayAndAnswer
+                                     }) => {
         const [inputAnswer, setInputAnswer] = useState(0)
         const [isShowInput, setIsShowInput] = useState(false)
         const [isShowAnswer, setIsShowAnswer] = useState(false)
         const [isFocus, setIsFocus] = useState(true)
-
-        console.log('actionsArray in Game', actionsArray)
-        console.log('answer in Game', answer)
 
         const [right] = useSound(right_sound)
         const [wrong] = useSound(wrong_sound)
@@ -57,7 +56,7 @@ export const Game: FC<Props> = memo(({
             setInputAnswer(0)
             makeActionsArrayAndAnswer()
             restartGame()
-        }, [])
+        }, [makeActionsArrayAndAnswer, restartGame])
 
         const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
         const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
@@ -69,6 +68,7 @@ export const Game: FC<Props> = memo(({
                                actionsCount={actionsCount}
                                numberComp={numberComp}
                                timeoutValue={timeoutValue}
+                               isSoundOn={isSoundOn}
                                showInput={showInput}
                                focusOnElement={focusOnElement}
                     />

@@ -11,6 +11,8 @@ type Props = {
     setCountOfActions: (actionsCount: number) => void
     restartGame: () => void
     makeActionsArrayAndAnswer: () => void
+    isSoundOn: boolean
+    setSound: (isSoundOn: boolean) => void
 }
 
 export const Settings: FC<Props> = memo(({
@@ -22,13 +24,16 @@ export const Settings: FC<Props> = memo(({
                                              setTimeoutValue,
                                              setCountOfActions,
                                              restartGame,
-                                             makeActionsArrayAndAnswer
+                                             makeActionsArrayAndAnswer,
+                                             isSoundOn,
+                                             setSound
                                          }) => {
 
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
         const onChangeNumberComp = (e: ChangeEvent<HTMLInputElement>) => setNumberComposition(e.currentTarget.valueAsNumber)
         const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => setTimeoutValue(e.currentTarget.valueAsNumber)
         const onChangeActionsCount = (e: ChangeEvent<HTMLInputElement>) => setCountOfActions(e.currentTarget.valueAsNumber)
+        const onChangeSound = (e:  ChangeEvent<HTMLInputElement>) => setSound(e.currentTarget.checked)
 
         return (
             <div className={s.container}>
@@ -59,6 +64,15 @@ export const Settings: FC<Props> = memo(({
                         onChange={onChangeActionsCount}
                         onFocus={handleFocus}
                     />
+                </div>
+                <div className={s.settings_block}>
+                    <label>
+                        <input
+                            checked={isSoundOn}
+                            type="checkbox"
+                            onChange={onChangeSound}
+                        />со звуком
+                    </label>
                 </div>
 
                 <button

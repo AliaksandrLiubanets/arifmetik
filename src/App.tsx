@@ -12,22 +12,22 @@ function App() {
     const [restart, setRestart] = React.useState(false)
     const [actionsArray, setActionsArray] = React.useState<string[]>([])
     const [answer, setAnswer] = React.useState<number>(0)
+    const [isSoundOn, setIsSoundOn] = React.useState<boolean>(true)
 
     const makeActionsArrayAndAnswer = useCallback(() => {
         const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(actionsCount, numberComp)
         const copyArray = [...arrayOfCalculations]
         setActionsArray(copyArray)
-        console.log('actionsArray', actionsArray)
-        console.log('answer', answer)
         setAnswer(answer)
-    }, [actionsArray, numberComp, speed, actionsCount, restart])
+    }, [numberComp, actionsCount])
 
-    const restartGame = useCallback(() => setRestart(!restart), [])
+    const restartGame = useCallback(() => setRestart(!restart), [restart])
     const startGame = useCallback((isStarted: boolean) => setIsStarted(isStarted), [])
-    const setCountOfActions = useCallback((value: number) => setActionsCount(value), [])
-    const setNumberComposition = useCallback((value: number) => setNumberComp(value), [])
-    const setTimeoutValue = useCallback((value: number) => setSpeed(value), [])
-    console.log('App')
+    const setCountOfActions = useCallback((actionsCount: number) => setActionsCount(actionsCount), [])
+    const setNumberComposition = useCallback((numberComp: number) => setNumberComp(numberComp), [])
+    const setTimeoutValue = useCallback((speed: number) => setSpeed(speed), [])
+    const setSound = useCallback((isSoundOn: boolean) => setIsSoundOn(isSoundOn), [])
+
     return (
         <div className="App">
             {isStarted
@@ -36,6 +36,7 @@ function App() {
                         actionsCount={actionsCount}
                         actionsArray={actionsArray}
                         answer={answer}
+                        isSoundOn={isSoundOn}
                         startGame={startGame}
                         restartGame={restartGame}
                         makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
@@ -49,6 +50,8 @@ function App() {
                             setNumberComposition={setNumberComposition}
                             setTimeoutValue={setTimeoutValue}
                             makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
+                            setSound={setSound}
+                            isSoundOn={isSoundOn}
                 />
             }
         </div>
