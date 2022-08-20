@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useState} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useCallback, useState} from 'react'
 import s from '../Game/Game.module.css'
 import {Answer} from '../Answer/Answer'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
@@ -29,8 +29,8 @@ export const Game: FC<Props> = memo(({
                                                makeActionsArrayAndAnswer
                                            }) => {
         const [inputAnswer, setInputAnswer] = useState(0)
-        const [showInput, setShowInput] = useState(false)
-        const [showAnswer, setShowAnswer] = useState(false)
+        const [isShowInput, setIsShowInput] = useState(false)
+        const [isShowAnswer, setIsShowAnswer] = useState(false)
         const [focus, setFocus] = useState(true)
 
         console.log('actionsArray in Game', actionsArray)
@@ -45,32 +45,35 @@ export const Game: FC<Props> = memo(({
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
         const handleEnterPress = (e: KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Enter') {
-                setShowAnswer(true)
+                setIsShowAnswer(true)
                 setFocus(false)
                 answerSound()
             }
         }
         const nextExercise = () => {
-            setShowAnswer(false)
-            setShowInput(false)
+            setIsShowAnswer(false)
+            setIsShowInput(false)
             setFocus(false)
             makeActionsArrayAndAnswer()
             restartGame()
         }
+        const setShowAnswer = useCallback((isShowAnswer: boolean) => setIsShowAnswer(isShowAnswer), [])
+        const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
+        const focusElement = useCallback((isFocus: boolean) => setFocus(isFocus), [])
 
         return (
             <div className={s.game}>
-                {!showAnswer
+                {!isShowAnswer
                     ? <Actions actionsArray={actionsArray}
                                actionsCount={actionsCount}
                                numberComp={numberComp}
                                timeoutValue={timeoutValue}
-                               setShowInput={setShowInput}
-                               setFocus={setFocus}
+                               showInput={showInput}
+                               focusElement={focusElement}
                     />
                     : <Answer answer={answer} inputAnswer={inputAnswer}/>
                 }
-                {showInput &&
+                {isShowInput &&
                 <div className={s.answer_input}>
                     <button onClick={handleBackToSettings}>Назад</button>
                     {focus
