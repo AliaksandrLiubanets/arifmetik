@@ -30,31 +30,34 @@ function App() {
 
     return (
         <div className="App">
-            {isStarted
-                ? <Game numberComp={numberComp}
-                        timeoutValue={speed}
-                        actionsCount={actionsCount}
-                        actionsArray={actionsArray}
-                        answer={answer}
-                        isSoundOn={isSoundOn}
-                        startGame={startGame}
-                        restartGame={restartGame}
-                        makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
-                />
-                : <Settings actionsCount={actionsCount}
-                            timeoutValue={speed}
-                            numberComp={numberComp}
-                            startGame={startGame}
-                            restartGame={restartGame}
-                            setCountOfActions={setCountOfActions}
-                            setNumberComposition={setNumberComposition}
-                            setTimeoutValue={setTimeoutValue}
-                            makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
-                            setSound={setSound}
-                            isSoundOn={isSoundOn}
-                />
-            }
-        </div>
+                <div className={'bg'}></div>
+
+                    {isStarted
+
+                        ? <Game numberComp={numberComp}
+                                timeoutValue={speed}
+                                actionsCount={actionsCount}
+                                actionsArray={actionsArray}
+                                answer={answer}
+                                isSoundOn={isSoundOn}
+                                startGame={startGame}
+                                restartGame={restartGame}
+                                makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
+                        />
+                        : <Settings actionsCount={actionsCount}
+                                    timeoutValue={speed}
+                                    numberComp={numberComp}
+                                    startGame={startGame}
+                                    restartGame={restartGame}
+                                    setCountOfActions={setCountOfActions}
+                                    setNumberComposition={setNumberComposition}
+                                    setTimeoutValue={setTimeoutValue}
+                                    makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
+                                    setSound={setSound}
+                                    isSoundOn={isSoundOn}
+                        />
+                    }
+                </div>
     )
 }
 
