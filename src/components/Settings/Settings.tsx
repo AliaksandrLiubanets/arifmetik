@@ -30,7 +30,7 @@ export const Settings: FC<Props> = memo(({
                                          }) => {
 
         const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
-        const disabledCheckboxCondition: boolean = timeoutValue < 1
+        const disabledCheckboxCondition: boolean = timeoutValue < 1 || numberComp > 10
 
         useEffect(() => {
             if (disabledCheckboxCondition) {
