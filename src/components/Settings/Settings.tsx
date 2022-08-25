@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FC, FocusEvent, memo, useEffect, useState} from 'react'
 import s from './Settings.module.css'
+import {PreStart} from '../PreStart/PreStart'
 
 type Props = {
     numberComp: number
@@ -13,6 +14,8 @@ type Props = {
     makeActionsArrayAndAnswer: () => void
     isSoundOn: boolean
     setSound: (isSoundOn: boolean) => void
+    isRocket: boolean
+    setIsRocket: (isRocket: boolean) => void
 }
 
 export const Settings: FC<Props> = memo(({
@@ -26,8 +29,11 @@ export const Settings: FC<Props> = memo(({
                                              restartGame,
                                              makeActionsArrayAndAnswer,
                                              isSoundOn,
-                                             setSound
+                                             setSound,
+                                             isRocket,
+                                             setIsRocket
                                          }) => {
+
 
         const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
         const disabledCheckboxCondition: boolean = (numberComp < 11 && timeoutValue < 1) || (numberComp > 10 && numberComp < 21 && timeoutValue < 1.2) || numberComp > 20
@@ -42,71 +48,82 @@ export const Settings: FC<Props> = memo(({
             }
         }, [timeoutValue, setSound, disabledCheckboxCondition])
 
+        useEffect(() => {
+            let id = setTimeout(() => {
+                if (isRocket) {
+                    startGame(true)
+                    restartGame()
+                    setIsRocket(false)
+                }
+            }, 1000)
+            return () => {
+                clearInterval(id)
+            }
+        }, [isRocket, startGame, restartGame, setIsRocket])
+
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
         const onChangeNumberComp = (e: ChangeEvent<HTMLInputElement>) => setNumberComposition(e.currentTarget.valueAsNumber)
         const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
             setTimeoutValue(e.currentTarget.valueAsNumber)
-
-
         }
         const onChangeActionsCount = (e: ChangeEvent<HTMLInputElement>) => setCountOfActions(e.currentTarget.valueAsNumber)
         const onChangeSound = (e: ChangeEvent<HTMLInputElement>) => {
             setSound(e.currentTarget.checked)
         }
+        const startRocket = () => {
+            setIsRocket(true)
+            makeActionsArrayAndAnswer()
+        }
 
-        return (
-            <div className={s.container}>
-                <div className={s.settings_block}>
-                    <div>Состав числа:</div>
-                    <input
-                        value={numberComp}
-                        type="number"
-                        onChange={onChangeNumberComp}
-                        onFocus={handleFocus}
-                    />
-                </div>
-
-                <div className={s.settings_block}>
-                    <div>Скорость:</div>
-                    <input
-                        value={timeoutValue}
-                        type="number"
-                        onChange={onChangeTimeOutValue}
-                        onFocus={handleFocus}
-                    />
-                </div>
-                <div className={s.settings_block}>
-                    <div>Количество действий:</div>
-                    <input
-                        value={actionsCount}
-                        type="number"
-                        onChange={onChangeActionsCount}
-                        onFocus={handleFocus}
-                    />
-                </div>
-                <div className={s.settings_block}>
-                    <label>
+        return <>
+            {isRocket ?
+                <PreStart/>
+                : <div className={s.container}>
+                    <div className={s.settings_block}>
+                        <div>Состав числа:</div>
                         <input
-                            checked={isSoundOn}
-                            type="checkbox"
-                            onChange={onChangeSound}
-                            disabled={isDisabledCheckboxSound}
-                        />со звуком
-                    </label>
+                            value={numberComp}
+                            type="number"
+                            onChange={onChangeNumberComp}
+                            onFocus={handleFocus}
+                        />
+                    </div>
+                    <div className={s.settings_block}>
+                        <div>Скорость:</div>
+                        <input
+                            value={timeoutValue}
+                            type="number"
+                            onChange={onChangeTimeOutValue}
+                            onFocus={handleFocus}
+                        />
+                    </div>
+                    <div className={s.settings_block}>
+                        <div>Количество действий:</div>
+                        <input
+                            value={actionsCount}
+                            type="number"
+                            onChange={onChangeActionsCount}
+                            onFocus={handleFocus}
+                        />
+                    </div>
+                    <div className={s.settings_block}>
+                        <label>
+                            <input
+                                checked={isSoundOn}
+                                type="checkbox"
+                                onChange={onChangeSound}
+                                disabled={isDisabledCheckboxSound}
+                            />со звуком
+                        </label>
+                    </div>
+
+                    <button onClick={startRocket}>
+                        Старт
+                    </button>
+
+
                 </div>
-
-                <button
-                    onClick={() => {
-                        startGame(true)
-                        restartGame()
-                        makeActionsArrayAndAnswer()
-                    }}
-                >
-                    Старт
-                </button>
-
-
-            </div>
-        )
+            }
+        </>
     }
 )

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useState} from 'react'
 import './App.css'
 import {Settings} from './components/Settings/Settings'
 import {Game} from './components/Game/Game'
@@ -13,6 +13,7 @@ function App() {
     const [actionsArray, setActionsArray] = React.useState<string[]>([])
     const [answer, setAnswer] = React.useState<number>(0)
     const [isSoundOn, setIsSoundOn] = React.useState<boolean>(true)
+    const [isRocket, setIsRocket] = useState<boolean>(false)
 
     const makeActionsArrayAndAnswer = useCallback(() => {
         const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(actionsCount, numberComp)
@@ -43,6 +44,8 @@ function App() {
                                 startGame={startGame}
                                 restartGame={restartGame}
                                 makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
+                                isRocket={isRocket}
+                                setIsRocket={setIsRocket}
                         />
                         : <Settings actionsCount={actionsCount}
                                     timeoutValue={speed}
@@ -55,6 +58,8 @@ function App() {
                                     makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
                                     setSound={setSound}
                                     isSoundOn={isSoundOn}
+                                    isRocket={isRocket}
+                                    setIsRocket={setIsRocket}
                         />
                     }
                 </div>
