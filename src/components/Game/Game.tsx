@@ -63,6 +63,7 @@ export const Game: FC<Props> = memo(({
 
         return (
             <div className={s.game}>
+                <button onClick={handleBackToSettings}>Назад</button>
                 {!isShowAnswer
                     ? <Actions actionsArray={actionsArray}
                                actionsCount={actionsCount}
@@ -76,7 +77,6 @@ export const Game: FC<Props> = memo(({
                 }
                 {isShowInput &&
                 <div className={s.answer_input}>
-                    <button onClick={handleBackToSettings}>Назад</button>
                     {isFocus
                         ? <input
                             type="number"
