@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, FocusEvent, memo} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, memo, useEffect, useState} from 'react'
 import s from './Settings.module.css'
 
 type Props = {
@@ -29,11 +29,30 @@ export const Settings: FC<Props> = memo(({
                                              setSound
                                          }) => {
 
+        const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
+        const disabledCheckboxCondition: boolean = timeoutValue < 1
+
+        useEffect(() => {
+            if (disabledCheckboxCondition) {
+                setSound(false)
+                setIsDisabledCheckboxSound(true)
+            } else {
+                setSound(true)
+                setIsDisabledCheckboxSound(false)
+            }
+        }, [timeoutValue, setSound, disabledCheckboxCondition])
+
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
         const onChangeNumberComp = (e: ChangeEvent<HTMLInputElement>) => setNumberComposition(e.currentTarget.valueAsNumber)
-        const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => setTimeoutValue(e.currentTarget.valueAsNumber)
+        const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
+            setTimeoutValue(e.currentTarget.valueAsNumber)
+
+
+        }
         const onChangeActionsCount = (e: ChangeEvent<HTMLInputElement>) => setCountOfActions(e.currentTarget.valueAsNumber)
-        const onChangeSound = (e:  ChangeEvent<HTMLInputElement>) => setSound(e.currentTarget.checked)
+        const onChangeSound = (e: ChangeEvent<HTMLInputElement>) => {
+            setSound(e.currentTarget.checked)
+        }
 
         return (
             <div className={s.container}>
@@ -71,6 +90,7 @@ export const Settings: FC<Props> = memo(({
                             checked={isSoundOn}
                             type="checkbox"
                             onChange={onChangeSound}
+                            disabled={isDisabledCheckboxSound}
                         />со звуком
                     </label>
                 </div>
