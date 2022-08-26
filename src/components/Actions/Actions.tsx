@@ -68,15 +68,26 @@ export const Actions: FC<Props> = memo(({
 
         useEffect(() => {
             if (index < actionsCount) {
+                showInput(false)
+                let id: ReturnType<typeof setTimeout>
                 if (isSoundOn) {
                     actionSound()
                 }
-                showInput(false)
-                let id = setTimeout(() => {
-                    setCalc(actionsArray[index])
-                    setIndex(prevState => prevState + 1)
+                if (index === 0) {
+                    id = setTimeout(() => {
+                        setCalc(actionsArray[index])
+                        setIndex(prevState => prevState + 1)
 
-                }, 1000 * timeoutValue)
+                    }, 300) // delay only when the first action render does
+                }
+                if (index > 0) {
+                    id = setTimeout(() => {
+                        setCalc(actionsArray[index])
+                        setIndex(prevState => prevState + 1)
+
+                    }, 1000 * timeoutValue) // interval between every action
+                }
+
                 return () => {
                     clearInterval(id)
                 }
