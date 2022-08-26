@@ -1,4 +1,5 @@
-import rocket from '../../assets/gif/raketa_letit_v_kosmose_graciozno_povorachivajas.gif'
+// import rocket from '../../assets/gif/raketa_letit_v_kosmose_graciozno_povorachivajas.gif'
+import rocket from '../../assets/gif/rocket_tony.gif'
 import {FC, useEffect} from 'react'
 
 type Props = {
@@ -17,7 +18,7 @@ export const PreStart:FC<Props> = ({isRocket, setIsRocket, startGame, restartGam
                 restartGame()
                 setIsRocket(false)
             }
-        }, 1000)
+        }, 2000)
         return () => {
             clearInterval(id)
         }
