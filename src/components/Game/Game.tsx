@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useCallback, useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useCallback, useState} from 'react'
 import s from '../Game/Game.module.css'
 import {Answer} from '../Answer/Answer'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
@@ -43,19 +43,6 @@ export const Game: FC<Props> = memo(({
         const [right] = useSound(right_sound)
         const [wrong] = useSound(wrong_sound)
 
-        useEffect(() => {
-            let id = setTimeout(() => {
-                if (isRocket) {
-                    startGame(true)
-                    restartGame()
-                    setIsRocket(false)
-                }
-            }, 1000)
-            return () => {
-                clearInterval(id)
-            }
-        }, [isRocket, startGame, restartGame, setIsRocket])
-
         const answerSound = () => inputAnswer === answer ? right() : wrong()
         const handleChange = (e: ChangeEvent<HTMLInputElement>) => setInputAnswer(e.currentTarget.valueAsNumber)
         const handleBackToSettings = () => startGame(false)
@@ -73,9 +60,8 @@ export const Game: FC<Props> = memo(({
             setIsFocus(false)
             setInputAnswer(0)
             makeActionsArrayAndAnswer()
-            // restartGame()
             setIsRocket(true)
-        }, [makeActionsArrayAndAnswer, restartGame])
+        }, [makeActionsArrayAndAnswer, restartGame, setIsRocket])
 
         const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
         const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
@@ -83,7 +69,11 @@ export const Game: FC<Props> = memo(({
         return (
             <div className={s.game}>
                 {isRocket
-                    ? <PreStart/>
+                    ? <PreStart startGame={startGame}
+                                restartGame={restartGame}
+                                setIsRocket={setIsRocket}
+                                isRocket={isRocket}
+                    />
                     : <>
                         <button onClick={handleBackToSettings}>Назад</button>
                         {!isShowAnswer

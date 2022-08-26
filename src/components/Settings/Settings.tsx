@@ -34,7 +34,6 @@ export const Settings: FC<Props> = memo(({
                                              setIsRocket
                                          }) => {
 
-
         const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
         const disabledCheckboxCondition: boolean = (numberComp < 11 && timeoutValue < 1) || (numberComp > 10 && numberComp < 21 && timeoutValue < 1.2) || numberComp > 20
 
@@ -47,19 +46,6 @@ export const Settings: FC<Props> = memo(({
                 setIsDisabledCheckboxSound(false)
             }
         }, [timeoutValue, setSound, disabledCheckboxCondition])
-
-        useEffect(() => {
-            let id = setTimeout(() => {
-                if (isRocket) {
-                    startGame(true)
-                    restartGame()
-                    setIsRocket(false)
-                }
-            }, 1000)
-            return () => {
-                clearInterval(id)
-            }
-        }, [isRocket, startGame, restartGame, setIsRocket])
 
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
         const onChangeNumberComp = (e: ChangeEvent<HTMLInputElement>) => setNumberComposition(e.currentTarget.valueAsNumber)
@@ -76,8 +62,12 @@ export const Settings: FC<Props> = memo(({
         }
 
         return <>
-            {isRocket ?
-                <PreStart/>
+            {isRocket
+                ? <PreStart startGame={startGame}
+                            restartGame={restartGame}
+                            setIsRocket={setIsRocket}
+                            isRocket={isRocket}
+                />
                 : <div className={s.container}>
                     <div className={s.settings_block}>
                         <div>Состав числа:</div>
@@ -116,12 +106,9 @@ export const Settings: FC<Props> = memo(({
                             />со звуком
                         </label>
                     </div>
-
                     <button onClick={startRocket}>
                         Старт
                     </button>
-
-
                 </div>
             }
         </>

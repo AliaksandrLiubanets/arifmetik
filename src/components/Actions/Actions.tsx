@@ -78,7 +78,7 @@ export const Actions: FC<Props> = memo(({
                         setCalc(actionsArray[index])
                         setIndex(prevState => prevState + 1)
 
-                    }, 300) // delay only when the first action render does
+                    }, 300) // delay only when the first action renders
                 }
                 if (index > 0) {
                     id = setTimeout(() => {
