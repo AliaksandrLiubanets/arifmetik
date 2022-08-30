@@ -18,8 +18,9 @@ type Props = {
     actionsArray: string[]
     answer: number
     isSoundOn: boolean
-    isRocket: boolean
-    setIsRocket: (isRocket: boolean) => void
+    isPrestart: boolean
+    setIsPrestart: (isPreStart: boolean) => void
+    rocketSound: () => void
 }
 
 export const Game: FC<Props> = memo(({
@@ -32,8 +33,9 @@ export const Game: FC<Props> = memo(({
                                          answer,
                                          isSoundOn,
                                          makeActionsArrayAndAnswer,
-                                         isRocket,
-                                         setIsRocket
+                                         isPrestart,
+                                         setIsPrestart,
+                                         rocketSound
                                      }) => {
         const [inputAnswer, setInputAnswer] = useState(0)
         const [isShowInput, setIsShowInput] = useState(false)
@@ -60,19 +62,20 @@ export const Game: FC<Props> = memo(({
             setIsFocus(false)
             setInputAnswer(0)
             makeActionsArrayAndAnswer()
-            setIsRocket(true)
-        }, [makeActionsArrayAndAnswer, restartGame, setIsRocket])
+            setIsPrestart(true)
+            rocketSound()
+        }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound])
 
         const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
         const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
 
         return (
             <div className={s.game}>
-                {isRocket
+                {isPrestart
                     ? <PreStart startGame={startGame}
                                 restartGame={restartGame}
-                                setIsRocket={setIsRocket}
-                                isRocket={isRocket}
+                                setIsPrestart={setIsPrestart}
+                                isPrestart={isPrestart}
                     />
                     : <>
                         <button onClick={handleBackToSettings}>Назад</button>

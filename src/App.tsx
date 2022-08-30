@@ -3,6 +3,8 @@ import './App.css'
 import {Settings} from './components/Settings/Settings'
 import {Game} from './components/Game/Game'
 import {getArrayOfCalculationsAndAnswer} from './utils/getResultAndAction'
+import useSound from 'use-sound'
+import rocket_start from './assets/sounds/rocket/rocket_2sec.mp3'
 
 function App() {
     const [isStarted, setIsStarted] = React.useState(false)
@@ -13,7 +15,9 @@ function App() {
     const [actionsArray, setActionsArray] = React.useState<string[]>([])
     const [answer, setAnswer] = React.useState<number>(0)
     const [isSoundOn, setIsSoundOn] = React.useState<boolean>(true)
-    const [isRocket, setIsRocket] = useState<boolean>(false)
+    const [isPrestart, setIsPrestart] = useState<boolean>(false)
+
+    const [rocket] = useSound(rocket_start)
 
     const makeActionsArrayAndAnswer = useCallback(() => {
         const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(actionsCount, numberComp)
@@ -28,6 +32,8 @@ function App() {
     const setNumberComposition = useCallback((numberComp: number) => setNumberComp(numberComp), [])
     const setTimeoutValue = useCallback((speed: number) => setSpeed(speed), [])
     const setSound = useCallback((isSoundOn: boolean) => setIsSoundOn(isSoundOn), [])
+    const setIsPreStart = useCallback((isPrestart: boolean) => setIsPrestart(isPrestart), [])
+    const rocketSound = useCallback(() => rocket(), [rocket])
 
     return (
         <div className="App">
@@ -44,8 +50,9 @@ function App() {
                                 startGame={startGame}
                                 restartGame={restartGame}
                                 makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
-                                isRocket={isRocket}
-                                setIsRocket={setIsRocket}
+                                isPrestart={isPrestart}
+                                setIsPrestart={setIsPreStart}
+                                rocketSound={rocketSound}
                         />
                         : <Settings actionsCount={actionsCount}
                                     timeoutValue={speed}
@@ -58,8 +65,9 @@ function App() {
                                     makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
                                     setSound={setSound}
                                     isSoundOn={isSoundOn}
-                                    isRocket={isRocket}
-                                    setIsRocket={setIsRocket}
+                                    isRocket={isPrestart}
+                                    setIsRocket={setIsPrestart}
+                                    rocketSound={rocketSound}
                         />
                     }
                 </div>

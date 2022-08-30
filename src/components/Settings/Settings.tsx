@@ -16,6 +16,7 @@ type Props = {
     setSound: (isSoundOn: boolean) => void
     isRocket: boolean
     setIsRocket: (isRocket: boolean) => void
+    rocketSound: () => void
 }
 
 export const Settings: FC<Props> = memo(({
@@ -31,7 +32,8 @@ export const Settings: FC<Props> = memo(({
                                              isSoundOn,
                                              setSound,
                                              isRocket,
-                                             setIsRocket
+                                             setIsRocket,
+                                             rocketSound
                                          }) => {
 
         const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
@@ -59,14 +61,15 @@ export const Settings: FC<Props> = memo(({
         const startRocket = () => {
             setIsRocket(true)
             makeActionsArrayAndAnswer()
+            rocketSound()
         }
 
         return <>
             {isRocket
                 ? <PreStart startGame={startGame}
                             restartGame={restartGame}
-                            setIsRocket={setIsRocket}
-                            isRocket={isRocket}
+                            setIsPrestart={setIsRocket}
+                            isPrestart={isRocket}
                 />
                 : <div className={s.container}>
                     <div className={s.settings_block}>
