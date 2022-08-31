@@ -14,7 +14,6 @@
 }
 .answer_input {
     display: flex;
-    /*justify-content: space-around;*/
     align-items: baseline;
 }
 .answer_input input{
