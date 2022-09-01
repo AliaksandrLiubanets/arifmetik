@@ -8,7 +8,6 @@ type Props = {
     timeoutValue: number
     actionsCount: number
     startGame: (isStarted: boolean) => void
-    restartGame: () => void
     makeActionsArrayAndAnswer: () => void
     actionsArray: string[]
     answer: number
@@ -23,7 +22,6 @@ export const Game: FC<Props> = memo(({
                                          timeoutValue,
                                          actionsCount,
                                          startGame,
-                                         restartGame,
                                          actionsArray,
                                          answer,
                                          isSoundOn,
@@ -38,7 +36,6 @@ export const Game: FC<Props> = memo(({
             <div className={s.game}>
                 {isPrestart
                     ? <PreStart startGame={startGame}
-                                restartGame={restartGame}
                                 setIsPrestart={setIsPrestart}
                                 isPrestart={isPrestart}
                     />

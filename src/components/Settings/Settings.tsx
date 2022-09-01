@@ -10,7 +10,6 @@ type Props = {
     setNumberComposition: (numberComp: number) => void
     setTimeoutValue: (timeoutValue: number) => void
     setCountOfActions: (actionsCount: number) => void
-    restartGame: () => void
     makeActionsArrayAndAnswer: () => void
     isSoundOn: boolean
     setSound: (isSoundOn: boolean) => void
@@ -27,7 +26,6 @@ export const Settings: FC<Props> = memo(({
                                              setNumberComposition,
                                              setTimeoutValue,
                                              setCountOfActions,
-                                             restartGame,
                                              makeActionsArrayAndAnswer,
                                              isSoundOn,
                                              setSound,
@@ -67,7 +65,6 @@ export const Settings: FC<Props> = memo(({
         return <>
             {isPrestart
                 ? <PreStart startGame={startGame}
-                            restartGame={restartGame}
                             setIsPrestart={setIsRocket}
                             isPrestart={isPrestart}
                 />
