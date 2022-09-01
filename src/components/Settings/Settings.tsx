@@ -14,7 +14,7 @@ type Props = {
     makeActionsArrayAndAnswer: () => void
     isSoundOn: boolean
     setSound: (isSoundOn: boolean) => void
-    isRocket: boolean
+    isPrestart: boolean
     setIsRocket: (isRocket: boolean) => void
     rocketSound: () => void
 }
@@ -31,7 +31,7 @@ export const Settings: FC<Props> = memo(({
                                              makeActionsArrayAndAnswer,
                                              isSoundOn,
                                              setSound,
-                                             isRocket,
+                                             isPrestart,
                                              setIsRocket,
                                              rocketSound
                                          }) => {
@@ -65,11 +65,11 @@ export const Settings: FC<Props> = memo(({
         }
 
         return <>
-            {isRocket
+            {isPrestart
                 ? <PreStart startGame={startGame}
                             restartGame={restartGame}
                             setIsPrestart={setIsRocket}
-                            isPrestart={isRocket}
+                            isPrestart={isPrestart}
                 />
                 : <div className={s.container}>
                     <div className={s.settings_block}>

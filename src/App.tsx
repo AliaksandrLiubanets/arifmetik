@@ -65,7 +65,7 @@ function App() {
                                     makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
                                     setSound={setSound}
                                     isSoundOn={isSoundOn}
-                                    isRocket={isPrestart}
+                                    isPrestart={isPrestart}
                                     setIsRocket={setIsPrestart}
                                     rocketSound={rocketSound}
                         />
