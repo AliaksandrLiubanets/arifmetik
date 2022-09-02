@@ -1,8 +1,9 @@
 import {InferActionTypes} from './store'
 import {getArrayOfCalculationsAndAnswer} from '../utils/getResultAndAction'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 const initialState = {
-    numberComposition: 0,
+    numberComposition: 0 as number,
     speed: 1,
     actionsCount: 2,
     isSoundOn: true,
@@ -15,7 +16,37 @@ const initialState = {
 
 }
 
-export const countGameReducer = (state: CountGameType, action: CountGameActionsType) => {
+export const slice = createSlice({
+    name: 'count',
+    initialState: initialState,
+    reducers: {
+        setNumberComp(state, action: PayloadAction<{ numberComposition: number }>) {
+            state.numberComposition = action.payload.numberComposition
+        },
+        setSpeed(state, action: PayloadAction<{ speed: number }>) {
+            state.numberComposition = action.payload.speed
+        } ,
+        setActionsCount(state, action: PayloadAction<{ actionsCount: number }>) {
+            state.numberComposition = action.payload.actionsCount
+        },
+        switchSound(state, action: PayloadAction<{ isSoundOn: number }>) {
+            state.numberComposition = action.payload.isSoundOn
+        },
+        switchPreStart(state, action: PayloadAction<{ isPreStart: number }>) {
+            state.numberComposition = action.payload.isPreStart
+        },
+        switchStartGame(state, action: PayloadAction<{ isStarted: number }>) {
+            state.numberComposition = action.payload.isStarted
+        },
+        setActionsArrayAndAnswer(state, action: PayloadAction<{  }>) {
+            const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(state.actionsCount, state.numberComposition)
+            state.actionsArray = arrayOfCalculations
+            state.answer = answer
+        }
+    }
+})
+
+export const countGameReducer = slice.reducer /* (state: CountGameType, action: CountGameActionsType) => {
     switch (action.type) {
         case 'COUNT/SET_NUMBER_COMPOSITION':
         case 'COUNT/SET_SPEED':
@@ -33,6 +64,7 @@ export const countGameReducer = (state: CountGameType, action: CountGameActionsT
             return state
     }
 }
+*/
 
 export const countGameActions = {
     setNumberComp: (numberComposition: number) => ({type: 'COUNT/SET_NUMBER_COMPOSITION', payload: {numberComposition}} as const),

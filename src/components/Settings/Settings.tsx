@@ -1,6 +1,8 @@
 import React, {ChangeEvent, FC, FocusEvent, memo, useEffect, useState} from 'react'
 import s from './Settings.module.css'
 import {PreStart} from '../PreStart/PreStart'
+import {useDispatch, useSelector} from 'react-redux'
+import {AppRootStateType, useAppSelector} from '../../store/store'
 
 type Props = {
     numberComp: number
@@ -19,7 +21,7 @@ type Props = {
 }
 
 export const Settings: FC<Props> = memo(({
-                                             numberComp,
+                                             // numberComp,
                                              timeoutValue,
                                              actionsCount,
                                              startGame,
@@ -35,7 +37,14 @@ export const Settings: FC<Props> = memo(({
                                          }) => {
 
         const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
-        const disabledCheckboxCondition: boolean = (numberComp < 11 && timeoutValue < 1) || (numberComp > 10 && numberComp < 21 && timeoutValue < 1.2) || numberComp > 20
+
+
+    const dispatch = useDispatch()
+    const selectNumberComp =(state: AppRootStateType) => state.count.numberComposition
+    const state = useAppSelector(selectNumberComp)
+    const numberComp = state
+
+    const disabledCheckboxCondition: boolean = (numberComp < 11 && timeoutValue < 1) || (numberComp > 10 && numberComp < 21 && timeoutValue < 1.2) || numberComp > 20
 
         useEffect(() => {
             if (disabledCheckboxCondition) {
