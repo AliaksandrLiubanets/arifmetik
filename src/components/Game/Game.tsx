@@ -6,9 +6,9 @@ import {ActionsAnswer} from '../ActionsAnswer/ActionsAnswer'
 type Props = {
     numberComp: number
     timeoutValue: number
-    actionsCount: number
+    // actionsCount: number
     startGame: (isStarted: boolean) => void
-    makeActionsArrayAndAnswer: () => void
+    // makeActionsArrayAndAnswer: () => void
     actionsArray: string[]
     answer: number
     isSoundOn: boolean
@@ -20,12 +20,12 @@ type Props = {
 export const Game: FC<Props> = memo(({
                                          numberComp,
                                          timeoutValue,
-                                         actionsCount,
+                                         // actionsCount,
                                          startGame,
                                          actionsArray,
                                          answer,
                                          isSoundOn,
-                                         makeActionsArrayAndAnswer,
+                                         // makeActionsArrayAndAnswer,
                                          isPrestart,
                                          setIsPrestart,
                                          rocketSound
@@ -41,9 +41,9 @@ export const Game: FC<Props> = memo(({
                     />
                     : <ActionsAnswer answer={answer}
                                      isSoundOn={isSoundOn}
-                                     actionsCount={actionsCount}
+                                     // actionsCount={actionsCount}
                                      actionsArray={actionsArray}
-                                     makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
+                                     // makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
                                      timeoutValue={timeoutValue}
                                      setIsPrestart={setIsPrestart}
                                      numberComp={numberComp}

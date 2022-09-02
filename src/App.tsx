@@ -10,7 +10,7 @@ function App() {
     const [isStarted, setIsStarted] = React.useState(false)
     const [numberComp, setNumberComp] = React.useState(10)
     const [speed, setSpeed] = React.useState(1)
-    const [actionsCount, setActionsCount] = React.useState(4)
+    // const [actionsCount, setActionsCount] = React.useState(4)
     const [actionsArray, setActionsArray] = React.useState<string[]>([])
     const [answer, setAnswer] = React.useState<number>(0)
     const [isSoundOn, setIsSoundOn] = React.useState<boolean>(true)
@@ -18,12 +18,12 @@ function App() {
 
     const [rocket] = useSound(rocket_start)
 
-    const makeActionsArrayAndAnswer = useCallback(() => {
-        const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(actionsCount, numberComp)
-        const copyArray = [...arrayOfCalculations]
-        setActionsArray(copyArray)
-        setAnswer(answer)
-    }, [numberComp, actionsCount])
+    // const makeActionsArrayAndAnswer = useCallback(() => {
+    //     const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(actionsCount, numberComp)
+    //     const copyArray = [...arrayOfCalculations]
+    //     setActionsArray(copyArray)
+    //     setAnswer(answer)
+    // }, [numberComp, actionsCount])
 
     const startGame = useCallback((isStarted: boolean) => setIsStarted(isStarted), [])
     const setCountOfActions = useCallback((actionsCount: number) => setActionsCount(actionsCount), [])
@@ -41,24 +41,24 @@ function App() {
 
                         ? <Game numberComp={numberComp}
                                 timeoutValue={speed}
-                                actionsCount={actionsCount}
+                                // actionsCount={actionsCount}
                                 actionsArray={actionsArray}
                                 answer={answer}
                                 isSoundOn={isSoundOn}
                                 startGame={startGame}
-                                makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
+                                // makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
                                 isPrestart={isPrestart}
                                 setIsPrestart={setIsPreStart}
                                 rocketSound={rocketSound}
                         />
-                        : <Settings actionsCount={actionsCount}
+                        : <Settings
                                     timeoutValue={speed}
                                     numberComp={numberComp}
                                     startGame={startGame}
-                                    setCountOfActions={setCountOfActions}
-                                    setNumberComposition={setNumberComposition}
+                                    // setCountOfActions={setCountOfActions}
+                                    // setNumberComposition={setNumberComposition}
                                     setTimeoutValue={setTimeoutValue}
-                                    makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
+                                    // makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
                                     setSound={setSound}
                                     isSoundOn={isSoundOn}
                                     isPrestart={isPrestart}
