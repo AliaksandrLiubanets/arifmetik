@@ -26,8 +26,8 @@ function App() {
     // }, [numberComp, actionsCount])
 
     const startGame = useCallback((isStarted: boolean) => setIsStarted(isStarted), [])
-    const setCountOfActions = useCallback((actionsCount: number) => setActionsCount(actionsCount), [])
-    const setNumberComposition = useCallback((numberComp: number) => setNumberComp(numberComp), [])
+    // const setCountOfActions = useCallback((actionsCount: number) => setActionsCount(actionsCount), [])
+    // const setNumberComposition = useCallback((numberComp: number) => setNumberComp(numberComp), [])
     const setTimeoutValue = useCallback((speed: number) => setSpeed(speed), [])
     const setSound = useCallback((isSoundOn: boolean) => setIsSoundOn(isSoundOn), [])
     const setIsPreStart = useCallback((isPrestart: boolean) => setIsPrestart(isPrestart), [])

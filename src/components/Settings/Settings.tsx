@@ -3,7 +3,7 @@ import s from './Settings.module.css'
 import {PreStart} from '../PreStart/PreStart'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType, useAppSelector} from '../../store/store'
-import {setActionsCount, setNumberComp} from '../../store/countGameReducer'
+import {setActionsArrayAndAnswer, setActionsCount, setNumberComp} from '../../store/countGameReducer'
 
 type Props = {
     numberComp: number
@@ -13,7 +13,7 @@ type Props = {
     // setNumberComposition: (numberComp: number) => void
     setTimeoutValue: (timeoutValue: number) => void
     // setCountOfActions: (actionsCount: number) => void
-    makeActionsArrayAndAnswer: () => void
+    // makeActionsArrayAndAnswer: () => void
     isSoundOn: boolean
     setSound: (isSoundOn: boolean) => void
     isPrestart: boolean
@@ -23,13 +23,13 @@ type Props = {
 
 export const Settings: FC<Props> = memo(({
                                              // numberComp,
-                                             timeoutValue,
-                                             actionsCount,
+                                             // timeoutValue,
+                                             // actionsCount,
                                              startGame,
                                              // setNumberComposition,
                                              setTimeoutValue,
                                              // setCountOfActions,
-                                             makeActionsArrayAndAnswer,
+                                             // makeActionsArrayAndAnswer,
                                              isSoundOn,
                                              setSound,
                                              isPrestart,
@@ -41,11 +41,12 @@ export const Settings: FC<Props> = memo(({
 
 
     const dispatch = useDispatch()
-    const numberComp = useSelector((state: AppRootStateType) => state.count.numberComposition)
+    const {numberComposition, actionsCount, speed } = useSelector((state: AppRootStateType) => state.count)
+
 
     // const setNumberComposition = useCallback((numberComposition: number) => dispatch(setNumberComp({numberComposition} )), [])
 
-    const disabledCheckboxCondition: boolean = (numberComp < 11 && timeoutValue < 1) || (numberComp > 10 && numberComp < 21 && timeoutValue < 1.2) || numberComp > 20
+    const disabledCheckboxCondition: boolean = (numberComposition < 11 && speed < 1) || (numberComposition > 10 && numberComposition < 21 && speed < 1.2) || numberComposition > 20
 
         useEffect(() => {
             if (disabledCheckboxCondition) {
@@ -55,7 +56,7 @@ export const Settings: FC<Props> = memo(({
                 setSound(true)
                 setIsDisabledCheckboxSound(false)
             }
-        }, [timeoutValue, setSound, disabledCheckboxCondition])
+        }, [speed, setSound, disabledCheckboxCondition])
 
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
         const onChangeNumberComp = useCallback((e: ChangeEvent<HTMLInputElement>) => dispatch(setNumberComp({numberComposition: e.currentTarget.valueAsNumber} )), [] )
@@ -66,6 +67,8 @@ export const Settings: FC<Props> = memo(({
         const onChangeSound = (e: ChangeEvent<HTMLInputElement>) => {
             setSound(e.currentTarget.checked)
         }
+
+    const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer({}))
         const startRocket = () => {
             setIsRocket(true)
             makeActionsArrayAndAnswer()
@@ -82,7 +85,7 @@ export const Settings: FC<Props> = memo(({
                     <div className={s.settings_block}>
                         <div>Состав числа:</div>
                         <input
-                            value={numberComp}
+                            value={numberComposition}
                             type="number"
                             onChange={onChangeNumberComp}
                             onFocus={handleFocus}
@@ -91,7 +94,7 @@ export const Settings: FC<Props> = memo(({
                     <div className={s.settings_block}>
                         <div>Скорость:</div>
                         <input
-                            value={timeoutValue}
+                            value={speed}
                             type="number"
                             onChange={onChangeTimeOutValue}
                             onFocus={handleFocus}

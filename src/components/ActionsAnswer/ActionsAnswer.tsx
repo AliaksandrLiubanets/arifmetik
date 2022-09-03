@@ -8,12 +8,13 @@ import s from '../Game/Game.module.css'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
+import {setActionsArrayAndAnswer} from '../../store/countGameReducer'
 
 type PropsActionsAnswer = {
     // numberComp: number
     // timeoutValue: number
     // actionsCount: number
-    makeActionsArrayAndAnswer: () => void
+    // makeActionsArrayAndAnswer: () => void
     // actionsArray: string[]
     // answer: number
     // isSoundOn: boolean
@@ -29,7 +30,7 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({
                                                           // actionsArray,
                                                           // answer,
                                                           // isSoundOn,
-                                                          makeActionsArrayAndAnswer,
+                                                          // makeActionsArrayAndAnswer,
                                                           setIsPrestart,
                                                           startGame,
                                                           rocketSound
@@ -56,13 +57,14 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({
             answerSound()
         }
     }
+    const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer({}))
+
     const nextExercise = useCallback(() => {
         setIsShowAnswer(false)
         setIsShowInput(false)
         setIsFocus(false)
         setInputAnswer(0)
         makeActionsArrayAndAnswer()
-         (true)
         rocketSound()
     }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound])
 

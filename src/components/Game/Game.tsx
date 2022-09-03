@@ -39,16 +39,17 @@ export const Game: FC<Props> = memo(({
                                 setIsPrestart={setIsPrestart}
                                 isPrestart={isPrestart}
                     />
-                    : <ActionsAnswer answer={answer}
-                                     isSoundOn={isSoundOn}
-                                     // actionsCount={actionsCount}
-                                     actionsArray={actionsArray}
-                                     // makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
-                                     timeoutValue={timeoutValue}
-                                     setIsPrestart={setIsPrestart}
-                                     numberComp={numberComp}
-                                     rocketSound={rocketSound}
-                                     startGame={startGame}
+                    : <ActionsAnswer
+                        // answer={answer}
+                        // isSoundOn={isSoundOn}
+                        // actionsCount={actionsCount}
+                        // actionsArray={actionsArray}
+                        // makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
+                        // timeoutValue={timeoutValue}
+                        setIsPrestart={setIsPrestart}
+                        // numberComp={numberComp}
+                        rocketSound={rocketSound}
+                        startGame={startGame}
                     />
                 }
             </div>
