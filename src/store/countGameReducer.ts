@@ -22,19 +22,19 @@ export const slice = createSlice({
             state.numberComposition = action.payload.numberComposition
         },
         setSpeed(state, action: PayloadAction<{ speed: number }>) {
-            state.numberComposition = action.payload.speed
+            state.speed = action.payload.speed
         } ,
         setActionsCount(state, action: PayloadAction<{ actionsCount: number }>) {
-            state.numberComposition = action.payload.actionsCount
+            state.actionsCount = action.payload.actionsCount
         },
-        switchSound(state, action: PayloadAction<{ isSoundOn: number }>) {
-            state.numberComposition = action.payload.isSoundOn
+        switchSound(state, action: PayloadAction<{ isSoundOn: boolean }>) {
+            state.isSoundOn = action.payload.isSoundOn
         },
-        switchPreStart(state, action: PayloadAction<{ isPreStart: number }>) {
-            state.numberComposition = action.payload.isPreStart
+        switchPreStart(state, action: PayloadAction<{ isPreStart: boolean }>) {
+            state.isPreStart = action.payload.isPreStart
         },
-        switchStartGame(state, action: PayloadAction<{ isStarted: number }>) {
-            state.numberComposition = action.payload.isStarted
+        startGame(state, action: PayloadAction<{ isStarted: boolean }>) {
+            state.isStarted = action.payload.isStarted
         },
         setActionsArrayAndAnswer(state, action: PayloadAction<{  }>) {
             const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(state.actionsCount, state.numberComposition)
@@ -45,7 +45,7 @@ export const slice = createSlice({
 })
 
 export const countGameReducer = slice.reducer
-export const {setNumberComp, setSpeed, setActionsCount, switchSound, switchPreStart, switchStartGame, setActionsArrayAndAnswer} = slice.actions
+export const {setNumberComp, setSpeed, setActionsCount, switchSound, switchPreStart, startGame, setActionsArrayAndAnswer} = slice.actions
 //
 // export const countGameActions = {
 //     setNumberComp: (numberComposition: number) => ({type: 'COUNT/SET_NUMBER_COMPOSITION', payload: {numberComposition}} as const),

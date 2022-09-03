@@ -8,33 +8,13 @@ import s from '../Game/Game.module.css'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
-import {setActionsArrayAndAnswer} from '../../store/countGameReducer'
+import {setActionsArrayAndAnswer, startGame, switchPreStart} from '../../store/countGameReducer'
 
 type PropsActionsAnswer = {
-    // numberComp: number
-    // timeoutValue: number
-    // actionsCount: number
-    // makeActionsArrayAndAnswer: () => void
-    // actionsArray: string[]
-    // answer: number
-    // isSoundOn: boolean
-    setIsPrestart: (isPreStart: boolean) => void
-    startGame: (isStarted: boolean) => void
     rocketSound: () => void
 }
 
-export const ActionsAnswer: FC<PropsActionsAnswer> = ({
-                                                          // numberComp,
-                                                          // timeoutValue,
-                                                          // actionsCount,
-                                                          // actionsArray,
-                                                          // answer,
-                                                          // isSoundOn,
-                                                          // makeActionsArrayAndAnswer,
-                                                          setIsPrestart,
-                                                          startGame,
-                                                          rocketSound
-                                                      }) => {
+export const ActionsAnswer: FC<PropsActionsAnswer> = ({ rocketSound }) => {
     const [isShowAnswer, setIsShowAnswer] = useState(false)
     const [isShowInput, setIsShowInput] = useState(false)
     const [inputAnswer, setInputAnswer] = useState(0)
@@ -57,7 +37,9 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({
             answerSound()
         }
     }
-    const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer({}))
+    const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer({})), [])
+    const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [])
+    const setIsPrestart = (isPreStart: boolean) => dispatch(switchPreStart({isPreStart}))
 
     const nextExercise = useCallback(() => {
         setIsShowAnswer(false)
@@ -65,13 +47,12 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({
         setIsFocus(false)
         setInputAnswer(0)
         makeActionsArrayAndAnswer()
+        setIsPrestart(true)
         rocketSound()
-    }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound])
+    }, [makeActionsArrayAndAnswer, rocketSound])
 
     const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
     const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
-
-    const handleBackToSettings = useCallback(() => startGame(false), [])
 
     return <>
         <button onClick={handleBackToSettings}>Назад</button>
@@ -99,7 +80,6 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({
                 />
                 : <ButtonNext isOnFocus={!isFocus} callback={nextExercise}/>
             }
-
         </div>
         }
     </>

@@ -44,6 +44,8 @@ import minus_19 from '../../assets/sounds/actions/-19.mp3'
 import minus_20 from '../../assets/sounds/actions/-20.mp3'
 
 import wrist from '../../assets/sounds/actions/whistling.mp3'
+import {useSelector} from 'react-redux'
+import {AppRootStateType} from '../../store/store'
 
 type Props = {
     actionsCount: number
@@ -56,15 +58,22 @@ type Props = {
 }
 
 export const Actions: FC<Props> = memo(({
-                                            actionsArray,
-                                            timeoutValue,
-                                            actionsCount,
+                                            // actionsArray,
+                                            // timeoutValue,
+                                            // actionsCount,
                                             focusOnElement,
                                             showInput,
-                                            isSoundOn
+                                            // isSoundOn
                                         }) => {
         const [calc, setCalc] = useState<string>('')
         const [index, setIndex] = useState<number>(0)
+
+    const {
+        actionsArray,
+        actionsCount,
+        speed,
+        isSoundOn,
+    } = useSelector((state: AppRootStateType) => state.count)
 
         useEffect(() => {
             if (index < actionsCount) {
@@ -85,7 +94,7 @@ export const Actions: FC<Props> = memo(({
                         setCalc(actionsArray[index])
                         setIndex(prevState => prevState + 1)
 
-                    }, 1000 * timeoutValue) // interval between every action
+                    }, 1000 * speed) // interval between every action
                 }
 
                 return () => {
@@ -99,7 +108,7 @@ export const Actions: FC<Props> = memo(({
                 showInput(true)
                 focusOnElement(true)
             }
-        }, [calc, actionsCount, actionsArray, showInput, timeoutValue])
+        }, [calc, actionsCount, actionsArray, showInput, speed])
 
         const [p_1] = useSound(plus_1)
         const [p_2] = useSound(plus_2)
