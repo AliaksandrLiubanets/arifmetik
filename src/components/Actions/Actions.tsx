@@ -48,32 +48,20 @@ import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 
 type Props = {
-    actionsCount: number
-    timeoutValue: number
-    numberComp: number
-    actionsArray: string[]
-    isSoundOn: boolean
     showInput: (isShowAnswer: boolean) => void
     focusOnElement: (focus: boolean) => void
 }
 
-export const Actions: FC<Props> = memo(({
-                                            // actionsArray,
-                                            // timeoutValue,
-                                            // actionsCount,
-                                            focusOnElement,
-                                            showInput,
-                                            // isSoundOn
-                                        }) => {
+export const Actions: FC<Props> = memo(({focusOnElement, showInput}) => {
         const [calc, setCalc] = useState<string>('')
         const [index, setIndex] = useState<number>(0)
 
-    const {
-        actionsArray,
-        actionsCount,
-        speed,
-        isSoundOn,
-    } = useSelector((state: AppRootStateType) => state.count)
+        const {
+            actionsArray,
+            actionsCount,
+            speed,
+            isSoundOn
+        } = useSelector((state: AppRootStateType) => state.count)
 
         useEffect(() => {
             if (index < actionsCount) {

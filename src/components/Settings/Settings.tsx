@@ -13,23 +13,10 @@ import {
 } from '../../store/countGameReducer'
 
 type Props = {
-    // startGame: (isStarted: boolean) => void
-    // setNumberComposition: (numberComp: number) => void
-    // setTimeoutValue: (timeoutValue: number) => void
-    // setCountOfActions: (actionsCount: number) => void
-    // makeActionsArrayAndAnswer: () => void
-    // setSound: (isSoundOn: boolean) => void
-    // setIsRocket: (isRocket: boolean) => void
     rocketSound: () => void
 }
 
-export const Settings: FC<Props> = memo(({
-                                             // startGame,
-                                             // setTimeoutValue,
-                                             // setSound,
-                                             // setIsRocket,
-                                             rocketSound
-                                         }) => {
+export const Settings: FC<Props> = memo(({ rocketSound }) => {
 
         const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
 
@@ -42,12 +29,13 @@ export const Settings: FC<Props> = memo(({
             isPreStart
         } = useSelector((state: AppRootStateType) => state.count)
 
-        // const setNumberComposition = useCallback((numberComposition: number) => dispatch(setNumberComp({numberComposition} )), [])
-        const setTimeoutValue = useCallback((speed: number) => dispatch(setSpeed({speed} )), [])
-        const setSound = useCallback((isSoundOn: boolean) => dispatch(switchSound({isSoundOn} )), [])
-        const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart} )), [])
+        const setTimeoutValue = useCallback((speed: number) => dispatch(setSpeed({speed})), [dispatch])
+        const setSound = useCallback((isSoundOn: boolean) => dispatch(switchSound({isSoundOn})), [dispatch])
+        const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
 
-        const disabledCheckboxCondition: boolean = (numberComposition < 11 && speed < 1) || (numberComposition > 10 && numberComposition < 21 && speed < 1.2) || numberComposition > 20
+        const disabledCheckboxCondition: boolean = (numberComposition < 11 && speed < 1)
+            || (numberComposition > 10 && numberComposition < 21 && speed < 1.2)
+            || numberComposition > 20
 
         useEffect(() => {
             if (disabledCheckboxCondition) {
@@ -61,16 +49,20 @@ export const Settings: FC<Props> = memo(({
 
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
 
-        const onChangeNumberComp = useCallback((e: ChangeEvent<HTMLInputElement>) => dispatch(setNumberComp({numberComposition: e.currentTarget.valueAsNumber})), [])
+        const onChangeNumberComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setNumberComp({numberComposition: e.currentTarget.valueAsNumber}))
+        }, [dispatch])
         const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
             setTimeoutValue(e.currentTarget.valueAsNumber)
         }
-        const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => dispatch(setActionsCount({actionsCount: e.currentTarget.valueAsNumber})), [])
+        const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setActionsCount({actionsCount: e.currentTarget.valueAsNumber}))
+        }, [dispatch])
         const onChangeSound = (e: ChangeEvent<HTMLInputElement>) => {
             setSound(e.currentTarget.checked)
         }
-    // const start = useCallback((isStarted: boolean) => dispatch(startGame({isStarted})), [])
-        const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer({}))
+        const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer())
+
         const startRocket = () => {
             setIsRocket(true)
             makeActionsArrayAndAnswer()
@@ -79,11 +71,7 @@ export const Settings: FC<Props> = memo(({
 
         return <>
             {isPreStart
-                ? <PreStart
-                    // startGame={startGame}
-                            // setIsPrestart={setIsRocket}
-                    // isPreStart={isPreStart}
-                />
+                ? <PreStart />
                 : <div className={s.container}>
                     <div className={s.settings_block}>
                         <div>Состав числа:</div>

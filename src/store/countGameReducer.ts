@@ -36,7 +36,7 @@ export const slice = createSlice({
         startGame(state, action: PayloadAction<{ isStarted: boolean }>) {
             state.isStarted = action.payload.isStarted
         },
-        setActionsArrayAndAnswer(state, action: PayloadAction<{  }>) {
+        setActionsArrayAndAnswer(state) {
             const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(state.actionsCount, state.numberComposition)
             state.actionsArray = arrayOfCalculations
             state.answer = answer
@@ -46,16 +46,6 @@ export const slice = createSlice({
 
 export const countGameReducer = slice.reducer
 export const {setNumberComp, setSpeed, setActionsCount, switchSound, switchPreStart, startGame, setActionsArrayAndAnswer} = slice.actions
-//
-// export const countGameActions = {
-//     setNumberComp: (numberComposition: number) => ({type: 'COUNT/SET_NUMBER_COMPOSITION', payload: {numberComposition}} as const),
-//     setSpeed: (speed: number) => ({type: 'COUNT/SET_SPEED', payload: {speed}} as const),
-//     setActionsCount: (actionsCount: number) => ({type: 'COUNT/SET_ACTIONS_COUNT', payload: {actionsCount}} as const),
-//     switchSound: (isSoundOn: boolean) => ({type: 'COUNT/SWITCH_SOUND', payload: {isSoundOn}} as const),
-//     switchPreStart: (isPreStart: boolean) => ({type: 'COUNT/SWITCH_PRESTART', payload: {isPreStart}} as const),
-//     switchStartGame: (isStarted: boolean) => ({type: 'COUNT/SWITCH_START_GAME', payload: {isStarted}} as const),
-//     setActionsArrayAndAnswer: () => ({type: 'COUNT/MAKE_ACTIONS_ARRAY_AND_ANSWER'} as const)
-// }
 
 //types
 export type CountGameType = typeof initialState

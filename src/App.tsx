@@ -8,68 +8,16 @@ import {useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 
 function App() {
-    // // const [isStarted, setIsStarted] = React.useState(false)
-    // const [numberComp, setNumberComp] = React.useState(10)
-    // const [speed, setSpeed] = React.useState(1)
-    // // const [actionsCount, setActionsCount] = React.useState(4)
-    // const [actionsArray, setActionsArray] = React.useState<string[]>([])
-    // const [answer, setAnswer] = React.useState<number>(0)
-    // const [isSoundOn, setIsSoundOn] = React.useState<boolean>(true)
-    // const [isPrestart, setIsPrestart] = useState<boolean>(false)
-
     const isStarted = useSelector((state: AppRootStateType) => state.count.isStarted)
-
     const [rocket] = useSound(rocket_start)
-
-    // const makeActionsArrayAndAnswer = useCallback(() => {
-    //     const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(actionsCount, numberComp)
-    //     const copyArray = [...arrayOfCalculations]
-    //     setActionsArray(copyArray)
-    //     setAnswer(answer)
-    // }, [numberComp, actionsCount])
-
-
-    // const setCountOfActions = useCallback((actionsCount: number) => setActionsCount(actionsCount), [])
-    // const setNumberComposition = useCallback((numberComp: number) => setNumberComp(numberComp), [])
-    // const setTimeoutValue = useCallback((speed: number) => setSpeed(speed), [])
-    // const setSound = useCallback((isSoundOn: boolean) => setIsSoundOn(isSoundOn), [])
-    // const setIsPreStart = useCallback((isPrestart: boolean) => setIsPrestart(isPrestart), [])
-
     const rocketSound = useCallback(() => rocket(), [rocket])
 
     return (
         <div className="App">
                 <div className={'bg'}></div>
-
                     {isStarted
-
-                        ? <Game
-                            // numberComp={numberComp}
-                            //     timeoutValue={speed}
-                                // actionsCount={actionsCount}
-                                // actionsArray={actionsArray}
-                                // answer={answer}
-                                // isSoundOn={isSoundOn}
-                                // startGame={startGame}
-                                // makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
-                                // isPrestart={isPrestart}
-                                // setIsPrestart={setIsPreStart}
-                                rocketSound={rocketSound}
-                        />
-                        : <Settings
-                                    // timeoutValue={speed}
-                                    // numberComp={numberComp}
-                                    // startGame={startGame}
-                                    // setCountOfActions={setCountOfActions}
-                                    // setNumberComposition={setNumberComposition}
-                                    // setTimeoutValue={setTimeoutValue}
-                                    // makeActionsArrayAndAnswer={makeActionsArrayAndAnswer}
-                                    // setSound={setSound}
-                                    // isSoundOn={isSoundOn}
-                                    // isPrestart={isPrestart}
-                                    // setIsRocket={setIsPrestart}
-                                    rocketSound={rocketSound}
-                        />
+                        ? <Game rocketSound={rocketSound} />
+                        : <Settings rocketSound={rocketSound} />
                     }
                 </div>
     )

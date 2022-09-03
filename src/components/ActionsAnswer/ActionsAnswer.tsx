@@ -14,7 +14,7 @@ type PropsActionsAnswer = {
     rocketSound: () => void
 }
 
-export const ActionsAnswer: FC<PropsActionsAnswer> = ({ rocketSound }) => {
+export const ActionsAnswer: FC<PropsActionsAnswer> = ({rocketSound}) => {
     const [isShowAnswer, setIsShowAnswer] = useState(false)
     const [isShowInput, setIsShowInput] = useState(false)
     const [inputAnswer, setInputAnswer] = useState(0)
@@ -25,7 +25,7 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({ rocketSound }) => {
 
     const dispatch = useDispatch()
 
-    const {numberComposition, speed, actionsCount, actionsArray, answer, isSoundOn} = useSelector((state: AppRootStateType) => state.count)
+    const answer = useSelector((state: AppRootStateType) => state.count.answer)
 
     const answerSound = () => inputAnswer === answer ? right() : wrong()
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => setInputAnswer(e.currentTarget.valueAsNumber)
@@ -37,9 +37,11 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({ rocketSound }) => {
             answerSound()
         }
     }
-    const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer({})), [])
-    const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [])
-    const setIsPrestart = (isPreStart: boolean) => dispatch(switchPreStart({isPreStart}))
+    const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
+    const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
+    const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer()), [dispatch])
+    const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
+    const setIsPrestart = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
 
     const nextExercise = useCallback(() => {
         setIsShowAnswer(false)
@@ -49,22 +51,12 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({ rocketSound }) => {
         makeActionsArrayAndAnswer()
         setIsPrestart(true)
         rocketSound()
-    }, [makeActionsArrayAndAnswer, rocketSound])
-
-    const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
-    const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
+    }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound])
 
     return <>
         <button onClick={handleBackToSettings}>Назад</button>
         {!isShowAnswer
-            ? <Actions actionsArray={actionsArray}
-                       actionsCount={actionsCount}
-                       numberComp={numberComposition}
-                       timeoutValue={speed}
-                       isSoundOn={isSoundOn}
-                       showInput={showInput}
-                       focusOnElement={focusOnElement}
-            />
+            ? <Actions showInput={showInput} focusOnElement={focusOnElement} />
             : <Answer answer={answer} inputAnswer={inputAnswer}/>
         }
         {isShowInput &&
