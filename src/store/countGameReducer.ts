@@ -23,7 +23,7 @@ export const slice = createSlice({
         },
         setSpeed(state, action: PayloadAction<{ speed: number }>) {
             state.speed = action.payload.speed
-        } ,
+        },
         setActionsCount(state, action: PayloadAction<{ actionsCount: number }>) {
             state.actionsCount = action.payload.actionsCount
         },
@@ -37,7 +37,10 @@ export const slice = createSlice({
             state.isStarted = action.payload.isStarted
         },
         setActionsArrayAndAnswer(state) {
-            const {arrayOfCalculations, answer} = getArrayOfCalculationsAndAnswer(state.actionsCount, state.numberComposition)
+            const {
+                arrayOfCalculations,
+                answer
+            } = getArrayOfCalculationsAndAnswer(state.actionsCount, state.numberComposition)
             state.actionsArray = arrayOfCalculations
             state.answer = answer
         }
@@ -45,7 +48,15 @@ export const slice = createSlice({
 })
 
 export const countGameReducer = slice.reducer
-export const {setNumberComp, setSpeed, setActionsCount, switchSound, switchPreStart, startGame, setActionsArrayAndAnswer} = slice.actions
+export const {
+    setNumberComp,
+    setSpeed,
+    setActionsCount,
+    switchSound,
+    switchPreStart,
+    startGame,
+    setActionsArrayAndAnswer
+} = slice.actions
 
 //types
 export type CountGameType = typeof initialState
