@@ -2,7 +2,7 @@ import {getArrayOfCalculationsAndAnswer} from '../utils/getResultAndAction'
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 const initialState = {
-    numberComposition: 0 as number,
+    numberComposition: 10 as number,
     speed: 1,
     actionsCount: 2,
     isSoundOn: true,

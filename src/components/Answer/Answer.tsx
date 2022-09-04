@@ -1,5 +1,6 @@
 import React, {FC, memo} from 'react'
 import s from './Answer.module.css'
+import {AllActions} from './AllActions/AllActions'
 
 type Props = {
     answer: number
@@ -12,6 +13,7 @@ export const Answer: FC<Props> = memo(({answer, inputAnswer}) => {
 
         return <>
             <div className={answerStyle}>{answer}</div>
+            <AllActions />
         </>
     }
 )

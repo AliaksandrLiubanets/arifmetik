@@ -1,0 +1,13 @@
+.container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: #97989a 0 0 5px;
+    padding: 20px;
+    width: 350px;
+}
+
+.allExercise {
+    font-size: 26px;
+    font-weight: 500;
+    color: #01205e;
+}
