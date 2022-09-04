@@ -57,7 +57,7 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({rocketSound}) => {
         <button onClick={handleBackToSettings}>Назад</button>
         {!isShowAnswer
             ? <Actions showInput={showInput} focusOnElement={focusOnElement} />
-            : <Answer answer={answer} inputAnswer={inputAnswer}/>
+            : <Answer answer={answer} inputAnswer={inputAnswer} />
         }
         {isShowInput &&
         <div className={s.answer_input}>

@@ -12,7 +12,7 @@ export const Answer: FC<Props> = memo(({answer, inputAnswer}) => {
         const answerStyle = `${s.answer} ${inputAnswer !== answer ? s.wrong : ''}`
 
         return <>
-            <div className={answerStyle}>{answer}</div>
+            <div className={answerStyle}>{inputAnswer}</div>
             <AllActions />
         </>
     }
