@@ -1,0 +1,14 @@
+.flash {
+    display: flex;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 0 10px;
+}
+.card {
+    padding: 0 40px;
+    display: flex;
+    justify-content: center;
+}
+.image {
+    display: block;
+}
