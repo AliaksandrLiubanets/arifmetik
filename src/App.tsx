@@ -7,6 +7,7 @@ import rocket_start from './assets/sounds/rocket/rocket_2sec.mp3'
 import {useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {FlashCards} from './components/FlashCards/FlashCards'
+import {SettingsBlock} from './components/SettingsBlock/SettingsBlock'
 
 function App() {
     const isStarted = useSelector((state: AppRootStateType) => state.count.isStarted)
@@ -16,11 +17,11 @@ function App() {
     return (
         <div className="App">
             <div className={'bg'}></div>
-            {/*{isStarted*/}
-            {/*    ? <Game rocketSound={rocketSound} />*/}
-            {/*    : <Settings rocketSound={rocketSound} />*/}
-            {/*}*/}
-            <FlashCards/>
+            {isStarted
+                ? <Game rocketSound={rocketSound} />
+                : <SettingsBlock rocketSound={rocketSound} />
+            }
+            {/*<FlashCards/>*/}
         </div>
     )
 }

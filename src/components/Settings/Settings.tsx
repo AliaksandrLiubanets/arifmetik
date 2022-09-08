@@ -1,6 +1,5 @@
 import React, {ChangeEvent, FC, FocusEvent, memo, useCallback, useEffect, useState} from 'react'
 import s from './Settings.module.css'
-import {PreStart} from '../PreStart/PreStart'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 import {
@@ -16,7 +15,7 @@ type Props = {
     rocketSound: () => void
 }
 
-export const Settings: FC<Props> = memo(({ rocketSound }) => {
+export const Settings: FC<Props> = memo(({rocketSound}) => {
 
         const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
 
@@ -26,7 +25,6 @@ export const Settings: FC<Props> = memo(({ rocketSound }) => {
             actionsCount,
             speed,
             isSoundOn,
-            isPreStart
         } = useSelector((state: AppRootStateType) => state.count)
 
         const setTimeoutValue = useCallback((speed: number) => dispatch(setSpeed({speed})), [dispatch])
@@ -69,52 +67,48 @@ export const Settings: FC<Props> = memo(({ rocketSound }) => {
             rocketSound()
         }
 
-        return <>
-            {isPreStart
-                ? <PreStart />
-                : <div className={s.container}>
-                    <div className={s.settings_block}>
-                        <div>Состав числа:</div>
-                        <input
-                            value={numberComposition}
-                            type="number"
-                            onChange={onChangeNumberComp}
-                            onFocus={handleFocus}
-                        />
-                    </div>
-                    <div className={s.settings_block}>
-                        <div>Скорость:</div>
-                        <input
-                            value={speed}
-                            type="number"
-                            onChange={onChangeTimeOutValue}
-                            onFocus={handleFocus}
-                        />
-                    </div>
-                    <div className={s.settings_block}>
-                        <div>Количество действий:</div>
-                        <input
-                            value={actionsCount}
-                            type="number"
-                            onChange={onChangeActionsCount}
-                            onFocus={handleFocus}
-                        />
-                    </div>
-                    <div className={s.settings_block}>
-                        <label>
-                            <input
-                                checked={isSoundOn}
-                                type="checkbox"
-                                onChange={onChangeSound}
-                                disabled={isDisabledCheckboxSound}
-                            />со звуком
-                        </label>
-                    </div>
-                    <button onClick={startRocket}>
-                        Старт
-                    </button>
-                </div>
-            }
-        </>
+        return <div className={s.container}>
+            <div className={s.settings_block}>
+                <div>Состав числа:</div>
+                <input
+                    value={numberComposition}
+                    type="number"
+                    onChange={onChangeNumberComp}
+                    onFocus={handleFocus}
+                />
+            </div>
+            <div className={s.settings_block}>
+                <div>Скорость:</div>
+                <input
+                    value={speed}
+                    type="number"
+                    onChange={onChangeTimeOutValue}
+                    onFocus={handleFocus}
+                />
+            </div>
+            <div className={s.settings_block}>
+                <div>Количество действий:</div>
+                <input
+                    value={actionsCount}
+                    type="number"
+                    onChange={onChangeActionsCount}
+                    onFocus={handleFocus}
+                />
+            </div>
+            <div className={s.settings_block}>
+                <label>
+                    <input
+                        checked={isSoundOn}
+                        type="checkbox"
+                        onChange={onChangeSound}
+                        disabled={isDisabledCheckboxSound}
+                    />со звуком
+                </label>
+            </div>
+            <button onClick={startRocket}>
+                Старт
+            </button>
+        </div>
+
     }
 )
