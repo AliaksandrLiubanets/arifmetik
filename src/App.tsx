@@ -17,11 +17,11 @@ function App() {
     return (
         <div className="App">
             <div className={'bg'}></div>
-            {isStarted
-                ? <Game rocketSound={rocketSound} />
-                : <SettingsBlock rocketSound={rocketSound} />
-            }
-            {/*<FlashCards/>*/}
+            {/*{isStarted*/}
+            {/*    ? <Game rocketSound={rocketSound} />*/}
+            {/*    : <SettingsBlock rocketSound={rocketSound} />*/}
+            {/*}*/}
+            <FlashCards/>
         </div>
     )
 }
