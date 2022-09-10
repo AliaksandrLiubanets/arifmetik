@@ -3,6 +3,7 @@ import s from './FlashCards.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 
+import f_0 from '../../assets/flash-cards/0_r_0.png'
 import f_1 from '../../assets/flash-cards/1_r_1.png'
 import f_2 from '../../assets/flash-cards/2_r_2.png'
 import f_3 from '../../assets/flash-cards/3_r_3.png'
@@ -46,9 +47,9 @@ import f_2_3_4 from '../../assets/flash-cards/9_r_2_3_4.png'
 import f_2_4_3 from '../../assets/flash-cards/9_r_2_4_3.png'
 
 import f_4_4_2 from '../../assets/flash-cards/10_r_4_4_2.png'
-import f_2_4_4 from '../../assets/flash-cards/10_r_4_4_2.png' // Complete in psh
+import f_2_4_4 from '../../assets/flash-cards/10_r_2_4_4.png'
 import f_4_2_4 from '../../assets/flash-cards/10_r_4_2_4.png'
-import f_3_4_3 from '../../assets/flash-cards/10_r_3_3_4.png' // Complete in psh
+import f_3_4_3 from '../../assets/flash-cards/10_r_3_4_3.png'
 import f_4_3_3 from '../../assets/flash-cards/10_r_4_3_3.png'
 import f_3_3_4 from '../../assets/flash-cards/10_r_3_3_4.png'
 import f_3_3_2_2 from '../../assets/flash-cards/10_r_3_3_2_2.png'
@@ -58,18 +59,16 @@ import f_2_3_3_2 from '../../assets/flash-cards/10_r_2_3_3_2.png'
 import f_2_3_2_3 from '../../assets/flash-cards/10_r_2_3_2_3.png'
 import {setCard} from '../../store/flashCardsGameReducer'
 
-const randomCardIndex = (array: string[]) => {
-    const max: number = array.length
-    return Math.ceil(Math.random() * max)
-}
 
 export const FlashCards = () => {
 
     const card = useSelector((state: AppRootStateType) => state.cards.flashCard)
-    console.log('card:', card)
-    let flashCard: string = ''
+    let flashCard: string
 
     switch (card) {
+        case '0':
+            flashCard = f_0
+            break
         case '1':
             flashCard = f_1
             break
@@ -141,7 +140,6 @@ export const FlashCards = () => {
         case '4_3':
             flashCard = f_4_3
             break
-
 
 
         case '4_4':
@@ -221,17 +219,18 @@ export const FlashCards = () => {
         case '2_3_2_3':
             flashCard = f_2_3_2_3
             break
-
-
-        default: flashCard = ''
+        default:
+            flashCard = f_0
     }
-    console.log('flashCard:', flashCard)
-const dispatch = useDispatch()
+
+    const dispatch = useDispatch()
     const nextFlashCard = () => dispatch(setCard())
 
     return <div className={s.flash}>
-            <div className={s.card}><img src={flashCard} alt={'card'}/></div>
-            {/*<div className={s.card}><img src={r_3} alt={'card'}/></div>*/}
-        <div><button onClick={nextFlashCard}>Далее</button></div>
+        <div className={s.card}><img src={flashCard} alt={'card'}/></div>
+        {/*<div className={s.card}><img src={r_3} alt={'card'}/></div>*/}
+        <div>
+            <button onClick={nextFlashCard}>Далее</button>
         </div>
+    </div>
 }

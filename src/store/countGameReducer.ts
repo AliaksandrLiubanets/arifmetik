@@ -1,4 +1,4 @@
-import {getArrayOfCalculationsAndAnswer} from '../utils/getResultAndAction'
+import {getArrayOfCalculationsAndAnswer} from '../utils/helper'
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 const initialState = {
