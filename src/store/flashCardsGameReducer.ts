@@ -33,7 +33,10 @@ export const slice = createSlice({
     initialState: initialState,
     reducers: {
         setFlashCardsComp(state, action: PayloadAction<{ cardsComposition: number }>) {
-            state.cardsComposition = action.payload.cardsComposition
+            const cardsComp = action.payload.cardsComposition
+            if (cardsComp > 2 && cardsComp < 11) {
+                state.cardsComposition = cardsComp
+            }
         },
         setSpeed(state, action: PayloadAction<{ speed: number }>) {
             state.speed = action.payload.speed

@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react'
 import './App.css'
-import {Settings} from './components/Settings/Settings'
+import {SettingsCount} from './components/SettingsCount/SettingsCount'
 import {Game} from './components/Game/Game'
 import useSound from 'use-sound'
 import rocket_start from './assets/sounds/rocket/rocket_2sec.mp3'

@@ -1,49 +1,38 @@
 import React, {ChangeEvent, FC, FocusEvent, memo, useCallback, useEffect, useState} from 'react'
 import s from './Settings.module.css'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from '../../store/store'
-import {
-    setActionsArrayAndAnswer,
-    setActionsCount,
-    setNumberComp,
-    setSpeed,
-    switchPreStart,
-    switchSound
-} from '../../store/countGameReducer'
+import {AppRootStateType} from '../../../store/store'
+import {setActionsArrayAndAnswer, setNumberComp} from '../../../store/countGameReducer'
+import {switchPreStart} from '../../../store/flashCardsGameReducer'
 
 type Props = {
     rocketSound: () => void
 }
 
-export const Settings: FC<Props> = memo(({rocketSound}) => {
+export const SettingsCards: FC<Props> = memo(({rocketSound}) => {
 
-        const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
+        // const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
 
         const dispatch = useDispatch()
-        const {
-            numberComposition,
-            actionsCount,
-            speed,
-            isSoundOn,
-        } = useSelector((state: AppRootStateType) => state.count)
+        const {cardsComposition} = useSelector((state: AppRootStateType) => state.cards)
 
-        const setTimeoutValue = useCallback((speed: number) => dispatch(setSpeed({speed})), [dispatch])
-        const setSound = useCallback((isSoundOn: boolean) => dispatch(switchSound({isSoundOn})), [dispatch])
+        // const setTimeoutValue = useCallback((speed: number) => dispatch(setSpeed({speed})), [dispatch])
+        // const setSound = useCallback((isSoundOn: boolean) => dispatch(switchSound({isSoundOn})), [dispatch])
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
 
-        const disabledCheckboxCondition: boolean = (numberComposition < 11 && speed < 1)
-            || (numberComposition > 10 && numberComposition < 21 && speed < 1.2)
-            || numberComposition > 20
+        // const disabledCheckboxCondition: boolean = (numberComposition < 11 && speed < 1)
+        //     || (numberComposition > 10 && numberComposition < 21 && speed < 1.2)
+        //     || numberComposition > 20
 
-        useEffect(() => {
-            if (disabledCheckboxCondition) {
-                setSound(false)
-                setIsDisabledCheckboxSound(true)
-            } else {
-                setSound(true)
-                setIsDisabledCheckboxSound(false)
-            }
-        }, [speed, setSound, disabledCheckboxCondition])
+        // useEffect(() => {
+        //     if (disabledCheckboxCondition) {
+        //         setSound(false)
+        //         setIsDisabledCheckboxSound(true)
+        //     } else {
+        //         setSound(true)
+        //         setIsDisabledCheckboxSound(false)
+        //     }
+        // }, [speed, setSound, disabledCheckboxCondition])
 
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
 
