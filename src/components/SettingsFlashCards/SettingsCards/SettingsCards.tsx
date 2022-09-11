@@ -3,7 +3,7 @@ import s from './Settings.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import {setActionsArrayAndAnswer, setNumberComp} from '../../../store/countGameReducer'
-import {switchPreStart} from '../../../store/flashCardsGameReducer'
+import {setFlashCardsComp, switchPreStart} from '../../../store/flashCardsGameReducer'
 
 type Props = {
     rocketSound: () => void
@@ -36,18 +36,18 @@ export const SettingsCards: FC<Props> = memo(({rocketSound}) => {
 
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
 
-        const onChangeNumberComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setNumberComp({numberComposition: e.currentTarget.valueAsNumber}))
+        const onChangeCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setFlashCardsComp({cardsComposition: e.currentTarget.valueAsNumber}))
         }, [dispatch])
-        const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
-            setTimeoutValue(e.currentTarget.valueAsNumber)
-        }
-        const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setActionsCount({actionsCount: e.currentTarget.valueAsNumber}))
-        }, [dispatch])
-        const onChangeSound = (e: ChangeEvent<HTMLInputElement>) => {
-            setSound(e.currentTarget.checked)
-        }
+        // const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
+        //     setTimeoutValue(e.currentTarget.valueAsNumber)
+        // }
+        // const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        //     dispatch(setActionsCount({actionsCount: e.currentTarget.valueAsNumber}))
+        // }, [dispatch])
+        // const onChangeSound = (e: ChangeEvent<HTMLInputElement>) => {
+        //     setSound(e.currentTarget.checked)
+        // }
         const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer())
 
         const startRocket = () => {
@@ -60,40 +60,40 @@ export const SettingsCards: FC<Props> = memo(({rocketSound}) => {
             <div className={s.settings_block}>
                 <div>Состав числа:</div>
                 <input
-                    value={numberComposition}
+                    value={cardsComposition}
                     type="number"
-                    onChange={onChangeNumberComp}
+                    onChange={onChangeCardsComp}
                     onFocus={handleFocus}
                 />
             </div>
-            <div className={s.settings_block}>
-                <div>Скорость:</div>
-                <input
-                    value={speed}
-                    type="number"
-                    onChange={onChangeTimeOutValue}
-                    onFocus={handleFocus}
-                />
-            </div>
-            <div className={s.settings_block}>
-                <div>Количество действий:</div>
-                <input
-                    value={actionsCount}
-                    type="number"
-                    onChange={onChangeActionsCount}
-                    onFocus={handleFocus}
-                />
-            </div>
-            <div className={s.settings_block}>
-                <label>
-                    <input
-                        checked={isSoundOn}
-                        type="checkbox"
-                        onChange={onChangeSound}
-                        disabled={isDisabledCheckboxSound}
-                    />со звуком
-                </label>
-            </div>
+            {/*<div className={s.settings_block}>*/}
+            {/*    <div>Скорость:</div>*/}
+            {/*    <input*/}
+            {/*        value={speed}*/}
+            {/*        type="number"*/}
+            {/*        onChange={onChangeTimeOutValue}*/}
+            {/*        onFocus={handleFocus}*/}
+            {/*    />*/}
+            {/*</div>*/}
+            {/*<div className={s.settings_block}>*/}
+            {/*    <div>Количество действий:</div>*/}
+            {/*    <input*/}
+            {/*        value={actionsCount}*/}
+            {/*        type="number"*/}
+            {/*        onChange={onChangeActionsCount}*/}
+            {/*        onFocus={handleFocus}*/}
+            {/*    />*/}
+            {/*</div>*/}
+            {/*<div className={s.settings_block}>*/}
+            {/*    <label>*/}
+            {/*        <input*/}
+            {/*            checked={isSoundOn}*/}
+            {/*            type="checkbox"*/}
+            {/*            onChange={onChangeSound}*/}
+            {/*            disabled={isDisabledCheckboxSound}*/}
+            {/*        />со звуком*/}
+            {/*    </label>*/}
+            {/*</div>*/}
             <button onClick={startRocket}>
                 Старт
             </button>
