@@ -9,9 +9,9 @@ type Props = {
     rocketSound: () => void
 }
 
-export const Game: FC<Props> = memo(({rocketSound}) => {
+export const GameBlock: FC<Props> = memo(({rocketSound}) => {
 
-    const {isPreStart} = useSelector((state: AppRootStateType) => state.count)
+    const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)
 
         return (
             <div className={s.game}>

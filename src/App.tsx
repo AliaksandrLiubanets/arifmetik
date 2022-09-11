@@ -1,28 +1,33 @@
 import React, {useCallback} from 'react'
 import './App.css'
 import {SettingsCount} from './components/SettingsCount/SettingsCount'
-import {Game} from './components/Game/Game'
+import {GameBlock} from './components/Game/GameBlock'
 import useSound from 'use-sound'
 import rocket_start from './assets/sounds/rocket/rocket_2sec.mp3'
 import {useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
-import {FlashCards} from './components/FlashCards/FlashCards'
+import {FlashCardsBlock} from './components/FlashCards/FlashCardsBlock'
 import {SettingsBlock} from './components/SettingsBlock/SettingsBlock'
 import {SettingsFlashCardsBlock} from './components/SettingsFlashCards/SettingsFlashCardsBlock'
 
 function App() {
-    const isStarted = useSelector((state: AppRootStateType) => state.count.isStarted)
+    const isStartedCount = useSelector((state: AppRootStateType) => state.count.isStarted)
+    const isStartedFlashCard = useSelector((state: AppRootStateType) => state.cards.isStarted)
     const [rocket] = useSound(rocket_start)
     const rocketSound = useCallback(() => rocket(), [rocket])
 
     return (
         <div className="App">
             <div className={'bg'}></div>
-            {/*{isStarted*/}
-            {/*    ? <Game rocketSound={rocketSound} />*/}
-            {/*    : <SettingsBlock rocketSound={rocketSound} />*/}
-            {/*}*/}
-            <SettingsFlashCardsBlock rocketSound={rocketSound}/>
+            {isStartedCount
+                ? <GameBlock rocketSound={rocketSound} />
+                : <SettingsBlock rocketSound={rocketSound} />
+            }
+            {isStartedFlashCard
+                ? <FlashCardsBlock rocketSound={rocketSound}/>
+                : <SettingsFlashCardsBlock rocketSound={rocketSound}/>
+            }
+
         </div>
     )
 }

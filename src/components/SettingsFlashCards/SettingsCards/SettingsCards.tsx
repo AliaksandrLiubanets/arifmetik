@@ -1,9 +1,9 @@
-import React, {ChangeEvent, FC, FocusEvent, memo, useCallback, useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, memo, useCallback} from 'react'
 import s from './Settings.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
-import {setActionsArrayAndAnswer, setNumberComp} from '../../../store/countGameReducer'
-import {setCard, setFlashCardsComp, switchPreStart} from '../../../store/flashCardsGameReducer'
+import {setCard, setFlashCardsComp, startGame} from '../../../store/flashCardsGameReducer'
+import {switchPreStart} from '../../../store/appReducer'
 
 type Props = {
     rocketSound: () => void
@@ -49,10 +49,13 @@ export const SettingsCards: FC<Props> = memo(({rocketSound}) => {
         //     setSound(e.currentTarget.checked)
         // }
         const setRandomCard = () => dispatch(setCard())
+        const start = () => dispatch(startGame({isStarted: true}))
+
 
         const startRocket = () => {
             setIsRocket(true)
             setRandomCard()
+            start()
             rocketSound()
         }
 

@@ -6,7 +6,7 @@ const initialState = {
     speed: 1,
     actionsCount: 2,
     isSoundOn: true,
-    isPreStart: false,
+    // isPreStart: false,
     isStarted: false,
     actionsArray: [] as string[],
     answer: 0,
@@ -30,9 +30,9 @@ export const slice = createSlice({
         switchSound(state, action: PayloadAction<{ isSoundOn: boolean }>) {
             state.isSoundOn = action.payload.isSoundOn
         },
-        switchPreStart(state, action: PayloadAction<{ isPreStart: boolean }>) {
-            state.isPreStart = action.payload.isPreStart
-        },
+        // switchPreStart(state, action: PayloadAction<{ isPreStart: boolean }>) {
+        //     state.isPreStart = action.payload.isPreStart
+        // },
         startGame(state, action: PayloadAction<{ isStarted: boolean }>) {
             state.isStarted = action.payload.isStarted
         },
@@ -53,7 +53,7 @@ export const {
     setSpeed,
     setActionsCount,
     switchSound,
-    switchPreStart,
+    // switchPreStart,
     startGame,
     setActionsArrayAndAnswer
 } = slice.actions

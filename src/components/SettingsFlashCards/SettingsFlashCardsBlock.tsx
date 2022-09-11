@@ -11,7 +11,7 @@ type Props = {
 
 export const SettingsFlashCardsBlock: FC<Props> = memo(({rocketSound}) => {
 
-    const {isPreStart} = useSelector((state: AppRootStateType) => state.count)
+    const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)
 
     return <>
         {isPreStart

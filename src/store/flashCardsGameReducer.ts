@@ -19,7 +19,7 @@ const initialState = {
     speed: 1,
     actionsCount: 2,
     isSoundOn: true,
-    isPreStart: false,
+    // isPreStart: false,
     isStarted: false,
     flashCardsArray: multiplicityOfFlashCards,
     flashCard: '',
@@ -44,9 +44,9 @@ export const slice = createSlice({
         setActionsCount(state, action: PayloadAction<{ actionsCount: number }>) {
             state.actionsCount = action.payload.actionsCount
         },
-        switchPreStart(state, action: PayloadAction<{ isPreStart: boolean }>) {
-            state.isPreStart = action.payload.isPreStart
-        },
+        // switchPreStart(state, action: PayloadAction<{ isPreStart: boolean }>) {
+        //     state.isPreStart = action.payload.isPreStart
+        // },
         startGame(state, action: PayloadAction<{ isStarted: boolean }>) {
             state.isStarted = action.payload.isStarted
         },
@@ -61,7 +61,7 @@ export const {
     setFlashCardsComp,
     setSpeed,
     setActionsCount,
-    switchPreStart,
+    // switchPreStart,
     startGame,
     setCard
 } = slice.actions

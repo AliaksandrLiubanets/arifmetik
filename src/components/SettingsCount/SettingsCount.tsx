@@ -7,9 +7,9 @@ import {
     setActionsCount,
     setNumberComp,
     setSpeed,
-    switchPreStart,
     switchSound
 } from '../../store/countGameReducer'
+import {switchPreStart} from '../../store/appReducer'
 
 type Props = {
     rocketSound: () => void

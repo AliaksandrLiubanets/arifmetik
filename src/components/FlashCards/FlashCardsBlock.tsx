@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {FC} from 'react'
 import s from './FlashCards.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
+import {setCard} from '../../store/flashCardsGameReducer'
+import {PreStart} from '../PreStart/PreStart'
 
 import f_0 from '../../assets/flash-cards/0_r_0.png'
 import f_1 from '../../assets/flash-cards/1_r_1.png'
@@ -57,10 +59,14 @@ import f_3_2_3_2 from '../../assets/flash-cards/10_r_3_2_3_2.png'
 import f_3_2_2_3 from '../../assets/flash-cards/10_r_3_2_2_3.png'
 import f_2_3_3_2 from '../../assets/flash-cards/10_r_2_3_3_2.png'
 import f_2_3_2_3 from '../../assets/flash-cards/10_r_2_3_2_3.png'
-import {setCard} from '../../store/flashCardsGameReducer'
 
+type Props = {
+    rocketSound: () => void
+}
 
-export const FlashCards = () => {
+export const FlashCardsBlock: FC<Props> = ({rocketSound}) => {
+
+    const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)
 
     const card = useSelector((state: AppRootStateType) => state.cards.flashCard)
     let flashCard: string
@@ -226,11 +232,16 @@ export const FlashCards = () => {
     const dispatch = useDispatch()
     const nextFlashCard = () => dispatch(setCard())
 
-    return <div className={s.flash}>
-        <div className={s.card}><img src={flashCard} alt={'card'}/></div>
-        {/*<div className={s.card}><img src={r_3} alt={'card'}/></div>*/}
-        <div>
-            <button onClick={nextFlashCard}>Далее</button>
-        </div>
-    </div>
+    return <>
+        {isPreStart
+            ? <PreStart/>
+            : <div className={s.flash}>
+                <div className={s.card}><img src={flashCard} alt={'card'}/></div>
+                {/*<div className={s.card}><img src={r_3} alt={'card'}/></div>*/}
+                <div>
+                    <button onClick={nextFlashCard}>Далее</button>
+                </div>
+            </div>
+        }
+    </>
 }
