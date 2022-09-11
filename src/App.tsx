@@ -8,6 +8,7 @@ import {useSelector} from 'react-redux'
 import {AppRootStateType} from './store/store'
 import {FlashCards} from './components/FlashCards/FlashCards'
 import {SettingsBlock} from './components/SettingsBlock/SettingsBlock'
+import {SettingsFlashCardsBlock} from './components/SettingsFlashCards/SettingsFlashCardsBlock'
 
 function App() {
     const isStarted = useSelector((state: AppRootStateType) => state.count.isStarted)
@@ -21,7 +22,7 @@ function App() {
             {/*    ? <Game rocketSound={rocketSound} />*/}
             {/*    : <SettingsBlock rocketSound={rocketSound} />*/}
             {/*}*/}
-            <FlashCards/>
+            <SettingsFlashCardsBlock rocketSound={rocketSound}/>
         </div>
     )
 }

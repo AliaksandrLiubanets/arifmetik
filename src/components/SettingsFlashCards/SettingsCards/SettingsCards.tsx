@@ -3,7 +3,7 @@ import s from './Settings.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import {setActionsArrayAndAnswer, setNumberComp} from '../../../store/countGameReducer'
-import {setFlashCardsComp, switchPreStart} from '../../../store/flashCardsGameReducer'
+import {setCard, setFlashCardsComp, switchPreStart} from '../../../store/flashCardsGameReducer'
 
 type Props = {
     rocketSound: () => void
@@ -48,11 +48,11 @@ export const SettingsCards: FC<Props> = memo(({rocketSound}) => {
         // const onChangeSound = (e: ChangeEvent<HTMLInputElement>) => {
         //     setSound(e.currentTarget.checked)
         // }
-        const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer())
+        const setRandomCard = () => dispatch(setCard())
 
         const startRocket = () => {
             setIsRocket(true)
-            makeActionsArrayAndAnswer()
+            setRandomCard()
             rocketSound()
         }
 
