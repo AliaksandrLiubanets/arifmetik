@@ -6,10 +6,10 @@ import {FlashCards} from './FlashCards'
 
 
 type Props = {
-    rocketSound: () => void
+
 }
 
-export const FlashCardsBlock: FC<Props> = ({rocketSound}) => {
+export const FlashCardsBlock: FC<Props> = () => {
 
     const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)
 

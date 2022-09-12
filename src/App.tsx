@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react'
 import './App.css'
-import {SettingsCount} from './components/SettingsCount/SettingsCount'
-import {GameBlock} from './components/Game/GameBlock'
+import {CountBlock} from './components/Count/CountBlock'
 import useSound from 'use-sound'
 import rocket_start from './assets/sounds/rocket/rocket_2sec.mp3'
 import {useSelector} from 'react-redux'
@@ -20,14 +19,13 @@ function App() {
         <div className="App">
             <div className={'bg'}></div>
             {isStartedCount
-                ? <GameBlock rocketSound={rocketSound} />
+                ? <CountBlock rocketSound={rocketSound} />
                 : <SettingsBlock rocketSound={rocketSound} />
             }
             {isStartedFlashCard
-                ? <FlashCardsBlock rocketSound={rocketSound}/>
+                ? <FlashCardsBlock />
                 : <SettingsFlashCardsBlock rocketSound={rocketSound}/>
             }
-
         </div>
     )
 }
