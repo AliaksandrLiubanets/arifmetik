@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 import {setActionsArrayAndAnswer, startGame} from '../../store/countGameReducer'
 import {switchPreStart} from '../../store/appReducer'
+import {ButtonBack} from '../ButtonBack/ButtonBack'
 
 type PropsActionsAnswer = {
     rocketSound: () => void
@@ -55,7 +56,7 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({rocketSound}) => {
     }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound])
 
     return <>
-        <button onClick={handleBackToSettings}>Назад</button>
+        <ButtonBack callback={handleBackToSettings}/>
         {!isShowAnswer
             ? <Actions showInput={showInput} focusOnElement={focusOnElement} />
             : <Answer answer={answer} inputAnswer={inputAnswer} />
