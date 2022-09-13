@@ -9,7 +9,7 @@ type Props = {
 
 }
 
-export const FlashCardsBlock: FC<Props> = () => {
+export const FlashCardsGame: FC<Props> = () => {
 
     const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)
 

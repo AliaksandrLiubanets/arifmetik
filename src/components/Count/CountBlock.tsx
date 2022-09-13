@@ -1,26 +1,20 @@
-import React, {FC, memo} from 'react'
-import s from './/Game.module.css'
-import {PreStart} from '../PreStart/PreStart'
-import {Count} from './Count'
+import React, {useCallback} from 'react'
 import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
+import {CountGame} from './CountGame'
+import {SettingsBlock} from '../SettingsBlock/SettingsBlock'
+import useSound from 'use-sound'
+import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
 
-type Props = {
-    rocketSound: () => void
+export const CountBlock = () => {
+    const isStartedCount = useSelector((state: AppRootStateType) => state.count.isStarted)
+    const [rocket] = useSound(rocket_start)
+    const rocketSound = useCallback(() => rocket(), [rocket])
+
+    return <>
+        {isStartedCount
+            ? <CountGame rocketSound={rocketSound}/>
+            : <SettingsBlock rocketSound={rocketSound}/>
+        }
+    </>
 }
-
-export const CountBlock: FC<Props> = memo(({rocketSound}) => {
-
-    const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)
-
-        return (
-            <div className={s.game}>
-                {isPreStart
-                    ? <PreStart />
-                    : <Count rocketSound={rocketSound}/>
-                }
-            </div>
-        )
-    }
-)
-
