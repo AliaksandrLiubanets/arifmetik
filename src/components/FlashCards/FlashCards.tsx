@@ -54,6 +54,8 @@ import {AppRootStateType} from '../../store/store'
 import s from './FlashCards.module.css'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
 import {ButtonBack} from '../ButtonBack/ButtonBack'
+import {PATH} from '../../enums/paths'
+import {NavLink} from 'react-router-dom'
 
 export const FlashCards = () => {
 
@@ -229,5 +231,6 @@ export const FlashCards = () => {
         </div>
         <ButtonNext isOnFocus={true} callback={nextFlashCard} />
         <ButtonBack callback={handleBackToSettings}/>
+        <NavLink to={PATH.MAIN}>На главную</NavLink>
     </>
 }

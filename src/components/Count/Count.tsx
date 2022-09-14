@@ -6,6 +6,8 @@ import {AppRootStateType} from '../../store/store'
 import {startGame} from '../../store/countGameReducer'
 import {ButtonBack} from '../ButtonBack/ButtonBack'
 import {AnswerInput} from './AnswerInput'
+import {PATH} from '../../enums/paths'
+import {NavLink} from 'react-router-dom'
 
 type PropsActionsAnswer = {
     rocketSound: () => void
@@ -41,6 +43,7 @@ export const Count: FC<PropsActionsAnswer> = ({rocketSound}) => {
                      focusOnElement={focusOnElement}
         />
         }
+        <NavLink to={PATH.MAIN}>На главную</NavLink>
     </>
 }
 

@@ -10,6 +10,8 @@ import {
     switchSound
 } from '../../store/countGameReducer'
 import {switchPreStart} from '../../store/appReducer'
+import {PATH} from '../../enums/paths'
+import {NavLink} from 'react-router-dom'
 
 type Props = {
     rocketSound: () => void
@@ -108,7 +110,7 @@ export const SettingsCount: FC<Props> = memo(({rocketSound}) => {
             <button onClick={startRocket}>
                 Старт
             </button>
+            <NavLink to={PATH.MAIN}>На главную</NavLink>
         </div>
-
     }
 )
