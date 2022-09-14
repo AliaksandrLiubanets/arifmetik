@@ -9,9 +9,11 @@ import {
     setSpeed,
     switchSound
 } from '../../store/countGameReducer'
-import {switchPreStart} from '../../store/appReducer'
+import {startGame, switchPreStart} from '../../store/appReducer'
 import useSound from 'use-sound'
 import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
+import {NavLink} from 'react-router-dom'
+import {PATH} from '../../enums/paths'
 
 export const SettingsCount: FC = memo(() => {
 
@@ -61,6 +63,7 @@ export const SettingsCount: FC = memo(() => {
             setSound(e.currentTarget.checked)
         }
         const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer())
+        const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 
         const startRocket = () => {
             setIsRocket(true)
@@ -69,6 +72,9 @@ export const SettingsCount: FC = memo(() => {
         }
 
         return <div className={s.container}>
+            <NavLink to={PATH.MAIN}>
+                <button onClick={handleBackToSettings}>На главную</button>
+            </NavLink>
             <div className={s.settings_block}>
                 <div>Состав числа:</div>
                 <input

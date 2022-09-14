@@ -26,6 +26,7 @@ export const SettingsCards: FC = memo(() => {
 
         const setRandomCard = () => dispatch(setCard())
         const start = () => dispatch(startGame({isStarted: true}))
+        const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 
         const startRocket = () => {
             setIsRocket(true)
@@ -35,6 +36,9 @@ export const SettingsCards: FC = memo(() => {
         }
 
         return <div className={s.container}>
+            <NavLink to={PATH.MAIN}>
+                <button onClick={handleBackToSettings}>На главную</button>
+            </NavLink>
             <div className={s.settings_block}>
                 <div>Состав числа:</div>
                 <input
@@ -47,7 +51,6 @@ export const SettingsCards: FC = memo(() => {
             <button onClick={startRocket}>
                 Старт
             </button>
-            <NavLink to={PATH.MAIN}>На главную</NavLink>
         </div>
 
     }
