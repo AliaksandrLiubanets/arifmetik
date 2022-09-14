@@ -5,11 +5,7 @@ import {PreStart} from '../PreStart/PreStart'
 import {FlashCards} from './FlashCards'
 
 
-type Props = {
-
-}
-
-export const FlashCardsGame: FC<Props> = () => {
+export const FlashCardsGame: FC = () => {
 
     const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)
 

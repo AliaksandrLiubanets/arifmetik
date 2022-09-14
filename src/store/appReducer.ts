@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 const initialState = {
     isPreStart: false,
+    isStarted: false,
 }
 
 export const slice = createSlice({
@@ -11,12 +12,16 @@ export const slice = createSlice({
         switchPreStart(state, action: PayloadAction<{ isPreStart: boolean }>) {
             state.isPreStart = action.payload.isPreStart
         },
+        startGame(state, action: PayloadAction<{ isStarted: boolean }>) {
+            state.isStarted = action.payload.isStarted
+        },
     }
 })
 
 export const appReducer = slice.reducer
 export const {
-    switchPreStart
+    switchPreStart,
+    startGame
 } = slice.actions
 
 //types

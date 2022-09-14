@@ -4,18 +4,15 @@ import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 import {SettingsCount} from '../SettingsCount/SettingsCount'
 
-type Props = {
-    rocketSound: () => void
-}
 
-export const SettingsBlock: FC<Props> = memo(({rocketSound}) => {
+export const SettingsBlock: FC = memo(() => {
 
     const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)
 
     return <>
         {isPreStart
             ? <PreStart/>
-            : <SettingsCount rocketSound={rocketSound}/>
+            : <SettingsCount />
         }
     </>
 })

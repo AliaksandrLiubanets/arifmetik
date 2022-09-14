@@ -10,23 +10,22 @@ import {
     switchSound
 } from '../../store/countGameReducer'
 import {switchPreStart} from '../../store/appReducer'
-import {PATH} from '../../enums/paths'
-import {NavLink} from 'react-router-dom'
+import useSound from 'use-sound'
+import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
 
-type Props = {
-    rocketSound: () => void
-}
-
-export const SettingsCount: FC<Props> = memo(({rocketSound}) => {
+export const SettingsCount: FC = memo(() => {
 
         const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
+
+        const [rocket] = useSound(rocket_start)
+        const rocketSound = useCallback(() => rocket(), [rocket])
 
         const dispatch = useDispatch()
         const {
             numberComposition,
             actionsCount,
             speed,
-            isSoundOn,
+            isSoundOn
         } = useSelector((state: AppRootStateType) => state.count)
 
         const setTimeoutValue = useCallback((speed: number) => dispatch(setSpeed({speed})), [dispatch])
@@ -110,7 +109,7 @@ export const SettingsCount: FC<Props> = memo(({rocketSound}) => {
             <button onClick={startRocket}>
                 Старт
             </button>
-            <NavLink to={PATH.MAIN}>На главную</NavLink>
+            {/*<NavLink to={PATH.MAIN}>На главную</NavLink>*/}
         </div>
     }
 )

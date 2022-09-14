@@ -3,11 +3,11 @@ import {Actions} from '../Actions/Actions'
 import {Answer} from '../Answer/Answer'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
-import {startGame} from '../../store/countGameReducer'
 import {ButtonBack} from '../ButtonBack/ButtonBack'
 import {AnswerInput} from './AnswerInput'
 import {PATH} from '../../enums/paths'
 import {NavLink} from 'react-router-dom'
+import {startGame} from '../../store/appReducer'
 
 type PropsActionsAnswer = {
     rocketSound: () => void
@@ -28,6 +28,9 @@ export const Count: FC<PropsActionsAnswer> = ({rocketSound}) => {
     const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 
     return <>
+        <NavLink to={PATH.MAIN} >
+            <button onClick={handleBackToSettings}>На главную</button>
+        </NavLink>
         <ButtonBack callback={handleBackToSettings}/>
         {!isShowAnswer
             ? <Actions showInput={showInput} focusOnElement={focusOnElement}/>
@@ -43,7 +46,6 @@ export const Count: FC<PropsActionsAnswer> = ({rocketSound}) => {
                      focusOnElement={focusOnElement}
         />
         }
-        <NavLink to={PATH.MAIN}>На главную</NavLink>
     </>
 }
 

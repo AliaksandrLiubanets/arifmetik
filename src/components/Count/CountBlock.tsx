@@ -7,14 +7,14 @@ import useSound from 'use-sound'
 import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
 
 export const CountBlock = () => {
-    const isStartedCount = useSelector((state: AppRootStateType) => state.count.isStarted)
+    const isStarted = useSelector((state: AppRootStateType) => state.app.isStarted)
     const [rocket] = useSound(rocket_start)
     const rocketSound = useCallback(() => rocket(), [rocket])
 
     return <>
-        {isStartedCount
+        {isStarted
             ? <CountGame rocketSound={rocketSound}/>
-            : <SettingsBlock rocketSound={rocketSound}/>
+            : <SettingsBlock />
         }
     </>
 }

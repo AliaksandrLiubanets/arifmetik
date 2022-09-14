@@ -2,21 +2,18 @@ import React, {FC, memo} from 'react'
 import {PreStart} from '../PreStart/PreStart'
 import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
-import {SettingsCount} from '../SettingsCount/SettingsCount'
 import {SettingsCards} from './SettingsCards/SettingsCards'
 
-type Props = {
-    rocketSound: () => void
-}
 
-export const SettingsFlashCardsBlock: FC<Props> = memo(({rocketSound}) => {
+export const SettingsFlashCardsBlock: FC = memo(() => {
 
     const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)
 
     return <>
         {isPreStart
             ? <PreStart/>
-            : <SettingsCards rocketSound={rocketSound}/>
+            : <SettingsCards />
         }
     </>
 })
+

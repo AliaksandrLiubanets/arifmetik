@@ -48,7 +48,7 @@ import f_2_3_3_2 from '../../assets/flash-cards/10_r_2_3_3_2.png'
 import f_2_3_2_3 from '../../assets/flash-cards/10_r_2_3_2_3.png'
 
 import {useDispatch, useSelector} from 'react-redux'
-import {setCard, startGame} from '../../store/flashCardsGameReducer'
+import {setCard} from '../../store/flashCardsGameReducer'
 import React, {useCallback} from 'react'
 import {AppRootStateType} from '../../store/store'
 import s from './FlashCards.module.css'
@@ -56,6 +56,7 @@ import {ButtonNext} from '../ButtonNext/ButtonNext'
 import {ButtonBack} from '../ButtonBack/ButtonBack'
 import {PATH} from '../../enums/paths'
 import {NavLink} from 'react-router-dom'
+import {startGame} from '../../store/appReducer'
 
 export const FlashCards = () => {
 
@@ -225,12 +226,14 @@ export const FlashCards = () => {
     }
 
     return <>
+        <NavLink to={PATH.MAIN} >
+            <button onClick={handleBackToSettings}>На главную</button>
+        </NavLink>
+        <ButtonBack callback={handleBackToSettings}/>
         <div className={s.flash}>
             <div className={s.card}><img src={flashCard} alt={'card'}/></div>
             {/*<div className={s.card}><img src={r_3} alt={'card'}/></div>*/}
         </div>
         <ButtonNext isOnFocus={true} callback={nextFlashCard} />
-        <ButtonBack callback={handleBackToSettings}/>
-        <NavLink to={PATH.MAIN}>На главную</NavLink>
     </>
 }
