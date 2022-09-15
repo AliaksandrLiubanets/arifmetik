@@ -2,13 +2,9 @@ import {combineReducers} from 'redux'
 import {countGameReducer} from './countGameReducer'
 import {TypedUseSelectorHook, useSelector} from 'react-redux'
 import {configureStore} from '@reduxjs/toolkit'
-import {flashCardsGameReducer} from './flashCardsGameReducer'
-import {appReducer} from './appReducer'
 
 const rootReducer = combineReducers({
-    app: appReducer,
-    count: countGameReducer,
-    cards: flashCardsGameReducer
+    count: countGameReducer
 })
 
 export const store = configureStore({

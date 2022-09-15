@@ -5,8 +5,8 @@ type Props = {
     callback: () => void
 }
 export const ButtonNext: FC<Props> = memo(({isOnFocus, callback}) => {
-        return <div>
-            <button autoFocus={isOnFocus} onClick={callback}>Далее</button>
-        </div>
+        return <button
+            autoFocus={isOnFocus}
+            onClick={callback}>Далее</button>
     }
 )

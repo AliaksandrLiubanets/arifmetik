@@ -1,17 +1,26 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import './App.css'
-import {AllRoutes} from './components/Routes/AllRoutes'
+import {Settings} from './components/Settings/Settings'
+import {Game} from './components/Game/Game'
+import useSound from 'use-sound'
+import rocket_start from './assets/sounds/rocket/rocket_2sec.mp3'
+import {useSelector} from 'react-redux'
+import {AppRootStateType} from './store/store'
 
 function App() {
+    const isStarted = useSelector((state: AppRootStateType) => state.count.isStarted)
+    const [rocket] = useSound(rocket_start)
+    const rocketSound = useCallback(() => rocket(), [rocket])
+
     return (
         <div className="App">
-            <div className={'bg'}></div>
-            {/*<Main />*/}
-            <AllRoutes />
-        </div>
+                <div className={'bg'}></div>
+                    {isStarted
+                        ? <Game rocketSound={rocketSound} />
+                        : <Settings rocketSound={rocketSound} />
+                    }
+                </div>
     )
 }
 
 export default App
-
-

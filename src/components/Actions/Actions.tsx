@@ -1,4 +1,4 @@
-import s from '../Count/Game.module.css'
+import s from '../Game/Game.module.css'
 import React, {FC, memo, useEffect, useState} from 'react'
 import useSound from 'use-sound'
 import plus_1 from '../../assets/sounds/actions/+1.mp3'
