@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, FocusEvent, memo, useCallback, useEffect, useState} from 'react'
-import s from './Settings.module.css'
+import s from '../SettingsBlock/Settings.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 import {
@@ -75,47 +75,48 @@ export const SettingsCount: FC = memo(() => {
             <NavLink to={PATH.MAIN}>
                 <button onClick={handleBackToSettings}>На главную</button>
             </NavLink>
-            <div className={s.settings_block}>
-                <div>Состав числа:</div>
-                <input
-                    value={numberComposition}
-                    type="number"
-                    onChange={onChangeNumberComp}
-                    onFocus={handleFocus}
-                />
-            </div>
-            <div className={s.settings_block}>
-                <div>Скорость:</div>
-                <input
-                    value={speed}
-                    type="number"
-                    onChange={onChangeTimeOutValue}
-                    onFocus={handleFocus}
-                />
-            </div>
-            <div className={s.settings_block}>
-                <div>Количество действий:</div>
-                <input
-                    value={actionsCount}
-                    type="number"
-                    onChange={onChangeActionsCount}
-                    onFocus={handleFocus}
-                />
-            </div>
-            <div className={s.settings_block}>
-                <label>
+            <div className={s.settings_frame}>
+                <div className={s.settings_item}>
+                    <div>Состав числа:</div>
                     <input
-                        checked={isSoundOn}
-                        type="checkbox"
-                        onChange={onChangeSound}
-                        disabled={isDisabledCheckboxSound}
-                    />со звуком
-                </label>
+                        value={numberComposition}
+                        type="number"
+                        onChange={onChangeNumberComp}
+                        onFocus={handleFocus}
+                    />
+                </div>
+                <div className={s.settings_item}>
+                    <div>Скорость:</div>
+                    <input
+                        value={speed}
+                        type="number"
+                        onChange={onChangeTimeOutValue}
+                        onFocus={handleFocus}
+                    />
+                </div>
+                <div className={s.settings_item}>
+                    <div>Количество действий:</div>
+                    <input
+                        value={actionsCount}
+                        type="number"
+                        onChange={onChangeActionsCount}
+                        onFocus={handleFocus}
+                    />
+                </div>
+                <div className={s.settings_item}>
+                    <label>
+                        <input
+                            checked={isSoundOn}
+                            type="checkbox"
+                            onChange={onChangeSound}
+                            disabled={isDisabledCheckboxSound}
+                        />со звуком
+                    </label>
+                </div>
             </div>
             <button onClick={startRocket}>
                 Старт
             </button>
-            {/*<NavLink to={PATH.MAIN}>На главную</NavLink>*/}
         </div>
     }
 )

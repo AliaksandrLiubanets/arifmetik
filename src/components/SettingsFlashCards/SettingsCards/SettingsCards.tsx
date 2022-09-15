@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, FocusEvent, memo, useCallback} from 'react'
-import s from './Settings.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
+import s from '../../SettingsBlock/Settings.module.css'
 import {setCard, setFlashCardsComp} from '../../../store/flashCardsGameReducer'
 import {startGame, switchPreStart} from '../../../store/appReducer'
 import {PATH} from '../../../enums/paths'
@@ -39,14 +39,16 @@ export const SettingsCards: FC = memo(() => {
             <NavLink to={PATH.MAIN}>
                 <button onClick={handleBackToSettings}>На главную</button>
             </NavLink>
-            <div className={s.settings_block}>
-                <div>Состав числа:</div>
-                <input
-                    value={cardsComposition}
-                    type="number"
-                    onChange={onChangeCardsComp}
-                    onFocus={handleFocus}
-                />
+            <div className={s.settings_frame}>
+                <div className={s.settings_item}>
+                    <div>Состав числа:</div>
+                    <input
+                        value={cardsComposition}
+                        type="number"
+                        onChange={onChangeCardsComp}
+                        onFocus={handleFocus}
+                    />
+                </div>
             </div>
             <button onClick={startRocket}>
                 Старт
