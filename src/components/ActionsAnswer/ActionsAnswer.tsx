@@ -8,7 +8,8 @@ import s from '../Game/Game.module.css'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
-import {setActionsArrayAndAnswer, startGame, switchPreStart} from '../../store/countGameReducer'
+import {setActionsArrayAndAnswer} from '../../store/countGameReducer'
+import {startGame, switchPreStart} from '../../store/appReducer'
 
 type PropsActionsAnswer = {
     rocketSound: () => void
