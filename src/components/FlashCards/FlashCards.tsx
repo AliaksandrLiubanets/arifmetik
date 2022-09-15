@@ -66,7 +66,10 @@ export const FlashCards = () => {
     const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 
     const card = useSelector((state: AppRootStateType) => state.cards.flashCard)
+    const secondCard = useSelector((state: AppRootStateType) => state.cards.secondFlashCard)
+
     let flashCard: string
+    let secondFlashCard: string
 
     switch (card) {
         case '0':
@@ -226,6 +229,164 @@ export const FlashCards = () => {
             flashCard = f_0
     }
 
+    switch (secondCard) {
+        case '0':
+            secondFlashCard = f_0
+            break
+        case '1':
+            secondFlashCard = f_1
+            break
+        case '2':
+            secondFlashCard = f_2
+            break
+
+        case '3':
+            secondFlashCard = f_3
+            break
+        case '2_1':
+            secondFlashCard = f_2_1
+            break
+        case '1_2':
+            secondFlashCard = f_1_2
+            break
+
+        case '4':
+            secondFlashCard = f_4
+            break
+        case '1_3':
+            secondFlashCard = f_1_3
+            break
+        case '3_1':
+            secondFlashCard = f_3_1
+            break
+        case '2_2':
+            secondFlashCard = f_2_2
+            break
+
+        case '2_3':
+            secondFlashCard = f_2_3
+            break
+        case '3_2':
+            secondFlashCard = f_3_2
+            break
+        case '4_1':
+            secondFlashCard = f_4_1
+            break
+        case '1_4':
+            secondFlashCard = f_1_4
+            break
+
+        case '3_3':
+            secondFlashCard = f_3_3
+            break
+        case '4_2':
+            secondFlashCard = f_4_2
+            break
+        case '2_4':
+            secondFlashCard = f_2_4
+            break
+        case '2_2_2':
+            secondFlashCard = f_2_2_2
+            break
+
+        case '2_2_3':
+            secondFlashCard = f_2_2_3
+            break
+        case '2_3_2':
+            secondFlashCard = f_2_3_2
+            break
+        case '3_2_2':
+            secondFlashCard = f_3_2_2
+            break
+        case '3_4':
+            secondFlashCard = f_3_4
+            break
+        case '4_3':
+            secondFlashCard = f_4_3
+            break
+
+
+        case '4_4':
+            secondFlashCard = f_4_4
+            break
+        case '2_3_3':
+            secondFlashCard = f_2_3_3
+            break
+        case '3_2_3':
+            secondFlashCard = f_3_2_3
+            break
+        case '3_3_2':
+            secondFlashCard = f_3_3_2
+            break
+        case '4_2_2':
+            secondFlashCard = f_4_2_2
+            break
+        case '2_2_4':
+            secondFlashCard = f_2_2_4
+            break
+        case '2_4_2':
+            secondFlashCard = f_2_4_2
+            break
+
+        case '4_2_3':
+            secondFlashCard = f_4_2_3
+            break
+        case '4_3_2':
+            secondFlashCard = f_4_3_2
+            break
+        case '3_2_4':
+            secondFlashCard = f_3_2_4
+            break
+        case '3_4_2':
+            secondFlashCard = f_3_4_2
+            break
+        case '3_3_3':
+            secondFlashCard = f_3_3_3
+            break
+        case '2_3_4':
+            secondFlashCard = f_2_3_4
+            break
+        case '2_4_3':
+            secondFlashCard = f_2_4_3
+            break
+
+        case '4_4_2':
+            secondFlashCard = f_4_4_2
+            break
+        case '2_4_4':
+            secondFlashCard = f_2_4_4
+            break
+        case '4_2_4':
+            secondFlashCard = f_4_2_4
+            break
+        case '3_4_3':
+            secondFlashCard = f_3_4_3
+            break
+        case '4_3_3':
+            secondFlashCard = f_4_3_3
+            break
+        case '3_3_4':
+            secondFlashCard = f_3_3_4
+            break
+        case '3_3_2_2':
+            secondFlashCard = f_3_3_2_2
+            break
+        case '3_2_3_2':
+            secondFlashCard = f_3_2_3_2
+            break
+        case '3_2_2_3':
+            secondFlashCard = f_3_2_2_3
+            break
+        case '2_3_3_2':
+            secondFlashCard = f_2_3_3_2
+            break
+        case '2_3_2_3':
+            secondFlashCard = f_2_3_2_3
+            break
+        default:
+            secondFlashCard = f_0
+    }
+
     return <div className={p.container}>
         <NavLink to={PATH.MAIN} >
             <button onClick={handleBackToSettings}>На главную</button>
@@ -233,7 +394,7 @@ export const FlashCards = () => {
         <ButtonBack callback={handleBackToSettings}/>
         <div className={s.flash}>
             <div className={s.card}><img src={flashCard} alt={'card'}/></div>
-            {/*<div className={s.card}><img src={r_3} alt={'card'}/></div>*/}
+            <div className={s.card}><img src={secondFlashCard} alt={'card'}/></div>
         </div>
         <ButtonNext isOnFocus={true} callback={nextFlashCard} />
     </div>

@@ -48,11 +48,7 @@ export const getArrayOfCalculationsAndAnswer = (actionsCount: number, numberComp
 
 export const getRandomCard = (array: string[][], cardsComposition: number) => {
     const arrIndex = Math.floor(Math.random() * cardsComposition)
-    console.log('arrIndex:', arrIndex)
     const randomInnerArray = array[arrIndex]
-    console.log('randomInnerArray:', randomInnerArray)
     const innerIndex = Math.floor(Math.random() * randomInnerArray.length)
-    console.log('innerIndex:', innerIndex)
-    console.log('randomCard:', randomInnerArray[innerIndex])
     return randomInnerArray[innerIndex]
 }

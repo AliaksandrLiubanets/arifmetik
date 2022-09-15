@@ -21,6 +21,7 @@ const initialState = {
     isSoundOn: true,
     flashCardsArray: multiplicityOfFlashCards,
     flashCard: '',
+    secondFlashCard: '',
     answer: 0,
     isShowAnswer: false,
     isShowInput: false
@@ -44,6 +45,9 @@ export const slice = createSlice({
         },
         setCard(state) {
             state.flashCard = getRandomCard(state.flashCardsArray, state.cardsComposition)
+            console.log('flashCard:', state.flashCard)
+            state.secondFlashCard = getRandomCard(state.flashCardsArray, state.cardsComposition)
+            console.log('secondFlashCard:', state.secondFlashCard)
         }
     }
 })
