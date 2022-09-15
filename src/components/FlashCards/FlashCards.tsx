@@ -52,6 +52,7 @@ import {setCard} from '../../store/flashCardsGameReducer'
 import React, {useCallback} from 'react'
 import {AppRootStateType} from '../../store/store'
 import s from './FlashCards.module.css'
+import p from '../GameStyles/GameStyles.module.css'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
 import {ButtonBack} from '../ButtonBack/ButtonBack'
 import {PATH} from '../../enums/paths'
@@ -225,7 +226,7 @@ export const FlashCards = () => {
             flashCard = f_0
     }
 
-    return <>
+    return <div className={p.container}>
         <NavLink to={PATH.MAIN} >
             <button onClick={handleBackToSettings}>На главную</button>
         </NavLink>
@@ -235,5 +236,5 @@ export const FlashCards = () => {
             {/*<div className={s.card}><img src={r_3} alt={'card'}/></div>*/}
         </div>
         <ButtonNext isOnFocus={true} callback={nextFlashCard} />
-    </>
+    </div>
 }

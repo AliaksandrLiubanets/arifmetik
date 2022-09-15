@@ -8,6 +8,7 @@ import {AnswerInput} from './AnswerInput'
 import {PATH} from '../../enums/paths'
 import {NavLink} from 'react-router-dom'
 import {startGame} from '../../store/appReducer'
+import p from '../GameStyles/GameStyles.module.css'
 
 type PropsActionsAnswer = {
     rocketSound: () => void
@@ -27,8 +28,8 @@ export const Count: FC<PropsActionsAnswer> = ({rocketSound}) => {
     const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
     const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 
-    return <>
-        <NavLink to={PATH.MAIN} >
+    return <div className={p.container}>
+        <NavLink to={PATH.MAIN}>
             <button onClick={handleBackToSettings}>На главную</button>
         </NavLink>
         <ButtonBack callback={handleBackToSettings}/>
@@ -46,6 +47,6 @@ export const Count: FC<PropsActionsAnswer> = ({rocketSound}) => {
                      focusOnElement={focusOnElement}
         />
         }
-    </>
+    </div>
 }
 
