@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, FocusEvent, memo, useCallback} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, memo, useCallback, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
@@ -35,11 +35,30 @@ export const SettingsCards: FC = memo(() => {
             rocketSound()
         }
 
+        const [value, setValue] = useState('1');
+
+        function chengeValue(event: ChangeEvent<HTMLInputElement>) {
+            setValue(event.target.value);
+        }
+
+
         return <div className={s.container}>
             <NavLink to={PATH.MAIN}>
                 <button onClick={handleBackToSettings}>На главную</button>
             </NavLink>
             <div className={s.settings_frame}>
+                <div className={s.settings_item}>
+                    <div>
+                        <input type="radio" id='1_card' name="cardsNumber" value="1"
+                               checked={value === '1'}
+                               onChange={chengeValue} />
+                        <label htmlFor="1_card">1-я карточка</label>
+                        <input type="radio" id='2_card' name="cardsNumber" value="2"
+                               checked={value === '2'}
+                               onChange={chengeValue} />
+                        <label htmlFor="2_card">2-я карточка</label>
+                    </div>
+                </div>
                 <div className={s.settings_item}>
                     <div>Состав числа:</div>
                     <input
