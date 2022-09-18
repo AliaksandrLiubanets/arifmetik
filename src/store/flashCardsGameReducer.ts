@@ -21,6 +21,7 @@ const initialState = {
     isSoundOn: true,
     flashCardsArray: multiplicityOfFlashCards,
     flashCard: '',
+    numberOfFlashCards: 1,
     secondFlashCard: '',
     answer: 0,
     isShowAnswer: false,
@@ -43,6 +44,9 @@ export const slice = createSlice({
         setActionsCount(state, action: PayloadAction<{ actionsCount: number }>) {
             state.actionsCount = action.payload.actionsCount
         },
+        setNumberOfFlashCards(state, action: PayloadAction<{ numberOfFlashCards: number }>) {
+            state.numberOfFlashCards = action.payload.numberOfFlashCards
+        },
         setCard(state) {
             state.flashCard = getRandomCard(state.flashCardsArray, state.cardsComposition)
             console.log('flashCard:', state.flashCard)
@@ -55,6 +59,7 @@ export const slice = createSlice({
 export const flashCardsGameReducer = slice.reducer
 export const {
     setFlashCardsComp,
+    setNumberOfFlashCards,
     setSpeed,
     setActionsCount,
     setCard

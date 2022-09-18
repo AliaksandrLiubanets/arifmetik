@@ -65,337 +65,339 @@ export const FlashCards = () => {
     const nextFlashCard = () => dispatch(setCard())
     const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 
-    const card = useSelector((state: AppRootStateType) => state.cards.flashCard)
-    const secondCard = useSelector((state: AppRootStateType) => state.cards.secondFlashCard)
+    const {flashCard, secondFlashCard, numberOfFlashCards} = useSelector((state: AppRootStateType) => state.cards)
 
-    let flashCard: string
-    let secondFlashCard: string
+    let card: string
+    let secondCard: string
 
-    switch (card) {
+    switch (flashCard) {
         case '0':
-            flashCard = f_0
+            card = f_0
             break
         case '1':
-            flashCard = f_1
+            card = f_1
             break
         case '2':
-            flashCard = f_2
+            card = f_2
             break
 
         case '3':
-            flashCard = f_3
+            card = f_3
             break
         case '2_1':
-            flashCard = f_2_1
+            card = f_2_1
             break
         case '1_2':
-            flashCard = f_1_2
+            card = f_1_2
             break
 
         case '4':
-            flashCard = f_4
+            card = f_4
             break
         case '1_3':
-            flashCard = f_1_3
+            card = f_1_3
             break
         case '3_1':
-            flashCard = f_3_1
+            card = f_3_1
             break
         case '2_2':
-            flashCard = f_2_2
+            card = f_2_2
             break
 
         case '2_3':
-            flashCard = f_2_3
+            card = f_2_3
             break
         case '3_2':
-            flashCard = f_3_2
+            card = f_3_2
             break
         case '4_1':
-            flashCard = f_4_1
+            card = f_4_1
             break
         case '1_4':
-            flashCard = f_1_4
+            card = f_1_4
             break
 
         case '3_3':
-            flashCard = f_3_3
+            card = f_3_3
             break
         case '4_2':
-            flashCard = f_4_2
+            card = f_4_2
             break
         case '2_4':
-            flashCard = f_2_4
+            card = f_2_4
             break
         case '2_2_2':
-            flashCard = f_2_2_2
+            card = f_2_2_2
             break
 
         case '2_2_3':
-            flashCard = f_2_2_3
+            card = f_2_2_3
             break
         case '2_3_2':
-            flashCard = f_2_3_2
+            card = f_2_3_2
             break
         case '3_2_2':
-            flashCard = f_3_2_2
+            card = f_3_2_2
             break
         case '3_4':
-            flashCard = f_3_4
+            card = f_3_4
             break
         case '4_3':
-            flashCard = f_4_3
+            card = f_4_3
             break
 
 
         case '4_4':
-            flashCard = f_4_4
+            card = f_4_4
             break
         case '2_3_3':
-            flashCard = f_2_3_3
+            card = f_2_3_3
             break
         case '3_2_3':
-            flashCard = f_3_2_3
+            card = f_3_2_3
             break
         case '3_3_2':
-            flashCard = f_3_3_2
+            card = f_3_3_2
             break
         case '4_2_2':
-            flashCard = f_4_2_2
+            card = f_4_2_2
             break
         case '2_2_4':
-            flashCard = f_2_2_4
+            card = f_2_2_4
             break
         case '2_4_2':
-            flashCard = f_2_4_2
+            card = f_2_4_2
             break
 
         case '4_2_3':
-            flashCard = f_4_2_3
+            card = f_4_2_3
             break
         case '4_3_2':
-            flashCard = f_4_3_2
+            card = f_4_3_2
             break
         case '3_2_4':
-            flashCard = f_3_2_4
+            card = f_3_2_4
             break
         case '3_4_2':
-            flashCard = f_3_4_2
+            card = f_3_4_2
             break
         case '3_3_3':
-            flashCard = f_3_3_3
+            card = f_3_3_3
             break
         case '2_3_4':
-            flashCard = f_2_3_4
+            card = f_2_3_4
             break
         case '2_4_3':
-            flashCard = f_2_4_3
+            card = f_2_4_3
             break
 
         case '4_4_2':
-            flashCard = f_4_4_2
+            card = f_4_4_2
             break
         case '2_4_4':
-            flashCard = f_2_4_4
+            card = f_2_4_4
             break
         case '4_2_4':
-            flashCard = f_4_2_4
+            card = f_4_2_4
             break
         case '3_4_3':
-            flashCard = f_3_4_3
+            card = f_3_4_3
             break
         case '4_3_3':
-            flashCard = f_4_3_3
+            card = f_4_3_3
             break
         case '3_3_4':
-            flashCard = f_3_3_4
+            card = f_3_3_4
             break
         case '3_3_2_2':
-            flashCard = f_3_3_2_2
+            card = f_3_3_2_2
             break
         case '3_2_3_2':
-            flashCard = f_3_2_3_2
+            card = f_3_2_3_2
             break
         case '3_2_2_3':
-            flashCard = f_3_2_2_3
+            card = f_3_2_2_3
             break
         case '2_3_3_2':
-            flashCard = f_2_3_3_2
+            card = f_2_3_3_2
             break
         case '2_3_2_3':
-            flashCard = f_2_3_2_3
+            card = f_2_3_2_3
             break
         default:
-            flashCard = f_0
+            card = f_0
     }
 
-    switch (secondCard) {
+    switch (secondFlashCard) {
         case '0':
-            secondFlashCard = f_0
+            secondCard = f_0
             break
         case '1':
-            secondFlashCard = f_1
+            secondCard = f_1
             break
         case '2':
-            secondFlashCard = f_2
+            secondCard = f_2
             break
 
         case '3':
-            secondFlashCard = f_3
+            secondCard = f_3
             break
         case '2_1':
-            secondFlashCard = f_2_1
+            secondCard = f_2_1
             break
         case '1_2':
-            secondFlashCard = f_1_2
+            secondCard = f_1_2
             break
 
         case '4':
-            secondFlashCard = f_4
+            secondCard = f_4
             break
         case '1_3':
-            secondFlashCard = f_1_3
+            secondCard = f_1_3
             break
         case '3_1':
-            secondFlashCard = f_3_1
+            secondCard = f_3_1
             break
         case '2_2':
-            secondFlashCard = f_2_2
+            secondCard = f_2_2
             break
 
         case '2_3':
-            secondFlashCard = f_2_3
+            secondCard = f_2_3
             break
         case '3_2':
-            secondFlashCard = f_3_2
+            secondCard = f_3_2
             break
         case '4_1':
-            secondFlashCard = f_4_1
+            secondCard = f_4_1
             break
         case '1_4':
-            secondFlashCard = f_1_4
+            secondCard = f_1_4
             break
 
         case '3_3':
-            secondFlashCard = f_3_3
+            secondCard = f_3_3
             break
         case '4_2':
-            secondFlashCard = f_4_2
+            secondCard = f_4_2
             break
         case '2_4':
-            secondFlashCard = f_2_4
+            secondCard = f_2_4
             break
         case '2_2_2':
-            secondFlashCard = f_2_2_2
+            secondCard = f_2_2_2
             break
 
         case '2_2_3':
-            secondFlashCard = f_2_2_3
+            secondCard = f_2_2_3
             break
         case '2_3_2':
-            secondFlashCard = f_2_3_2
+            secondCard = f_2_3_2
             break
         case '3_2_2':
-            secondFlashCard = f_3_2_2
+            secondCard = f_3_2_2
             break
         case '3_4':
-            secondFlashCard = f_3_4
+            secondCard = f_3_4
             break
         case '4_3':
-            secondFlashCard = f_4_3
+            secondCard = f_4_3
             break
 
 
         case '4_4':
-            secondFlashCard = f_4_4
+            secondCard = f_4_4
             break
         case '2_3_3':
-            secondFlashCard = f_2_3_3
+            secondCard = f_2_3_3
             break
         case '3_2_3':
-            secondFlashCard = f_3_2_3
+            secondCard = f_3_2_3
             break
         case '3_3_2':
-            secondFlashCard = f_3_3_2
+            secondCard = f_3_3_2
             break
         case '4_2_2':
-            secondFlashCard = f_4_2_2
+            secondCard = f_4_2_2
             break
         case '2_2_4':
-            secondFlashCard = f_2_2_4
+            secondCard = f_2_2_4
             break
         case '2_4_2':
-            secondFlashCard = f_2_4_2
+            secondCard = f_2_4_2
             break
 
         case '4_2_3':
-            secondFlashCard = f_4_2_3
+            secondCard = f_4_2_3
             break
         case '4_3_2':
-            secondFlashCard = f_4_3_2
+            secondCard = f_4_3_2
             break
         case '3_2_4':
-            secondFlashCard = f_3_2_4
+            secondCard = f_3_2_4
             break
         case '3_4_2':
-            secondFlashCard = f_3_4_2
+            secondCard = f_3_4_2
             break
         case '3_3_3':
-            secondFlashCard = f_3_3_3
+            secondCard = f_3_3_3
             break
         case '2_3_4':
-            secondFlashCard = f_2_3_4
+            secondCard = f_2_3_4
             break
         case '2_4_3':
-            secondFlashCard = f_2_4_3
+            secondCard = f_2_4_3
             break
 
         case '4_4_2':
-            secondFlashCard = f_4_4_2
+            secondCard = f_4_4_2
             break
         case '2_4_4':
-            secondFlashCard = f_2_4_4
+            secondCard = f_2_4_4
             break
         case '4_2_4':
-            secondFlashCard = f_4_2_4
+            secondCard = f_4_2_4
             break
         case '3_4_3':
-            secondFlashCard = f_3_4_3
+            secondCard = f_3_4_3
             break
         case '4_3_3':
-            secondFlashCard = f_4_3_3
+            secondCard = f_4_3_3
             break
         case '3_3_4':
-            secondFlashCard = f_3_3_4
+            secondCard = f_3_3_4
             break
         case '3_3_2_2':
-            secondFlashCard = f_3_3_2_2
+            secondCard = f_3_3_2_2
             break
         case '3_2_3_2':
-            secondFlashCard = f_3_2_3_2
+            secondCard = f_3_2_3_2
             break
         case '3_2_2_3':
-            secondFlashCard = f_3_2_2_3
+            secondCard = f_3_2_2_3
             break
         case '2_3_3_2':
-            secondFlashCard = f_2_3_3_2
+            secondCard = f_2_3_3_2
             break
         case '2_3_2_3':
-            secondFlashCard = f_2_3_2_3
+            secondCard = f_2_3_2_3
             break
         default:
-            secondFlashCard = f_0
+            secondCard = f_0
     }
 
     return <div className={p.container}>
-        <NavLink to={PATH.MAIN} >
+        <NavLink to={PATH.MAIN}>
             <button onClick={handleBackToSettings}>На главную</button>
         </NavLink>
         <ButtonBack callback={handleBackToSettings}/>
         <div className={s.flash}>
-            <div className={s.card}><img src={flashCard} alt={'card'}/></div>
-            <div className={s.card}><img src={secondFlashCard} alt={'card'}/></div>
+            <div className={s.card}><img src={card} alt={'card'}/></div>
+            {
+                numberOfFlashCards === 2 &&
+                <div className={s.card}><img src={secondCard} alt={'card'}/></div>
+            }
         </div>
-        <ButtonNext isOnFocus={true} callback={nextFlashCard} />
+        <ButtonNext isOnFocus={true} callback={nextFlashCard}/>
     </div>
 }

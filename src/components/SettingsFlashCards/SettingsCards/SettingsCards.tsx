@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC, FocusEvent, memo, useCallback, useState} from 'r
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
-import {setCard, setFlashCardsComp} from '../../../store/flashCardsGameReducer'
+import {setCard, setFlashCardsComp, setNumberOfFlashCards} from '../../../store/flashCardsGameReducer'
 import {startGame, switchPreStart} from '../../../store/appReducer'
 import {PATH} from '../../../enums/paths'
 import {NavLink} from 'react-router-dom'
@@ -15,7 +15,7 @@ export const SettingsCards: FC = memo(() => {
         const rocketSound = useCallback(() => rocket(), [rocket])
 
         const dispatch = useDispatch()
-        const {cardsComposition} = useSelector((state: AppRootStateType) => state.cards)
+        const {cardsComposition, numberOfFlashCards} = useSelector((state: AppRootStateType) => state.cards)
 
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
@@ -35,10 +35,8 @@ export const SettingsCards: FC = memo(() => {
             rocketSound()
         }
 
-        const [value, setValue] = useState('1');
-
-        function chengeValue(event: ChangeEvent<HTMLInputElement>) {
-            setValue(event.target.value);
+        const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setNumberOfFlashCards({numberOfFlashCards: Number(event.target.value)}))
         }
 
 
@@ -49,13 +47,13 @@ export const SettingsCards: FC = memo(() => {
             <div className={s.settings_frame}>
                 <div className={s.settings_item}>
                     <div>
-                        <input type="radio" id='1_card' name="cardsNumber" value="1"
-                               checked={value === '1'}
-                               onChange={chengeValue} />
+                        <input type="radio" id="1_card" name="cardsNumber" value="1"
+                               checked={numberOfFlashCards === 1}
+                               onChange={changeCardNumber}/>
                         <label htmlFor="1_card">1-я карточка</label>
-                        <input type="radio" id='2_card' name="cardsNumber" value="2"
-                               checked={value === '2'}
-                               onChange={chengeValue} />
+                        <input type="radio" id="2_card" name="cardsNumber" value="2"
+                               checked={numberOfFlashCards === 2}
+                               onChange={changeCardNumber}/>
                         <label htmlFor="2_card">2-я карточка</label>
                     </div>
                 </div>
