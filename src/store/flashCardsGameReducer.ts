@@ -61,7 +61,6 @@ export const slice = createSlice({
     }
 })
 
-export const setCard = ()
 
 export const flashCardsGameReducer = slice.reducer
 export const {
