@@ -15,8 +15,8 @@ const multiplicityOfFlashCards = [
 ]
 
 const initialState = {
-    firstCardsComposition: 10 as number,
-    secondCardsComposition: 10 as number,
+    firstCardsComposition: 6 as number,
+    secondCardsComposition: 4 as number,
     speed: 1,
     actionsCount: 2,
     isSoundOn: true,

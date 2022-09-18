@@ -25,3 +25,12 @@
     display: inline-block;
     width: 40px
 }
+
+.settings_comp {
+    display: flex;
+    justify-content: space-around;
+    gap: 100px;
+}
+.settings_comp_second_card {
+    opacity: 0.2;
+}

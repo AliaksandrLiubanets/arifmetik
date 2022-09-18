@@ -51,6 +51,8 @@ export const SettingsCards: FC = memo(() => {
             dispatch(setNumberOfFlashCards({numberOfFlashCards: Number(event.target.value)}))
         }
 
+        const inputStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
+
         return <div className={s.container}>
             <NavLink to={PATH.MAIN}>
                 <button onClick={handleBackToSettings}>На главную</button>
@@ -70,21 +72,24 @@ export const SettingsCards: FC = memo(() => {
                 </div>
                 <div className={s.settings_item}>
                     <div>Состав числа:</div>
-                    <input
-                        value={firstCardsComposition}
-                        type="number"
-                        onChange={onChangeFirstCardsComp}
-                        onFocus={handleFocus}
-                    />
-                    {
-                        numberOfFlashCards === 2 &&
-                        <input
+                    <div className={s.settings_comp}>
+                        <div>
+                            <input
+                                value={firstCardsComposition}
+                                type="number"
+                                onChange={onChangeFirstCardsComp}
+                                onFocus={handleFocus}
+                            />
+                        </div>
+                        <div className={inputStyle}><input
+                            disabled={numberOfFlashCards !== 2}
                             value={secondCardsComposition}
                             type="number"
                             onChange={onChangeSecondCardsComp}
                             onFocus={handleFocus}
                         />
-                    }
+                        </div>
+                    </div>
                 </div>
             </div>
             <button onClick={startRocket}>
