@@ -48,7 +48,7 @@ import f_2_3_3_2 from '../../assets/flash-cards/10_r_2_3_3_2.png'
 import f_2_3_2_3 from '../../assets/flash-cards/10_r_2_3_2_3.png'
 
 import {useDispatch, useSelector} from 'react-redux'
-import {setCard} from '../../store/flashCardsGameReducer'
+import {setFirstCard} from '../../store/flashCardsGameReducer'
 import React, {useCallback} from 'react'
 import {AppRootStateType} from '../../store/store'
 import s from './FlashCards.module.css'
@@ -62,15 +62,15 @@ import {startGame} from '../../store/appReducer'
 export const FlashCards = () => {
 
     const dispatch = useDispatch()
-    const nextFlashCard = () => dispatch(setCard())
+    const nextFlashCard = () => dispatch(setFirstCard())
     const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 
-    const {flashCard, secondFlashCard, numberOfFlashCards} = useSelector((state: AppRootStateType) => state.cards)
+    const {firstFlashCard, secondFlashCard, numberOfFlashCards} = useSelector((state: AppRootStateType) => state.cards)
 
     let card: string
     let secondCard: string
 
-    switch (flashCard) {
+    switch (firstFlashCard) {
         case '0':
             card = f_0
             break

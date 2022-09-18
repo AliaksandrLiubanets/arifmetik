@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC, FocusEvent, memo, useCallback, useState} from 'r
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
-import {setCard, setFlashCardsComp, setNumberOfFlashCards} from '../../../store/flashCardsGameReducer'
+import {setFirstCard, setFlashCardsComp, setNumberOfFlashCards} from '../../../store/flashCardsGameReducer'
 import {startGame, switchPreStart} from '../../../store/appReducer'
 import {PATH} from '../../../enums/paths'
 import {NavLink} from 'react-router-dom'
@@ -15,16 +15,16 @@ export const SettingsCards: FC = memo(() => {
         const rocketSound = useCallback(() => rocket(), [rocket])
 
         const dispatch = useDispatch()
-        const {cardsComposition, numberOfFlashCards} = useSelector((state: AppRootStateType) => state.cards)
+        const {firstCardsComposition, numberOfFlashCards} = useSelector((state: AppRootStateType) => state.cards)
 
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
 
         const onChangeCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setFlashCardsComp({cardsComposition: e.currentTarget.valueAsNumber}))
+            dispatch(setFlashCardsComp({firstCardsComposition: e.currentTarget.valueAsNumber}))
         }, [dispatch])
 
-        const setRandomCard = () => dispatch(setCard())
+        const setRandomCard = () => dispatch(setFirstCard())
         const start = () => dispatch(startGame({isStarted: true}))
         const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 
@@ -60,7 +60,7 @@ export const SettingsCards: FC = memo(() => {
                 <div className={s.settings_item}>
                     <div>Состав числа:</div>
                     <input
-                        value={cardsComposition}
+                        value={firstCardsComposition}
                         type="number"
                         onChange={onChangeCardsComp}
                         onFocus={handleFocus}
