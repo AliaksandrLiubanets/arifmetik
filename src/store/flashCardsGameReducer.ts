@@ -25,20 +25,25 @@ const initialState = {
     firstFlashCard: '',
     secondFlashCard: '',
     numberOfFlashCards: 1,
-    secondFlashCard: '',
-    answer: 0,
-    isShowAnswer: false,
-    isShowInput: false
+    // answer: 0,
+    // isShowAnswer: false,
+    // isShowInput: false
 }
 
 export const slice = createSlice({
     name: 'flash',
     initialState: initialState,
     reducers: {
-        setFlashCardsComp(state, action: PayloadAction<{ firstCardsComposition: number }>) {
+        setFirstCardsComp(state, action: PayloadAction<{ firstCardsComposition: number }>) {
             const cardsComp = action.payload.firstCardsComposition
             if (cardsComp > 2 && cardsComp < 11) {
                 state.firstCardsComposition = cardsComp
+            }
+        },
+        setSecondCardsComp(state, action: PayloadAction<{ secondCardsComposition: number }>) {
+            const cardsComp = action.payload.secondCardsComposition
+            if (cardsComp > 2 && cardsComp < 11) {
+                state.secondCardsComposition = cardsComp
             }
         },
         setSpeed(state, action: PayloadAction<{ speed: number }>) {
@@ -50,25 +55,24 @@ export const slice = createSlice({
         setNumberOfFlashCards(state, action: PayloadAction<{ numberOfFlashCards: number }>) {
             state.numberOfFlashCards = action.payload.numberOfFlashCards
         },
-        setFirstCard(state) {
+        setCard(state) {
             state.firstFlashCard = getRandomCard(state.firstCardsArray, state.firstCardsComposition)
-            state.secondFlashCard = getRandomCard(state.flashCardsArray, state.firstCardsComposition)
+            if (state.numberOfFlashCards === 2) {
+                state.secondFlashCard = getRandomCard(state.secondCardsArray, state.secondCardsComposition)
+            }
         },
-        setSecondCard(state) {
-            state.flashCard = getRandomCard(state.flashCardsArray, state.firstCardsComposition)
-            state.secondFlashCard = getRandomCard(state.flashCardsArray, state.firstCardsComposition)
-        }
     }
 })
 
 
 export const flashCardsGameReducer = slice.reducer
 export const {
-    setFlashCardsComp,
+    setFirstCardsComp,
+    setSecondCardsComp,
     setNumberOfFlashCards,
     setSpeed,
     setActionsCount,
-    setFirstCard
+    setCard
 } = slice.actions
 
 //types

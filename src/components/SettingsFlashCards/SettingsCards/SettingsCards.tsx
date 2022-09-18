@@ -1,8 +1,12 @@
-import React, {ChangeEvent, FC, FocusEvent, memo, useCallback, useState} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, memo, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
-import {setFirstCard, setFlashCardsComp, setNumberOfFlashCards} from '../../../store/flashCardsGameReducer'
+import {
+    setCard,
+    setFirstCardsComp,
+    setNumberOfFlashCards, setSecondCardsComp
+} from '../../../store/flashCardsGameReducer'
 import {startGame, switchPreStart} from '../../../store/appReducer'
 import {PATH} from '../../../enums/paths'
 import {NavLink} from 'react-router-dom'
@@ -15,16 +19,24 @@ export const SettingsCards: FC = memo(() => {
         const rocketSound = useCallback(() => rocket(), [rocket])
 
         const dispatch = useDispatch()
-        const {firstCardsComposition, numberOfFlashCards} = useSelector((state: AppRootStateType) => state.cards)
+        const {
+            firstCardsComposition,
+            secondCardsComposition,
+            numberOfFlashCards
+        } = useSelector((state: AppRootStateType) => state.cards)
 
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
 
-        const onChangeCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setFlashCardsComp({firstCardsComposition: e.currentTarget.valueAsNumber}))
+        const onChangeFirstCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setFirstCardsComp({firstCardsComposition: e.currentTarget.valueAsNumber}))
         }, [dispatch])
 
-        const setRandomCard = () => dispatch(setFirstCard())
+        const onChangeSecondCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setSecondCardsComp({secondCardsComposition: e.currentTarget.valueAsNumber}))
+        }, [dispatch])
+
+        const setRandomCard = () => dispatch(setCard())
         const start = () => dispatch(startGame({isStarted: true}))
         const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 
@@ -38,7 +50,6 @@ export const SettingsCards: FC = memo(() => {
         const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
             dispatch(setNumberOfFlashCards({numberOfFlashCards: Number(event.target.value)}))
         }
-
 
         return <div className={s.container}>
             <NavLink to={PATH.MAIN}>
@@ -62,9 +73,18 @@ export const SettingsCards: FC = memo(() => {
                     <input
                         value={firstCardsComposition}
                         type="number"
-                        onChange={onChangeCardsComp}
+                        onChange={onChangeFirstCardsComp}
                         onFocus={handleFocus}
                     />
+                    {
+                        numberOfFlashCards === 2 &&
+                        <input
+                            value={secondCardsComposition}
+                            type="number"
+                            onChange={onChangeSecondCardsComp}
+                            onFocus={handleFocus}
+                        />
+                    }
                 </div>
             </div>
             <button onClick={startRocket}>
