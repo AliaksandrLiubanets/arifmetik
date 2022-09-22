@@ -1,12 +1,18 @@
 import {getArrayOfCalculationsAndAnswer} from '../utils/helper'
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
+export type ActionAndSoundType = {
+    action: string
+    sound: string
+}
+
 const initialState = {
     numberComposition: 10 as number,
     speed: 1,
     actionsCount: 2,
     isSoundOn: true,
-    actionsArray: [] as string[],
+    actionsArray: [] as ActionAndSoundType[],
+    actionsAndSoundsArray: [] as ActionAndSoundType[],
     answer: 0,
     isShowAnswer: false,
     isShowInput: false
@@ -35,7 +41,7 @@ export const slice = createSlice({
             } = getArrayOfCalculationsAndAnswer(state.actionsCount, state.numberComposition)
             state.actionsArray = arrayOfCalculations
             state.answer = answer
-        }
+        },
     }
 })
 

@@ -1,3 +1,6 @@
+import {ActionAndSoundType} from '../store/countGameReducer'
+import {getActionSoundStrAccordingActionStr} from './gerArrayWithActionsAndSound'
+
 export const getRandomNumber = (number: number, excludeMax?: boolean): number =>
     Math.ceil(Math.random() * (number - (excludeMax ? 1 : 0)))
 
@@ -32,14 +35,19 @@ export const getStep = (
 }
 
 export const getArrayOfCalculationsAndAnswer = (actionsCount: number, numberComp: number) => {
-    let arrayOfCalculations: string[] = []
+    let arrayOfCalculations: ActionAndSoundType[] = []
     let result = 0
     let prevAction = ''
+    let sound: string
+    let actionAndSound: ActionAndSoundType
+
     for (let i = 0; i < actionsCount; i++) {
         const {newResult, action} = getStep(numberComp, result, prevAction)
         result = newResult
         prevAction = action
-        arrayOfCalculations.push(action)
+        sound = getActionSoundStrAccordingActionStr(action)
+        actionAndSound = {action, sound}
+        arrayOfCalculations.push(actionAndSound)
     }
     let answer: number = arrayOfCalculations.reduce((acc, el) => acc + Number(el), 0 )
 
