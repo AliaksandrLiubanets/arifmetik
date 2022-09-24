@@ -49,7 +49,7 @@ export const getArrayOfCalculationsAndAnswer = (actionsCount: number, numberComp
         actionAndSound = {action, sound}
         arrayOfCalculations.push(actionAndSound)
     }
-    let answer: number = arrayOfCalculations.reduce((acc, el) => acc + Number(el), 0 )
+    let answer: number = arrayOfCalculations.reduce((acc, el) => acc + Number(el.action), 0 )
 
     return {arrayOfCalculations, answer}
 }
