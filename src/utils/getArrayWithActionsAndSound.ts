@@ -40,7 +40,7 @@ import minus_18 from '../assets/sounds/actions/-18.mp3'
 import minus_19 from '../assets/sounds/actions/-19.mp3'
 import minus_20 from '../assets/sounds/actions/-20.mp3'
 
-import wrist from '../../assets/sounds/actions/whistling.mp3'
+import wrist from '../assets/sounds/actions/whistling.mp3'
 
 
 export const getActionSoundStrAccordingActionStr = (action: string) => {
@@ -171,13 +171,3 @@ export const getActionSoundStrAccordingActionStr = (action: string) => {
     }
     return sound
 }
-
-// export const makeArrayWithActionsAndSound = (array: string[]) => {
-//     let actionsAndSoundsArray: ActionAndSoundType[]
-//     actionsAndSoundsArray = array.map((action: string) => {
-//         const sound: string = getActionSoundStrAccordingActionStr(action)
-//         return {action, sound}
-//     })
-//
-//     return actionsAndSoundsArray
-// }
