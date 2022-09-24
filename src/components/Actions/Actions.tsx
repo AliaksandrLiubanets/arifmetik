@@ -4,6 +4,8 @@ import useSound from 'use-sound'
 import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 import ReactAudioPlayer from 'react-audio-player'
+import plus_2 from '../../assets/sounds/actions/+2.mp3'
+import {ActionAndSoundType} from '../../store/countGameReducer'
 
 type Props = {
     showInput: (isShowAnswer: boolean) => void
@@ -11,9 +13,9 @@ type Props = {
 }
 
 export const Actions: FC<Props> = memo(({focusOnElement, showInput}) => {
-        const [calc, setCalc] = useState<string>('')
+        const [calc, setCalc] = useState<ActionAndSoundType>({action: '', sound: ''})
         const [index, setIndex] = useState<number>(0)
-        const [soundStr, setSoundStr] = useState<string>('')
+        // const [soundStr, setSoundStr] = useState<string>('')
 
         const {
             actionsArray,
@@ -276,30 +278,39 @@ export const Actions: FC<Props> = memo(({focusOnElement, showInput}) => {
         //     }
         //     return sound
         // }
-        useEffect(() => {
-            setSoundStr(actionsArray[index].sound)
-        }, [calc])
+        // useEffect(() => {
+        //     console.log('actionsArray[index]: ', actionsArray[index])
+        //     console.log('actionsArray[index].sound: ', actionsArray[index].sound)
+        //     setSoundStr(actionsArray[index].sound)
+        // }, [calc])
 
-        const [sound] = useSound(soundStr)
-        actionSound = useCallback(() => sound(), [soundStr, calc])
+        // const [sound] = useSound(soundStr)
+        const [sound] = useSound(calc.sound)
+        actionSound = useCallback(() => sound(), [calc])
 
         useEffect(() => {
             if (index < actionsCount) {
                 showInput(false)
                 let id: ReturnType<typeof setTimeout>
-                // if (isSoundOn) {
-                    // actionSound()
-                // }
+                if (isSoundOn) {
+                    actionSound()
+                }
                 if (index === 0) {
                     id = setTimeout(() => {
-                        setCalc(actionsArray[index].action)
+                        setCalc(actionsArray[index])
+
+                        console.log('actionsArray[index]: ', actionsArray[index])
+                        console.log('actionsArray[index].sound: ', actionsArray[index].sound)
                         setIndex(prevState => prevState + 1)
 
                     }, 300) // delay only when the first action renders
                 }
                 if (index > 0) {
                     id = setTimeout(() => {
-                        setCalc(actionsArray[index].action)
+                        setCalc(actionsArray[index])
+
+                        console.log('actionsArray[index]: ', actionsArray[index])
+                        console.log('actionsArray[index].sound: ', actionsArray[index].sound)
                         setIndex(prevState => prevState + 1)
 
                     }, 1000 * speed) // interval between every action
@@ -309,9 +320,9 @@ export const Actions: FC<Props> = memo(({focusOnElement, showInput}) => {
                 }
             }
             if (index === actionsCount) {
-                // if (isSoundOn) {
-                    // actionSound()
-                // }
+                if (isSoundOn) {
+                    actionSound()
+                }
                 showInput(true)
                 focusOnElement(true)
             }
@@ -320,13 +331,14 @@ export const Actions: FC<Props> = memo(({focusOnElement, showInput}) => {
 
         return <div className={s.container}>
             <div className={s.player}>
-                <ReactAudioPlayer
-                    controls={true}
-                    src={actionsArray[index].sound}
-                    onPlay={actionSound}
-                />
+                {/*<ReactAudioPlayer*/}
+                {/*    controls={true}*/}
+                {/*    src={actionsArray[index].sound}*/}
+                {/*    onPlay={actionSound}*/}
+                {/*/>*/}
             </div>
-            {/*<div className={s.action}>{calc}</div>*/}
+            {/*<button onClick={actionSound}>Sound</button>*/}
+            <div className={s.action}>{calc.action}</div>
         </div>
     }
 )
