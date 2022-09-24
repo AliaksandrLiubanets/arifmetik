@@ -44,130 +44,130 @@ import wrist from '../../assets/sounds/actions/whistling.mp3'
 
 
 export const getActionSoundStrAccordingActionStr = (action: string) => {
-    let sound: () => void
+    let sound: string
     switch (action) {
         case '+1':
-            sound = () => p_1()
+            sound = plus_1
             break
         case '+2':
-            sound = () => p_2()
+            sound = plus_2
             break
         case '+3':
-            sound = () => p_3()
+            sound = plus_3
             break
         case '+4':
-            sound = () => p_4()
+            sound = plus_4
             break
         case '+5':
-            sound = () => p_5()
+            sound = plus_5
             break
         case '+6':
-            sound = () => p_6()
+            sound = plus_6
             break
         case '+7':
-            sound = () => p_7()
+            sound = plus_7
             break
         case '+8':
-            sound = () => p_8()
+            sound = plus_8
             break
         case '+9':
-            sound = () => p_9()
+            sound = plus_9
             break
         case '+10':
-            sound = () => p_10()
+            sound = plus_10
             break
         case '+11':
-            sound = () => p_11()
+            sound = plus_11
             break
         case '+12':
-            sound = () => p_12()
+            sound = plus_12
             break
         case '+13':
-            sound = () => p_13()
+            sound = plus_13
             break
         case '+14':
-            sound = () => p_14()
+            sound = plus_14
             break
         case '+15':
-            sound = () => p_15()
+            sound = plus_15
             break
         case '+16':
-            sound = () => p_16()
+            sound = plus_16
             break
         case '+17':
-            sound = () => p_17()
+            sound = plus_17
             break
         case '+18':
-            sound = () => p_18()
+            sound = plus_18
             break
         case '+19':
-            sound = () => p_19()
+            sound = plus_19
             break
         case '+20':
-            sound = () => p_20()
+            sound = plus_20
             break
         case '-1':
-            sound = () => m_1()
+            sound = minus_1
             break
         case '-2':
-            sound = () => m_2()
+            sound = minus_2
             break
         case '-3':
-            sound = () => m_3()
+            sound = minus_3
             break
         case '-4':
-            sound = () => m_4()
+            sound = minus_4
             break
         case '-5':
-            sound = () => m_5()
+            sound = minus_5
             break
         case '-6':
-            sound = () => m_6()
+            sound = minus_6
             break
         case '-7':
-            sound = () => m_7()
+            sound = minus_7
             break
         case '-8':
-            sound = () => m_8()
+            sound = minus_8
             break
         case '-9':
-            sound = () => m_9()
+            sound = minus_9
             break
         case '-10':
-            sound = () => m_10()
+            sound = minus_10
             break
         case '-11':
-            sound = () => m_11()
+            sound = minus_11
             break
         case '-12':
-            sound = () => m_12()
+            sound = minus_12
             break
         case '-13':
-            sound = () => m_13()
+            sound = minus_13
             break
         case '-14':
-            sound = () => m_14()
+            sound = minus_14
             break
         case '-15':
-            sound = () => m_15()
+            sound = minus_15
             break
         case '-16':
-            sound = () => m_16()
+            sound = minus_16
             break
         case '-17':
-            sound = () => m_17()
+            sound = minus_17
             break
         case '-18':
-            sound = () => m_18()
+            sound = minus_18
             break
         case '-19':
-            sound = () => m_19()
+            sound = minus_19
             break
         case '-20':
-            sound = () => m_20()
+            sound = minus_20
             break
         default:
-            sound = () => w()
+            sound = wrist
     }
     return sound
 }

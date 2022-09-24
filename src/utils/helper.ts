@@ -1,5 +1,5 @@
 import {ActionAndSoundType} from '../store/countGameReducer'
-import {getActionSoundStrAccordingActionStr} from './gerArrayWithActionsAndSound'
+import {getActionSoundStrAccordingActionStr} from './getArrayWithActionsAndSound'
 
 export const getRandomNumber = (number: number, excludeMax?: boolean): number =>
     Math.ceil(Math.random() * (number - (excludeMax ? 1 : 0)))
