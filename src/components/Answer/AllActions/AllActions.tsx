@@ -12,8 +12,6 @@ export const AllActions: FC<AllActionsPropsType> = () => {
     const actionsStr: string = ''.concat(...array)
     const allExerciseStr: string = `${actionsStr} = ${answer}`
 
-    console.log('answer:', answer)
-
     return <div className={s.container}>
         <div className={s.allExercise}>
             {allExerciseStr}
