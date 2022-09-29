@@ -17,6 +17,7 @@ const multiplicityOfFlashCards = [
 const initialState = {
     firstCardsComposition: 6 as number,
     secondCardsComposition: 4 as number,
+    isSpeedOn: false,
     speed: 1,
     actionsCount: 2,
     isSoundOn: true,
@@ -46,8 +47,13 @@ export const slice = createSlice({
                 state.secondCardsComposition = cardsComp
             }
         },
+        setIsSpeedOn(state, action: PayloadAction<{ isSpeedOn: boolean }>) {
+            state.isSpeedOn = action.payload.isSpeedOn
+        },
         setSpeed(state, action: PayloadAction<{ speed: number }>) {
-            state.speed = action.payload.speed
+            if (action.payload.speed >= 0) {
+                state.speed = action.payload.speed
+            }
         },
         setActionsCount(state, action: PayloadAction<{ actionsCount: number }>) {
             state.actionsCount = action.payload.actionsCount
@@ -70,6 +76,7 @@ export const {
     setFirstCardsComp,
     setSecondCardsComp,
     setNumberOfFlashCards,
+    setIsSpeedOn,
     setSpeed,
     setActionsCount,
     setCard

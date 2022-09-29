@@ -4,8 +4,8 @@ import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
 import {
     setCard,
-    setFirstCardsComp,
-    setNumberOfFlashCards, setSecondCardsComp
+    setFirstCardsComp, setIsSpeedOn,
+    setNumberOfFlashCards, setSecondCardsComp, setSpeed
 } from '../../../store/flashCardsGameReducer'
 import {startGame, switchPreStart} from '../../../store/appReducer'
 import {PATH} from '../../../enums/paths'
@@ -22,8 +22,19 @@ export const SettingsCards: FC = memo(() => {
         const {
             firstCardsComposition,
             secondCardsComposition,
-            numberOfFlashCards
+            numberOfFlashCards,
+            isSpeedOn,
+            speed
         } = useSelector((state: AppRootStateType) => state.cards)
+
+        const setTimeoutValue = useCallback((speed: number) => dispatch(setSpeed({speed})), [dispatch])
+        const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
+            setTimeoutValue(e.currentTarget.valueAsNumber)
+        }
+        const setIsSpeedOnHandler = (isSpeedOn: boolean) => dispatch(setIsSpeedOn({isSpeedOn}))
+        const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
+            setIsSpeedOnHandler(e.currentTarget.checked)
+        }
 
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
@@ -52,7 +63,7 @@ export const SettingsCards: FC = memo(() => {
         }
 
         const inputSecondCardStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
-        const inputSpeedStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
+        const inputSpeedStyle = !isSpeedOn ? `${s.settings_comp_second_card}` : ''
 
         return <div className={s.container}>
             <NavLink to={PATH.MAIN}>
@@ -63,17 +74,18 @@ export const SettingsCards: FC = memo(() => {
                     <div className={s.settings_wrapper}>
                         <div className={s.settings_speed}>
                             <div>На скорость</div>
-                            <input type="checkbox" id="sdeedOn" name="sdeedOn"
-                                // onChange={}
+                            <input type="checkbox" id="sdeedOn" name="sdeedOn" checked={isSpeedOn}
+                                   onChange={onChangeIsSpeedOn}
                             />
                         </div>
                         <div className={s.settings_speed}>
                             <div>Скорость:</div>
                             <input
-                                disabled={true}
-                                // value={speed}
+                                className={inputSpeedStyle}
+                                disabled={!isSpeedOn}
+                                value={speed}
                                 type="number"
-                                // onChange={onChangeTimeOutValue}
+                                onChange={onChangeTimeOutValue}
                                 onFocus={handleFocus}
                             />
                         </div>
@@ -102,13 +114,14 @@ export const SettingsCards: FC = memo(() => {
                                 onFocus={handleFocus}
                             />
                         </div>
-                        <div className={inputSecondCardStyle}><input
-                            disabled={numberOfFlashCards !== 2}
-                            value={secondCardsComposition}
-                            type="number"
-                            onChange={onChangeSecondCardsComp}
-                            onFocus={handleFocus}
-                        />
+                        <div className={inputSecondCardStyle}>
+                            <input
+                                disabled={numberOfFlashCards !== 2}
+                                value={secondCardsComposition}
+                                type="number"
+                                onChange={onChangeSecondCardsComp}
+                                onFocus={handleFocus}
+                            />
                         </div>
                     </div>
                 </div>
