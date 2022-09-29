@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
 import {
-    setCard,
+    setCardAndAnswer,
     setFirstCardsComp, setIsSpeedOn,
     setNumberOfFlashCards, setSecondCardsComp, setSpeed
 } from '../../../store/flashCardsGameReducer'
@@ -47,7 +47,7 @@ export const SettingsCards: FC = memo(() => {
             dispatch(setSecondCardsComp({secondCardsComposition: e.currentTarget.valueAsNumber}))
         }, [dispatch])
 
-        const setRandomCard = () => dispatch(setCard())
+        const setRandomCard = () => dispatch(setCardAndAnswer())
         const start = () => dispatch(startGame({isStarted: true}))
         const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
 

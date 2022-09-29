@@ -26,7 +26,7 @@ const initialState = {
     firstFlashCard: '',
     secondFlashCard: '',
     numberOfFlashCards: 1,
-    // answer: 0,
+    answer: 0,
     // isShowAnswer: false,
     // isShowInput: false
 }
@@ -61,11 +61,15 @@ export const slice = createSlice({
         setNumberOfFlashCards(state, action: PayloadAction<{ numberOfFlashCards: number }>) {
             state.numberOfFlashCards = action.payload.numberOfFlashCards
         },
-        setCard(state) {
+        setCardAndAnswer(state) {
             state.firstFlashCard = getRandomCard(state.firstCardsArray, state.firstCardsComposition)
             if (state.numberOfFlashCards === 2) {
                 state.secondFlashCard = getRandomCard(state.secondCardsArray, state.secondCardsComposition)
             }
+            const firstCardAnswer = Number(state.firstFlashCard)
+            const secondCardAnswer = Number(state.secondFlashCard)
+
+            state.answer = firstCardAnswer + secondCardAnswer
         },
     }
 })
@@ -79,7 +83,7 @@ export const {
     setIsSpeedOn,
     setSpeed,
     setActionsCount,
-    setCard
+    setCardAndAnswer
 } = slice.actions
 
 //types

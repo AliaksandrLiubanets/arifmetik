@@ -2,7 +2,7 @@ import React, {FC} from 'react'
 import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 import {PreStart} from '../PreStart/PreStart'
-import {FlashCards} from './FlashCards'
+import {FlashCardsBlock} from './FlashCardsBlock'
 
 
 export const FlashCardsGame: FC = () => {
@@ -12,7 +12,7 @@ export const FlashCardsGame: FC = () => {
     return <>
         {isPreStart
             ? <PreStart/>
-            : <FlashCards />
+            : <FlashCardsBlock />
         }
     </>
 }
