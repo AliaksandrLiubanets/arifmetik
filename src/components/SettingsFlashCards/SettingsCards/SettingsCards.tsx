@@ -51,13 +51,34 @@ export const SettingsCards: FC = memo(() => {
             dispatch(setNumberOfFlashCards({numberOfFlashCards: Number(event.target.value)}))
         }
 
-        const inputStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
+        const inputSecondCardStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
+        const inputSpeedStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
 
         return <div className={s.container}>
             <NavLink to={PATH.MAIN}>
                 <button onClick={handleBackToSettings}>На главную</button>
             </NavLink>
             <div className={s.settings_frame}>
+                <div className={s.settings_item}>
+                    <div className={s.settings_wrapper}>
+                        <div className={s.settings_speed}>
+                            <div>На скорость</div>
+                            <input type="checkbox" id="sdeedOn" name="sdeedOn"
+                                // onChange={}
+                            />
+                        </div>
+                        <div className={s.settings_speed}>
+                            <div>Скорость:</div>
+                            <input
+                                disabled={true}
+                                // value={speed}
+                                type="number"
+                                // onChange={onChangeTimeOutValue}
+                                onFocus={handleFocus}
+                            />
+                        </div>
+                    </div>
+                </div>
                 <div className={s.settings_item}>
                     <div>
                         <input type="radio" id="1_card" name="cardsNumber" value="1"
@@ -81,7 +102,7 @@ export const SettingsCards: FC = memo(() => {
                                 onFocus={handleFocus}
                             />
                         </div>
-                        <div className={inputStyle}><input
+                        <div className={inputSecondCardStyle}><input
                             disabled={numberOfFlashCards !== 2}
                             value={secondCardsComposition}
                             type="number"
