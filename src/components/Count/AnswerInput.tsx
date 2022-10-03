@@ -8,6 +8,9 @@ import {setActionsArrayAndAnswer} from '../../store/countGameReducer'
 import {switchPreStart} from '../../store/appReducer'
 import s from './Game.module.css'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
+import {useLocation} from 'react-router-dom'
+import {setCardAndAnswer} from '../../store/flashCardsGameReducer'
+import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
 
 type AnswerInputProps = {
     inputAnswer: number
@@ -15,7 +18,6 @@ type AnswerInputProps = {
     showAnswer: (isShowAnswer: boolean) => void
     showInput: (isShowInput: boolean) => void
     focusOnElement: (isFocus: boolean) => void
-    rocketSound: () => void
     isFocus: boolean
 }
 
@@ -25,12 +27,25 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
                                                            showAnswer,
                                                            showInput,
                                                            focusOnElement,
-                                                           rocketSound,
-                                                           isFocus
+                                                           isFocus,
                                                        }) => {
 
+    const [rocket] = useSound(rocket_start)
+    const rocketSound = useCallback(() => rocket(), [rocket])
+
+    const location = useLocation()
+    const pathName = location.pathname
+
     const dispatch = useDispatch()
-    const answer = useSelector((state: AppRootStateType) => state.count.answer)
+    let answer: number
+    const answerCount = useSelector((state: AppRootStateType) => state.count.answer)
+    const answerFlashCard = useSelector((state: AppRootStateType) => state.cards.answer)
+
+    if (pathName === '/count') {
+        answer = answerCount
+    } else if (pathName === '/cards') {
+        answer = answerFlashCard
+    }
 
     const [right] = useSound(right_sound)
     const [wrong] = useSound(wrong_sound)
@@ -47,6 +62,14 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
         }
     }
     const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer()), [dispatch])
+    const nextFlashCard = useCallback(() => dispatch(setCardAndAnswer()), [dispatch])
+    const nextStep = () => {
+        if (pathName === '/count') {
+            makeActionsArrayAndAnswer()
+        } else if (pathName === '/cards') {
+            nextFlashCard()
+        }
+    }
     const setIsPrestart = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
 
     const nextExercise = useCallback(() => {
@@ -54,7 +77,7 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
         showInput(false)
         focusOnElement(false)
         setInputAnswer(0)
-        makeActionsArrayAndAnswer()
+        nextStep()
         setIsPrestart(true)
         rocketSound()
     }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound, showAnswer, showInput, focusOnElement, setInputAnswer])

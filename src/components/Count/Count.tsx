@@ -9,12 +9,14 @@ import {PATH} from '../../enums/paths'
 import {NavLink} from 'react-router-dom'
 import {startGame} from '../../store/appReducer'
 import p from '../GameStyles/GameStyles.module.css'
+import useSound from 'use-sound'
+import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
 
 type PropsActionsAnswer = {
-    rocketSound: () => void
+
 }
 
-export const Count: FC<PropsActionsAnswer> = ({rocketSound}) => {
+export const Count: FC<PropsActionsAnswer> = ({}) => {
     const [isShowAnswer, setIsShowAnswer] = useState(false)
     const [isShowInput, setIsShowInput] = useState(false)
     const [inputAnswer, setInputAnswer] = useState(0)
@@ -42,7 +44,6 @@ export const Count: FC<PropsActionsAnswer> = ({rocketSound}) => {
                      setInputAnswer={setInputAnswer}
                      showInput={showInput}
                      showAnswer={showAnswer}
-                     rocketSound={rocketSound}
                      isFocus={isFocus}
                      focusOnElement={focusOnElement}
         />

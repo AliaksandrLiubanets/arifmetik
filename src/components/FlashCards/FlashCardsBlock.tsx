@@ -33,6 +33,14 @@ export const FlashCardsBlock = () => {
 
 export const FlashCardsContainer = () => {
 
+    const [isShowAnswer, setIsShowAnswer] = useState(false)
+    const [isShowInput, setIsShowInput] = useState(false)
+    const [inputAnswer, setInputAnswer] = useState(0)
+    const [isFocus, setIsFocus] = useState(true)
+
+    const [isShowCards, setIsShowCards] = useState<boolean>(true)
+
+
     const dispatch = useDispatch()
 
     const nextFlashCard = () => dispatch(setCardAndAnswer())
@@ -41,7 +49,10 @@ export const FlashCardsContainer = () => {
         speed
     } = useSelector((state: AppRootStateType) => state.cards)
 
-    const [isShowCards, setIsShowCards] = useState<boolean>(true)
+
+    const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
+    const showAnswer = useCallback((isShowInput: boolean) => setIsShowAnswer(isShowInput), [])
+    const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
 
     useEffect(() => {
         let id = setTimeout(() => {
@@ -57,11 +68,10 @@ export const FlashCardsContainer = () => {
             ? <>
                 {isShowCards
                     ? <FlashCards/>
-                    : <CardAnswerInput inputAnswer={inputAnswer}
+                    : <AnswerInput inputAnswer={inputAnswer}
                                    setInputAnswer={setInputAnswer}
                                    showInput={showInput}
                                    showAnswer={showAnswer}
-                                   rocketSound={rocketSound}
                                    isFocus={isFocus}
                                    focusOnElement={focusOnElement}
                     />
@@ -120,70 +130,5 @@ export const RightAnswer = () => {
                 {allExerciseStr}
             </div>
         </div>
-
 }
 
-type CardAnswerInputProps = {
-    inputAnswer: number
-    setInputAnswer: (value: number) => void
-    showAnswer: (isShowAnswer: boolean) => void
-    showInput: (isShowInput: boolean) => void
-    focusOnElement: (isFocus: boolean) => void
-    rocketSound: () => void
-    isFocus: boolean
-}
-
-export const CardAnswerInput: FC<CardAnswerInputProps> = memo(({
-                                                           inputAnswer,
-                                                           setInputAnswer,
-                                                           showAnswer,
-                                                           showInput,
-                                                           focusOnElement,
-                                                           rocketSound,
-                                                           isFocus
-                                                       }) => {
-
-    const dispatch = useDispatch()
-    const answer = useSelector((state: AppRootStateType) => state.count.answer)
-
-    const [right] = useSound(right_sound)
-    const [wrong] = useSound(wrong_sound)
-
-    const answerSound = () => inputAnswer === answer ? right() : wrong()
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => setInputAnswer(e.currentTarget.valueAsNumber)
-    const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
-    const handleEnterPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            showAnswer(true)
-            focusOnElement(false)
-            answerSound()
-        }
-    }
-    const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer()), [dispatch])
-    const setIsPrestart = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
-
-    const nextExercise = useCallback(() => {
-        showAnswer(false)
-        showInput(false)
-        focusOnElement(false)
-        setInputAnswer(0)
-        makeActionsArrayAndAnswer()
-        setIsPrestart(true)
-        rocketSound()
-    }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound, showAnswer, showInput, focusOnElement, setInputAnswer])
-
-    return <div className={s.answer_input}>
-        {isFocus
-            ? <input
-                type="number"
-                value={inputAnswer}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                autoFocus={isFocus}
-                onKeyPress={handleEnterPress}
-            />
-            : <ButtonNext isOnFocus={!isFocus} callback={nextExercise}/>
-        }
-    </div>
-})
