@@ -4,9 +4,9 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 import {startGame, switchPreStart} from '../../store/appReducer'
 
-type Props = {}
 
-export const PreStart: FC<Props> = () => {
+
+export const PreStart: FC = () => {
 
     const dispatch = useDispatch()
     const isPreStart = useSelector((state: AppRootStateType) => state.app.isPreStart)

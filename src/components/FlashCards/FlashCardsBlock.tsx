@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux'
 import {setCardAndAnswer} from '../../store/flashCardsGameReducer'
-import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useCallback, useEffect, useState} from 'react'
+import React, {FC, memo, useCallback, useEffect, useState} from 'react'
 import {AppRootStateType} from '../../store/store'
 import s from './FlashCards.module.css'
 import p from '../GameStyles/GameStyles.module.css'
@@ -8,14 +8,9 @@ import {ButtonNext} from '../ButtonNext/ButtonNext'
 import {ButtonBack} from '../ButtonBack/ButtonBack'
 import {PATH} from '../../enums/paths'
 import {NavLink} from 'react-router-dom'
-import {startGame, switchPreStart} from '../../store/appReducer'
+import {startGame} from '../../store/appReducer'
 import {getPictureAccordingStrNumber} from '../../utils/getPictureAccordingStrNumber'
-import {AllActions} from '../Answer/AllActions/AllActions'
-import {ActionAndSoundType, setActionsArrayAndAnswer} from '../../store/countGameReducer'
 import {AnswerInput} from '../Count/AnswerInput'
-import useSound from 'use-sound'
-import right_sound from '../../assets/sounds/right_answer_sound.mp3'
-import wrong_sound from '../../assets/sounds/wrong_answer_sound.mp3'
 
 export const FlashCardsBlock = () => {
 
@@ -40,15 +35,13 @@ export const FlashCardsContainer = () => {
 
     const [isShowCards, setIsShowCards] = useState<boolean>(true)
 
-
     const dispatch = useDispatch()
-
-    const nextFlashCard = () => dispatch(setCardAndAnswer())
     const {
         isSpeedOn,
         speed
     } = useSelector((state: AppRootStateType) => state.cards)
 
+    const nextFlashCard = () => dispatch(setCardAndAnswer())
 
     const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
     const showAnswer = useCallback((isShowInput: boolean) => setIsShowAnswer(isShowInput), [])

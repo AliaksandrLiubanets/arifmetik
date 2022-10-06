@@ -1,9 +1,10 @@
 import s from '../Count/Game.module.css'
 import React, {FC, memo, useEffect, useState} from 'react'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 import {ActionAndSoundType} from '../../store/countGameReducer'
 import Sound from 'react-sound'
+import {setCardAndAnswer} from '../../store/flashCardsGameReducer'
 
 type Props = {
     showInput: (isShowAnswer: boolean) => void
@@ -13,6 +14,17 @@ type Props = {
 export const Actions: FC<Props> = memo(({focusOnElement, showInput}) => {
         const [calc, setCalc] = useState<ActionAndSoundType>({action: '', sound: ''})
         const [index, setIndex] = useState<number>(0)
+
+    const dispatch = useDispatch()
+    const isSpeedOn = useSelector((state: AppRootStateType) => state.cards.isSoundOn)
+
+    const nextStep = () => {
+        if (!isSpeedOn) {
+            setCalc(actionsArray[index])
+        } else {
+            dispatch(setCardAndAnswer())
+        }
+    }
 
         const {
             actionsArray,
@@ -28,14 +40,16 @@ export const Actions: FC<Props> = memo(({focusOnElement, showInput}) => {
                 let id: ReturnType<typeof setTimeout>
                 if (index === 0) {
                     id = setTimeout(() => {
-                        setCalc(actionsArray[index])
+                        nextStep()
+                        // setCalc(actionsArray[index])
                         setIndex(prevState => prevState + 1)
 
                     }, 300) // delay only when the first action renders
                 }
                 if (index > 0) {
                     id = setTimeout(() => {
-                        setCalc(actionsArray[index])
+                        nextStep()
+                        // setCalc(actionsArray[index])
                         setIndex(prevState => prevState + 1)
 
                     }, 1000 * speed) // interval between every action
