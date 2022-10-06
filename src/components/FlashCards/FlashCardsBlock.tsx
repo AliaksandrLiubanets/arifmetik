@@ -115,20 +115,20 @@ export const AnswerCard: FC<AnswerCardProps> = memo(({answer, inputAnswer}) => {
 
         return <>
             <div className={answerStyle}>{inputAnswer}</div>
-            <RightAnswer />
+            <RightAnswer/>
         </>
     }
 )
 
 export const RightAnswer = () => {
 
-        const {firstFlashCard, secondFlashCard, answer} = useSelector((state: AppRootStateType) => state.cards)
-        const allExerciseStr: string = `${firstFlashCard.toString()} + ${secondFlashCard.toString()} = ${answer}`
+    const {firstFlashCard, secondFlashCard, answer} = useSelector((state: AppRootStateType) => state.cards)
+    const allExerciseStr: string = `${firstFlashCard.toString()} + ${secondFlashCard.toString()} = ${answer}`
 
-        return <div className={s.container}>
-            <div className={s.allExercise}>
-                {allExerciseStr}
-            </div>
+    return <div className={s.container}>
+        <div className={s.allExercise}>
+            {allExerciseStr}
         </div>
+    </div>
 }
 

@@ -9,14 +9,9 @@ import {PATH} from '../../enums/paths'
 import {NavLink} from 'react-router-dom'
 import {startGame} from '../../store/appReducer'
 import p from '../GameStyles/GameStyles.module.css'
-import useSound from 'use-sound'
-import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
 
-type PropsActionsAnswer = {
 
-}
-
-export const Count: FC<PropsActionsAnswer> = ({}) => {
+export const Count: FC = () => {
     const [isShowAnswer, setIsShowAnswer] = useState(false)
     const [isShowInput, setIsShowInput] = useState(false)
     const [inputAnswer, setInputAnswer] = useState(0)
