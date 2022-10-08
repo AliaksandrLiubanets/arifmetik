@@ -1,8 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
+export type GameType = '/cards' | '/count'
+
 const initialState = {
     isPreStart: false,
     isStarted: false,
+    typeOfGame: '/cards'
 }
 
 export const slice = createSlice({
@@ -15,13 +18,17 @@ export const slice = createSlice({
         startGame(state, action: PayloadAction<{ isStarted: boolean }>) {
             state.isStarted = action.payload.isStarted
         },
+        changeGame(state, action: PayloadAction<{ typeOfGame: string  }>) {
+            state.typeOfGame = action.payload.typeOfGame
+        },
     }
 })
 
 export const appReducer = slice.reducer
 export const {
     switchPreStart,
-    startGame
+    startGame,
+    changeGame
 } = slice.actions
 
 //types

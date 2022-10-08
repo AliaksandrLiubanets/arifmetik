@@ -20,3 +20,6 @@ export type AppRootStateType = ReturnType<typeof store.getState>
 export type InferActionTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 // export type ActionsType = CountGameActionsType
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
+//@ts-ignore
+window.store = store;

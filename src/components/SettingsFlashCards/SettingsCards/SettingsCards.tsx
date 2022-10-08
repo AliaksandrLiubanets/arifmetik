@@ -7,9 +7,9 @@ import {
     setFirstCardsComp, setIsSpeedOn,
     setNumberOfFlashCards, setSecondCardsComp, setSpeed
 } from '../../../store/flashCardsGameReducer'
-import {startGame, switchPreStart} from '../../../store/appReducer'
+import {changeGame, startGame, switchPreStart} from '../../../store/appReducer'
 import {PATH} from '../../../enums/paths'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
 import useSound from 'use-sound'
 import rocket_start from '../../../assets/sounds/rocket/rocket_2sec.mp3'
 
@@ -17,6 +17,11 @@ import rocket_start from '../../../assets/sounds/rocket/rocket_2sec.mp3'
 export const SettingsCards: FC = memo(() => {
         const [rocket] = useSound(rocket_start)
         const rocketSound = useCallback(() => rocket(), [rocket])
+
+        const location = useLocation()
+        const setTypeOfGame = () => {
+            dispatch(changeGame({typeOfGame: location.pathname}))
+        }
 
         const dispatch = useDispatch()
         const {
@@ -56,6 +61,7 @@ export const SettingsCards: FC = memo(() => {
             setRandomCard()
             start()
             rocketSound()
+            setTypeOfGame()
         }
 
         const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {

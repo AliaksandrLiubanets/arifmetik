@@ -9,18 +9,21 @@ import {
     setSpeed,
     switchSound
 } from '../../store/countGameReducer'
-import {startGame, switchPreStart} from '../../store/appReducer'
+import {changeGame, startGame, switchPreStart} from '../../store/appReducer'
 import useSound from 'use-sound'
 import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
 import {PATH} from '../../enums/paths'
 
 export const SettingsCount: FC = memo(() => {
 
         const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
-
         const [rocket] = useSound(rocket_start)
         const rocketSound = useCallback(() => rocket(), [rocket])
+        const location = useLocation()
+        const setTypeOfGame = () => {
+            dispatch(changeGame({typeOfGame: location.pathname}))
+        }
 
         const dispatch = useDispatch()
         const {
@@ -69,6 +72,7 @@ export const SettingsCount: FC = memo(() => {
             setIsRocket(true)
             makeActionsArrayAndAnswer()
             rocketSound()
+            setTypeOfGame()
         }
 
         return <div className={s.container}>
