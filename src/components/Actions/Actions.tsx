@@ -15,16 +15,16 @@ export const Actions: FC<Props> = memo(({focusOnElement, showInput}) => {
         const [calc, setCalc] = useState<ActionAndSoundType>({action: '', sound: ''})
         const [index, setIndex] = useState<number>(0)
 
-    const dispatch = useDispatch()
-    const isSpeedOn = useSelector((state: AppRootStateType) => state.cards.isSoundOn)
+        const dispatch = useDispatch()
+        const isSpeedOn = useSelector((state: AppRootStateType) => state.cards.isSoundOn)
 
-    const nextStep = () => {
-        if (!isSpeedOn) {
-            setCalc(actionsArray[index])
-        } else {
-            dispatch(setCardAndAnswer())
+        const nextStep = () => {
+            if (!isSpeedOn) {
+                setCalc(actionsArray[index])
+            } else {
+                dispatch(setCardAndAnswer())
+            }
         }
-    }
 
         const {
             actionsArray,
@@ -67,7 +67,7 @@ export const Actions: FC<Props> = memo(({focusOnElement, showInput}) => {
 
         return <div className={s.container}>
             {
-                isSoundOn && <Sound url={calc.sound} playStatus={'PLAYING'} />
+                isSoundOn && <Sound url={calc.sound} playStatus={'PLAYING'}/>
             }
             <div className={s.action}>{calc.action}</div>
         </div>

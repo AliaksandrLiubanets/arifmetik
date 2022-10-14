@@ -4,8 +4,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 import {startGame, switchPreStart} from '../../store/appReducer'
 
-
-
 export const PreStart: FC = () => {
 
     const dispatch = useDispatch()

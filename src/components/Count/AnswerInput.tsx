@@ -8,15 +8,17 @@ import {setActionsArrayAndAnswer} from '../../store/countGameReducer'
 import {switchPreStart} from '../../store/appReducer'
 import s from './Game.module.css'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
-import {useLocation} from 'react-router-dom'
 import {setCardAndAnswer} from '../../store/flashCardsGameReducer'
 import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
+import {AnswerCard} from '../FlashCards/FlashCardsBlock'
+import {AnswerCount} from '../Answer/AnswerCount'
+import {makeAnswerFromFlashCardOrCount} from '../../utils/helper'
 
 type AnswerInputProps = {
     inputAnswer: number
     setInputAnswer: (value: number) => void
     showAnswer: (isShowAnswer: boolean) => void
-    showInput: (isShowInput: boolean) => void
+    // showInput: (isShowInput: boolean) => void
     focusOnElement: (isFocus: boolean) => void
     isFocus: boolean
 }
@@ -25,27 +27,21 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
                                                            inputAnswer,
                                                            setInputAnswer,
                                                            showAnswer,
-                                                           showInput,
+                                                           // showInput,
                                                            focusOnElement,
-                                                           isFocus,
+                                                           isFocus
                                                        }) => {
 
     const [rocket] = useSound(rocket_start)
     const rocketSound = useCallback(() => rocket(), [rocket])
 
-    const location = useLocation()
-    const pathName = location.pathname
-
     const dispatch = useDispatch()
-    let answer: number
-    const answerCount = useSelector((state: AppRootStateType) => state.count.answer)
-    const answerFlashCard = useSelector((state: AppRootStateType) => state.cards.answer)
 
-    if (pathName === '/count') {
-        answer = answerCount
-    } else if (pathName === '/cards') {
-        answer = answerFlashCard
-    }
+    const countAnswer = useSelector((state: AppRootStateType) => state.count.answer)
+    const flashCardAnswer = useSelector((state: AppRootStateType) => state.cards.answer)
+    const typeOfGame = useSelector((state: AppRootStateType) => state.app.typeOfGame)
+
+    const answer = makeAnswerFromFlashCardOrCount(typeOfGame, countAnswer, flashCardAnswer)
 
     const [right] = useSound(right_sound)
     const [wrong] = useSound(wrong_sound)
@@ -64,9 +60,9 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
     const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer()), [dispatch])
     const nextFlashCard = useCallback(() => dispatch(setCardAndAnswer()), [dispatch])
     const nextStep = () => {
-        if (pathName === '/count') {
+        if (typeOfGame === '/count') {
             makeActionsArrayAndAnswer()
-        } else if (pathName === '/cards') {
+        } else {
             nextFlashCard()
         }
     }
@@ -74,13 +70,12 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
 
     const nextExercise = useCallback(() => {
         showAnswer(false)
-        showInput(false)
+        // showInput(false)
         focusOnElement(false)
         setInputAnswer(0)
         nextStep()
         setIsPrestart(true)
-        rocketSound()
-    }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound, showAnswer, showInput, focusOnElement, setInputAnswer])
+    }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound, showAnswer, focusOnElement, setInputAnswer])
 
     return <div className={s.answer_input}>
         {isFocus
@@ -92,7 +87,11 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
                 autoFocus={isFocus}
                 onKeyPress={handleEnterPress}
             />
-            : <ButtonNext isOnFocus={!isFocus} callback={nextExercise}/>
+            : <div className={s.answer_card}>
+                {typeOfGame === '/flash' && <AnswerCard answer={answer} inputAnswer={inputAnswer}/>}
+                {typeOfGame === '/count' && <AnswerCount answer={answer} inputAnswer={inputAnswer}/>}
+                <ButtonNext isOnFocus={!isFocus} callback={nextExercise}/>
+            </div>
         }
     </div>
 })

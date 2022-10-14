@@ -1,8 +1,6 @@
 import React, {FC, useCallback, useState} from 'react'
 import {Actions} from '../Actions/Actions'
-import {Answer} from '../Answer/Answer'
-import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from '../../store/store'
+import {useDispatch} from 'react-redux'
 import {ButtonBack} from '../ButtonBack/ButtonBack'
 import {AnswerInput} from './AnswerInput'
 import {PATH} from '../../enums/paths'
@@ -18,7 +16,6 @@ export const Count: FC = () => {
     const [isFocus, setIsFocus] = useState(true)
 
     const dispatch = useDispatch()
-    const answer = useSelector((state: AppRootStateType) => state.count.answer)
 
     const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
     const showAnswer = useCallback((isShowInput: boolean) => setIsShowAnswer(isShowInput), [])
@@ -31,18 +28,25 @@ export const Count: FC = () => {
         </NavLink>
         <ButtonBack callback={handleBackToSettings}/>
         {!isShowAnswer
-            ? <Actions showInput={showInput} focusOnElement={focusOnElement}/>
-            : <Answer answer={answer} inputAnswer={inputAnswer}/>
+            ? <Actions showInput={showInput} focusOnElement={focusOnElement} />
+            : <AnswerInput inputAnswer={inputAnswer}
+                           setInputAnswer={setInputAnswer}
+                           showAnswer={showAnswer}
+                           isFocus={isFocus}
+                           focusOnElement={focusOnElement}
+            />
+            // ? <Actions showInput={showInput} focusOnElement={focusOnElement}/>
+            // : <Answer answer={answer} inputAnswer={inputAnswer}/>
         }
-        {isShowInput &&
-        <AnswerInput inputAnswer={inputAnswer}
-                     setInputAnswer={setInputAnswer}
-                     showInput={showInput}
-                     showAnswer={showAnswer}
-                     isFocus={isFocus}
-                     focusOnElement={focusOnElement}
-        />
-        }
+        {/*{isShowInput &&*/}
+        {/*<AnswerInput inputAnswer={inputAnswer}*/}
+        {/*             setInputAnswer={setInputAnswer}*/}
+        {/*             showInput={showInput}*/}
+        {/*             showAnswer={showAnswer}*/}
+        {/*             isFocus={isFocus}*/}
+        {/*             focusOnElement={focusOnElement}*/}
+        {/*/>*/}
+        {/*}*/}
     </div>
 }
 

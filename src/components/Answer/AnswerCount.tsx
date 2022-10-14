@@ -7,13 +7,12 @@ type Props = {
     inputAnswer: number
 }
 
-export const Answer: FC<Props> = memo(({answer, inputAnswer}) => {
-
+export const AnswerCount: FC<Props> = memo(({answer, inputAnswer}) => {
         const answerStyle = `${s.answer} ${inputAnswer !== answer ? s.wrong : ''}`
 
         return <>
-            <div className={answerStyle}>{inputAnswer}</div>
-            <AllActions />
-        </>
+                    <div className={answerStyle}>{inputAnswer}</div>
+                    <AllActions/>
+                </>
     }
 )

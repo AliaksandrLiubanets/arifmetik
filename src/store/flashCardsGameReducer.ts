@@ -1,4 +1,4 @@
-import {getRandomCard} from '../utils/helper'
+import {convertStringPictureToNumber, getRandomCard} from '../utils/helper'
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 const multiplicityOfFlashCards = [
@@ -18,7 +18,7 @@ const initialState = {
     firstCardsComposition: 6 as number,
     secondCardsComposition: 4 as number,
     isSpeedOn: false,
-    speed: 1,
+    speed: 0.7,
     actionsCount: 2,
     isSoundOn: true,
     firstCardsArray: multiplicityOfFlashCards,
@@ -55,7 +55,7 @@ export const slice = createSlice({
                 state.speed = action.payload.speed
             }
         },
-        setActionsCount(state, action: PayloadAction<{ actionsCount: number }>) {
+        setActionsCardCount(state, action: PayloadAction<{ actionsCount: number }>) {
             state.actionsCount = action.payload.actionsCount
         },
         setNumberOfFlashCards(state, action: PayloadAction<{ numberOfFlashCards: number }>) {
@@ -66,9 +66,8 @@ export const slice = createSlice({
             if (state.numberOfFlashCards === 2) {
                 state.secondFlashCard = getRandomCard(state.secondCardsArray, state.secondCardsComposition)
             }
-            const firstCardAnswer = Number(state.firstFlashCard)
-            const secondCardAnswer = Number(state.secondFlashCard)
-
+            const firstCardAnswer = convertStringPictureToNumber(state.firstFlashCard)
+            const secondCardAnswer = convertStringPictureToNumber(state.secondFlashCard)
             state.answer = firstCardAnswer + secondCardAnswer
         },
     }
@@ -82,7 +81,7 @@ export const {
     setNumberOfFlashCards,
     setIsSpeedOn,
     setSpeed,
-    setActionsCount,
+    setActionsCardCount,
     setCardAndAnswer
 } = slice.actions
 

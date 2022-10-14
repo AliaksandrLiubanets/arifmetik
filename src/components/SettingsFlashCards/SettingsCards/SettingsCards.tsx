@@ -3,9 +3,13 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
 import {
+    setActionsCardCount,
     setCardAndAnswer,
-    setFirstCardsComp, setIsSpeedOn,
-    setNumberOfFlashCards, setSecondCardsComp, setSpeed
+    setFirstCardsComp,
+    setIsSpeedOn,
+    setNumberOfFlashCards,
+    setSecondCardsComp,
+    setSpeed
 } from '../../../store/flashCardsGameReducer'
 import {changeGame, startGame, switchPreStart} from '../../../store/appReducer'
 import {PATH} from '../../../enums/paths'
@@ -29,7 +33,7 @@ export const SettingsCards: FC = memo(() => {
             secondCardsComposition,
             numberOfFlashCards,
             isSpeedOn,
-            speed
+            speed,
         } = useSelector((state: AppRootStateType) => state.cards)
 
         const setTimeoutValue = useCallback((speed: number) => dispatch(setSpeed({speed})), [dispatch])
@@ -67,6 +71,9 @@ export const SettingsCards: FC = memo(() => {
         const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
             dispatch(setNumberOfFlashCards({numberOfFlashCards: Number(event.target.value)}))
         }
+        const onChangeActionsCount = (e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setActionsCardCount({actionsCount: e.currentTarget.valueAsNumber}))
+        }
 
         const inputSecondCardStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
         const inputSpeedStyle = !isSpeedOn ? `${s.settings_comp_second_card}` : ''
@@ -97,6 +104,15 @@ export const SettingsCards: FC = memo(() => {
                         </div>
                     </div>
                 </div>
+                {/*<div className={s.settings_item}>*/}
+                {/*    <div>Количество действий:</div>*/}
+                {/*    <input*/}
+                {/*        value={actionsCount}*/}
+                {/*        type="number"*/}
+                {/*        onChange={onChangeActionsCount}*/}
+                {/*        onFocus={handleFocus}*/}
+                {/*    />*/}
+                {/*</div>*/}
                 <div className={s.settings_item}>
                     <div>
                         <input type="radio" id="1_card" name="cardsNumber" value="1"

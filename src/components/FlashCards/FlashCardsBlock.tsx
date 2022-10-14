@@ -11,6 +11,7 @@ import {NavLink} from 'react-router-dom'
 import {startGame} from '../../store/appReducer'
 import {getPictureAccordingStrNumber} from '../../utils/getPictureAccordingStrNumber'
 import {AnswerInput} from '../Count/AnswerInput'
+import {makeAnswerFromFlashCardOrCount} from '../../utils/helper'
 
 export const FlashCardsBlock = () => {
 
@@ -29,41 +30,31 @@ export const FlashCardsBlock = () => {
 export const FlashCardsContainer = () => {
 
     const [isShowAnswer, setIsShowAnswer] = useState(false)
-    const [isShowInput, setIsShowInput] = useState(false)
     const [inputAnswer, setInputAnswer] = useState(0)
     const [isFocus, setIsFocus] = useState(true)
-
-    const [isShowCards, setIsShowCards] = useState<boolean>(true)
 
     const dispatch = useDispatch()
     const {
         isSpeedOn,
-        speed
+        answer
     } = useSelector((state: AppRootStateType) => state.cards)
+    const countAnswer = useSelector((state: AppRootStateType) => state.count.answer)
+    const typeOfGame = useSelector((state: AppRootStateType) => state.app.typeOfGame)
+
+    const answerExercise = makeAnswerFromFlashCardOrCount(typeOfGame, countAnswer, answer)
 
     const nextFlashCard = () => dispatch(setCardAndAnswer())
 
-    const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
     const showAnswer = useCallback((isShowInput: boolean) => setIsShowAnswer(isShowInput), [])
     const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
-
-    useEffect(() => {
-        let id = setTimeout(() => {
-            setIsShowCards(false)
-        }, 1000 * speed)
-        return () => {
-            clearInterval(id)
-        }
-    }, [])
 
     return <>
         {isSpeedOn
             ? <>
-                {isShowCards
-                    ? <FlashCards/>
+                {!isShowAnswer
+                    ? <FlashCards focusOnElement={focusOnElement} showAnswer={showAnswer}/>
                     : <AnswerInput inputAnswer={inputAnswer}
                                    setInputAnswer={setInputAnswer}
-                                   showInput={showInput}
                                    showAnswer={showAnswer}
                                    isFocus={isFocus}
                                    focusOnElement={focusOnElement}
@@ -77,15 +68,36 @@ export const FlashCardsContainer = () => {
         }
     </>
 }
+type Props = {
+    focusOnElement?: (focus: boolean) => void
+    showAnswer?: (isShowAnswer: boolean) => void
+}
 
-export const FlashCards = () => {
+export const FlashCards: FC<Props> = ({focusOnElement, showAnswer}) => {
+
     const {
         firstFlashCard,
         secondFlashCard,
-        numberOfFlashCards
+        numberOfFlashCards,
+        speed
     } = useSelector((state: AppRootStateType) => state.cards)
     let card: string = getPictureAccordingStrNumber(firstFlashCard)
     let secondCard: string = getPictureAccordingStrNumber(secondFlashCard)
+
+    useEffect(() => {
+        showAnswer && showAnswer(false)
+        let id: ReturnType<typeof setTimeout>
+        id = setTimeout(() => {
+            showAnswer && showAnswer(true)
+            focusOnElement && focusOnElement(true)
+        }, 1000 * speed)
+
+        return () => {
+            clearInterval(id)
+        }
+
+    }, [speed])
+
 
     return <div className={s.flash}>
 
@@ -103,11 +115,24 @@ type AnswerCardProps = {
 }
 
 export const AnswerCard: FC<AnswerCardProps> = memo(({answer, inputAnswer}) => {
+        const wrongAnswerStyle = {
+            // 'textAlign': 'center',
+            'fontSize': '50px',
+            'fontWeight': '600',
+            'color': 'white',
+            'backgroundColor': 'red',
+            'width': '165px',
 
-        const answerStyle = `${s.answer} ${inputAnswer !== answer ? s.wrong : ''}`
+        }
+
+        const RightAnswerStyle = {
+            ...wrongAnswerStyle,
+            'backgroundColor': 'green',
+        }
+        const answerStyle = answer !== inputAnswer ? wrongAnswerStyle : RightAnswerStyle
 
         return <>
-            <div className={answerStyle}>{inputAnswer}</div>
+            <div style={answerStyle}>{inputAnswer}</div>
             <RightAnswer/>
         </>
     }
@@ -115,13 +140,12 @@ export const AnswerCard: FC<AnswerCardProps> = memo(({answer, inputAnswer}) => {
 
 export const RightAnswer = () => {
 
-    const {firstFlashCard, secondFlashCard, answer} = useSelector((state: AppRootStateType) => state.cards)
-    const allExerciseStr: string = `${firstFlashCard.toString()} + ${secondFlashCard.toString()} = ${answer}`
+    const {answer} = useSelector((state: AppRootStateType) => state.cards)
+    // const allExerciseStr: string = `${firstFlashCard.toString()} + ${secondFlashCard.toString()} = ${answer}`
+    // const allExerciseStr: string = `${answer}`
 
     return <div className={s.container}>
-        <div className={s.allExercise}>
-            {allExerciseStr}
-        </div>
+        <FlashCards/>
     </div>
 }
 

@@ -3,7 +3,7 @@ import useSound from 'use-sound'
 import right_sound from '../../assets/sounds/right_answer_sound.mp3'
 import wrong_sound from '../../assets/sounds/wrong_answer_sound.mp3'
 import {Actions} from '../Actions/Actions'
-import {Answer} from '../Answer/Answer'
+import {AnswerCount} from '../Answer/AnswerCount'
 import s from '../Game/Game.module.css'
 import {ButtonNext} from '../ButtonNext/ButtonNext'
 import {useDispatch, useSelector} from 'react-redux'
@@ -58,7 +58,7 @@ export const ActionsAnswer: FC<PropsActionsAnswer> = ({rocketSound}) => {
         <button onClick={handleBackToSettings}>Назад</button>
         {!isShowAnswer
             ? <Actions showInput={showInput} focusOnElement={focusOnElement} />
-            : <Answer answer={answer} inputAnswer={inputAnswer} />
+            : <AnswerCount answer={answer} inputAnswer={inputAnswer} />
         }
         {isShowInput &&
         <div className={s.answer_input}>
