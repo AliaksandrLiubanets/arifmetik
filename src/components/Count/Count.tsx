@@ -11,13 +11,11 @@ import {AnswerInput} from '../commonComponents/AnswerInput/AnswerInput'
 
 export const Count: FC = () => {
     const [isShowAnswer, setIsShowAnswer] = useState(false)
-    const [isShowInput, setIsShowInput] = useState(false)
     const [inputAnswer, setInputAnswer] = useState(0)
     const [isFocus, setIsFocus] = useState(true)
 
     const dispatch = useDispatch()
 
-    const showInput = useCallback((isShowInput: boolean) => setIsShowInput(isShowInput), [])
     const showAnswer = useCallback((isShowInput: boolean) => setIsShowAnswer(isShowInput), [])
     const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
     const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
@@ -28,7 +26,7 @@ export const Count: FC = () => {
         </NavLink>
         <ButtonBack callback={handleBackToSettings}/>
         {!isShowAnswer
-            ? <Actions showInput={showInput} focusOnElement={focusOnElement}/>
+            ? <Actions setIsShowAnswer={setIsShowAnswer} focusOnElement={focusOnElement}/>
             : <AnswerInput inputAnswer={inputAnswer}
                            setInputAnswer={setInputAnswer}
                            showAnswer={showAnswer}
