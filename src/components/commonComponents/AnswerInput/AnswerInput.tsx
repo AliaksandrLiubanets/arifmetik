@@ -1,24 +1,23 @@
 import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from '../../store/store'
 import useSound from 'use-sound'
-import right_sound from '../../assets/sounds/right_answer_sound.mp3'
-import wrong_sound from '../../assets/sounds/wrong_answer_sound.mp3'
-import {setActionsArrayAndAnswer} from '../../store/countGameReducer'
-import {switchPreStart} from '../../store/appReducer'
-import s from './Game.module.css'
-import {ButtonNext} from '../ButtonNext/ButtonNext'
-import {setCardAndAnswer} from '../../store/flashCardsGameReducer'
-import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
-import {AnswerCard} from '../FlashCards/FlashCardsBlock'
-import {AnswerCount} from '../Answer/AnswerCount'
-import {makeAnswerFromFlashCardOrCount} from '../../utils/helper'
+import right_sund from '../../../assets/sounds/right_answer_sound.mp3'
+import wrong_sound from '../../../assets/sounds/wrong_answer_sound.mp3'
+import s from '../../GameStyles/GameStyles.module.css'
+import rocket_start from '../../../assets/sounds/rocket/rocket_2sec.mp3'
+import {switchPreStart} from '../../../store/appReducer'
+import {AppRootStateType} from '../../../store/store'
+import {makeAnswerFromFlashCardOrCount} from '../../../utils/helper'
+import {AnswerCount} from '../../Answer/AnswerCount'
+import {setCardAndAnswer} from '../../../store/flashCardsGameReducer'
+import {ButtonNext} from '../../ButtonNext/ButtonNext'
+import {setActionsArrayAndAnswer} from '../../../store/countGameReducer'
+import {AnswerCard} from '../../FlashCards/AnswerCard/AnswerCard'
 
 type AnswerInputProps = {
     inputAnswer: number
     setInputAnswer: (value: number) => void
     showAnswer: (isShowAnswer: boolean) => void
-    // showInput: (isShowInput: boolean) => void
     focusOnElement: (isFocus: boolean) => void
     isFocus: boolean
 }
@@ -27,7 +26,6 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
                                                            inputAnswer,
                                                            setInputAnswer,
                                                            showAnswer,
-                                                           // showInput,
                                                            focusOnElement,
                                                            isFocus
                                                        }) => {
@@ -43,7 +41,7 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
 
     const answer = makeAnswerFromFlashCardOrCount(typeOfGame, countAnswer, flashCardAnswer)
 
-    const [right] = useSound(right_sound)
+    const [right] = useSound(right_sund)
     const [wrong] = useSound(wrong_sound)
 
     const answerSound = () => inputAnswer === answer ? right() : wrong()
@@ -70,7 +68,7 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
 
     const nextExercise = useCallback(() => {
         showAnswer(false)
-        // showInput(false)
+        rocketSound()
         focusOnElement(false)
         setInputAnswer(0)
         nextStep()
@@ -95,3 +93,4 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
         }
     </div>
 })
+

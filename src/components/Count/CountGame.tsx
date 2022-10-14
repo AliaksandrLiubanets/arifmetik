@@ -1,5 +1,5 @@
 import React, {FC, memo} from 'react'
-import s from './/Game.module.css'
+import s from '../GameStyles/GameStyles.module.css'
 import {PreStart} from '../PreStart/PreStart'
 import {Count} from './Count'
 import {useSelector} from 'react-redux'

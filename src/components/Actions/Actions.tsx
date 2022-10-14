@@ -1,4 +1,4 @@
-import s from '../Count/Game.module.css'
+import s from '../GameStyles/GameStyles.module.css'
 import React, {FC, memo, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'

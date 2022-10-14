@@ -1,0 +1,12 @@
+.right, .wrong {
+    font-size: 50px;
+    font-weight: 600;
+    color: white;
+    background-color: #03993d;
+    width: 165px;
+    text-align: center;
+}
+
+.wrong {
+    background-color: #d90202;
+}
