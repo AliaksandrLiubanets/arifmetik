@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/arifmetik/static/css/main.51af533d.css",
-    "main.js": "/arifmetik/static/js/main.510131ed.js",
+    "main.css": "/arifmetik/static/css/main.c187d765.css",
+    "main.js": "/arifmetik/static/js/main.284513d0.js",
     "static/js/845.e424f3ca.chunk.js": "/arifmetik/static/js/845.e424f3ca.chunk.js",
     "static/js/787.f327c594.chunk.js": "/arifmetik/static/js/787.f327c594.chunk.js",
     "static/media/rocket_tony.gif": "/arifmetik/static/media/rocket_tony.047d9538b361333ac730.gif",
@@ -101,13 +101,13 @@
     "static/media/+7.mp3": "/arifmetik/static/media/+7.364f13e914a3b62be4fd.mp3",
     "static/media/+9.mp3": "/arifmetik/static/media/+9.b7285f6964a5dcebc62e.mp3",
     "index.html": "/arifmetik/index.html",
-    "main.51af533d.css.map": "/arifmetik/static/css/main.51af533d.css.map",
-    "main.510131ed.js.map": "/arifmetik/static/js/main.510131ed.js.map",
+    "main.c187d765.css.map": "/arifmetik/static/css/main.c187d765.css.map",
+    "main.284513d0.js.map": "/arifmetik/static/js/main.284513d0.js.map",
     "845.e424f3ca.chunk.js.map": "/arifmetik/static/js/845.e424f3ca.chunk.js.map",
     "787.f327c594.chunk.js.map": "/arifmetik/static/js/787.f327c594.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.51af533d.css",
-    "static/js/main.510131ed.js"
+    "static/css/main.c187d765.css",
+    "static/js/main.284513d0.js"
   ]
 }
