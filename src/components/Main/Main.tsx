@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 import {PATH} from '../../enums/paths'
 import dominoes from '../../assets/main-icons/dominoes_2.jpg'
 import digits from '../../assets/main-icons/digits_1.jpg'
-import puple from '../../assets/puple/avatars/puple.jpg'
+import pupils from '../../assets/pupils/avatars/pupils.jpg'
 import s from './Main.module.css'
 
 export const Main = () => {
@@ -26,9 +26,9 @@ export const Main = () => {
             </NavLink>
         </div>
         <div className={s.icon_link}>
-            <NavLink to={PATH.PUPLE}>
+            <NavLink to={PATH.PUPILS}>
                 <div className={s.item}>
-                    <img src={puple} alt={'puple_icon'}/>
+                    <img src={pupils} alt={'pupils_icon'}/>
                     <div>Ученики</div>
                 </div>
             </NavLink>
