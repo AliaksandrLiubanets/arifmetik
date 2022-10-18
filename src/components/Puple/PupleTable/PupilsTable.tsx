@@ -1,13 +1,7 @@
 import {PacksTableHeader} from '../PacksTableHeader/PacksTableHeader'
-import {PupilsList, PupilType} from '../PupilsList/PupilsList'
+import {PupilsList} from '../PupilsList/PupilsList'
 import t from './PupleTable.module.css'
-import ava_Miron from '../../../assets/pupils/avatars/Miron.jpg'
-import ava_Evgenia from '../../../assets/pupils/avatars/Evgenia.jpg'
 
-const pupils: PupilType[] = [
-    {id: 1, ava: ava_Evgenia, name: 'Евгения', email: 'evgenia@yandex.ru'},
-    {id: 2, ava: ava_Miron, name: 'Мирон', email: 'miron@yandex.ru'},
-]
 export const PupilsTable = () => {
 
         return <div className={t.tableContainer}>
@@ -25,7 +19,7 @@ export const PupilsTable = () => {
             </tr>
             </thead>
             <tbody>
-            <PupilsList pupils={pupils}/>
+            <PupilsList />
             </tbody>
         </table>
     </div>

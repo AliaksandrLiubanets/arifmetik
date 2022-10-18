@@ -14,8 +14,8 @@ const initialState = {
     actionsArray: [] as ActionAndSoundType[],
     actionsAndSoundsArray: [] as ActionAndSoundType[],
     answer: 0,
-    isShowAnswer: false,
-    isShowInput: false
+    // isShowAnswer: false,
+    // isShowInput: false
 }
 
 export const slice = createSlice({

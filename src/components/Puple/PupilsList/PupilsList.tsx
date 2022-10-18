@@ -1,18 +1,13 @@
 import {FC, memo} from 'react'
 import {Pupil} from '../Pupil/Pupil'
+import {useSelector} from 'react-redux'
+import {AppRootStateType} from '../../../store/store'
 
-export type PupilType = {
-    id: number
-    ava: string
-    name: string
-    email: string
-}
 
-type PupilListPropsType = {
-    pupils: PupilType[]
-}
+export const PupilsList: FC = memo(() => {
 
-export const PupilsList: FC<PupilListPropsType> = memo(({pupils}) => {
+    const pupils = useSelector((state: AppRootStateType) => state.pupils.pupils)
+
     return <>
         {
             pupils.map(pupil => <Pupil

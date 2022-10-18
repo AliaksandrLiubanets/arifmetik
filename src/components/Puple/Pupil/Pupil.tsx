@@ -1,6 +1,6 @@
 import {FC, memo} from 'react'
-import {PupilType} from '../PupilsList/PupilsList'
 import s from './Pupil.module.css'
+import {PupilType} from '../../../store/pupilsReducer'
 
 type PupilPropsType = {
     pupil: PupilType
