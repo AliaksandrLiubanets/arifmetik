@@ -4,7 +4,8 @@ import {FlashCardsBlock} from '../../FlashCardsBlock'
 import {CountBlock} from '../Count/CountBlock'
 import {Main} from '../Main/Main'
 import {PATH} from '../../enums/paths'
-import {Pupils} from '../Puple/Pupils'
+import {Pupils} from '../Pupils/Pupils'
+import {HW} from '../Pupils/HomeWork/HW'
 
 export const AllRoutes = () => {
     return (
@@ -14,6 +15,7 @@ export const AllRoutes = () => {
             <Route path={PATH.FLASH} element={<FlashCardsBlock/>}/>
             <Route path={PATH.MAIN} element={<Main/>}/>
             <Route path={PATH.PUPILS} element={<Pupils/>}/>
+            <Route path={PATH.HOMETASK} element={<HW />}/>
             <Route path={PATH.ERROR_404} element={<Error404/>}/>
             <Route path="*" element={<Navigate to={PATH.ERROR_404}/>}/>
         </Routes>

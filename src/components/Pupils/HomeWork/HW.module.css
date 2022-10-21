@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+}
+
+.item img {
+    width: 200px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 3px #c3d6fd;
+}
+

@@ -4,13 +4,15 @@ import {TypedUseSelectorHook, useSelector} from 'react-redux'
 import {configureStore} from '@reduxjs/toolkit'
 import {flashCardsGameReducer} from './flashCardsGameReducer'
 import {appReducer} from './appReducer'
-import {pupilsReducer} from './pupilsReducer'
+import {authReducer} from './authReducer'
+import {homeworkReducer} from './homeWorkReducer'
 
 const rootReducer = combineReducers({
     app: appReducer,
     count: countGameReducer,
     cards: flashCardsGameReducer,
-    pupils: pupilsReducer,
+    auth: authReducer,
+    homework: homeworkReducer,
 })
 
 export const store = configureStore({

@@ -6,7 +6,7 @@ import {AppRootStateType} from '../../../store/store'
 
 export const PupilsList: FC = memo(() => {
 
-    const pupils = useSelector((state: AppRootStateType) => state.pupils.pupils)
+    const pupils = useSelector((state: AppRootStateType) => state.auth.authData)
 
     return <>
         {

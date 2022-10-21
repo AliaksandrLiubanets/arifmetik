@@ -3,5 +3,6 @@ export enum PATH {
     COUNT = '/count',
     FLASH = '/flash',
     PUPILS = '/pupils',
+    HOMETASK = '/nometask',
     ERROR_404 = '/error-404',
 }
