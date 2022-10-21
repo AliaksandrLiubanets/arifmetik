@@ -1,8 +1,14 @@
-import React, {FC, FocusEvent, memo, useCallback} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, memo, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
-import {setCardAndAnswer} from '../../../store/flashCardsGameReducer'
+import {
+    setCardAndAnswer,
+    setFirstCardsComp,
+    setIsSpeedOn,
+    setNumberOfFlashCards, setSecondCardsComp,
+    setSpeed
+} from '../../../store/flashCardsGameReducer'
 import {changeGame, startGame, switchPreStart} from '../../../store/appReducer'
 import {PATH} from '../../../enums/paths'
 import {NavLink, useLocation} from 'react-router-dom'
@@ -33,6 +39,22 @@ export const SettingsCards: FC = memo(() => {
 
         const homeWork = useSelector((state: AppRootStateType) => state.homework.homeWork)
 
+        const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setSpeed({speed: e.currentTarget.valueAsNumber}))
+        }
+        const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setIsSpeedOn({isSpeedOn: e.currentTarget.checked}))
+        }
+        const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setNumberOfFlashCards({numberOfFlashCards: Number(event.target.value)}))
+        }
+        const onChangeFirstCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setFirstCardsComp({firstCardsComposition: e.currentTarget.valueAsNumber}))
+        }, [dispatch])
+        const onChangeSecondCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(setSecondCardsComp({secondCardsComposition: e.currentTarget.valueAsNumber}))
+        }, [dispatch])
+
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
         const setRandomCard = () => dispatch(setCardAndAnswer())
@@ -52,9 +74,17 @@ export const SettingsCards: FC = memo(() => {
                 <button onClick={handleBackToSettings}>На главную</button>
             </NavLink>
             <div className={s.settings_frame}>
-                <SpeedCardsSettings isSpeedOn={isSpeedOn} speed={speed} handleFocus={handleFocus} />
-                <NumberOfCardsSettings/>
-                <NumberCompositionSettings handleFocus={handleFocus}/>
+                <SpeedCardsSettings isSpeedOn={isSpeedOn}
+                                    speed={speed}
+                                    handleFocus={handleFocus}
+                                    onChangeTimeOutValue={onChangeTimeOutValue}
+                                    onChangeIsSpeedOn={onChangeIsSpeedOn}
+                />
+                <NumberOfCardsSettings changeCardNumber={changeCardNumber}/>
+                <NumberCompositionSettings handleFocus={handleFocus}
+                                           onChangeFirstCardsComp={onChangeFirstCardsComp}
+                                           onChangeSecondCardsComp={onChangeSecondCardsComp}
+                />
             </div>
             <button onClick={startRocket}>
                 Старт

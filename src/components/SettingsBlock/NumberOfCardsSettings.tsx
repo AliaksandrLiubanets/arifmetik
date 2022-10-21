@@ -1,18 +1,15 @@
 import s from './Settings.module.css'
-import React, {ChangeEvent} from 'react'
-import {setNumberOfFlashCards} from '../../store/flashCardsGameReducer'
-import {useDispatch, useSelector} from 'react-redux'
+import React, {ChangeEvent, FC} from 'react'
+import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 
-export const NumberOfCardsSettings = () => {
+type NumberOfCardsPropsType = {
+    changeCardNumber: (event: ChangeEvent<HTMLInputElement>) => void
+}
+
+export const NumberOfCardsSettings: FC<NumberOfCardsPropsType> = ({changeCardNumber}) => {
 
     const {numberOfFlashCards} = useSelector((state: AppRootStateType) => state.cards)
-
-    const dispatch = useDispatch()
-
-    const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setNumberOfFlashCards({numberOfFlashCards: Number(event.target.value)}))
-    }
 
     return   <div className={s.settings_item}>
         <div>

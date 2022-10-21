@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 const HWInitialState = {
+    isHomeWork: false,
     homeWork: [
         {
             userId: 1,

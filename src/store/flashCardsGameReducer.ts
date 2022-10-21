@@ -27,8 +27,6 @@ const initialState = {
     secondFlashCard: '',
     numberOfFlashCards: 1,
     answer: 0,
-    // isShowAnswer: false,
-    // isShowInput: false
 }
 
 export const slice = createSlice({
