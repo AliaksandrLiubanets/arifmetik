@@ -14,9 +14,9 @@ import {PATH} from '../../../enums/paths'
 import {NavLink, useLocation} from 'react-router-dom'
 import useSound from 'use-sound'
 import rocket_start from '../../../assets/sounds/rocket/rocket_2sec.mp3'
-import {SpeedCardsSettings} from '../../SettingsBlock/SpeedCardsSettings'
-import {NumberOfCardsSettings} from '../../SettingsBlock/NumberOfCardsSettings'
-import {NumberCompositionSettings} from '../../SettingsBlock/NumberCompositionSettings'
+import {SpeedCardsSettings} from '../../commonComponents/CardsSettings/SpeedCardsSettings'
+import {NumberOfCardsSettings} from '../../commonComponents/CardsSettings/NumberOfCardsSettings'
+import {NumberCompCardsSettings} from '../../commonComponents/CardsSettings/NumberCompCardsSettings'
 
 
 export const SettingsCards: FC = memo(() => {
@@ -81,9 +81,9 @@ export const SettingsCards: FC = memo(() => {
                                     onChangeIsSpeedOn={onChangeIsSpeedOn}
                 />
                 <NumberOfCardsSettings changeCardNumber={changeCardNumber}/>
-                <NumberCompositionSettings handleFocus={handleFocus}
-                                           onChangeFirstCardsComp={onChangeFirstCardsComp}
-                                           onChangeSecondCardsComp={onChangeSecondCardsComp}
+                <NumberCompCardsSettings handleFocus={handleFocus}
+                                         onChangeFirstCardsComp={onChangeFirstCardsComp}
+                                         onChangeSecondCardsComp={onChangeSecondCardsComp}
                 />
             </div>
             <button onClick={startRocket}>

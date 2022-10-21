@@ -1,7 +1,7 @@
-import s from './Settings.module.css'
+import s from '../../SettingsBlock/Settings.module.css'
 import React, {ChangeEvent, FC, FocusEvent} from 'react'
 import {useSelector} from 'react-redux'
-import {AppRootStateType} from '../../store/store'
+import {AppRootStateType} from '../../../store/store'
 
 type NumCompPropsType = {
     handleFocus: (e: FocusEvent<HTMLInputElement>) => void
@@ -9,7 +9,7 @@ type NumCompPropsType = {
     onChangeSecondCardsComp: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const NumberCompositionSettings: FC<NumCompPropsType> = ({handleFocus, onChangeFirstCardsComp, onChangeSecondCardsComp}) => {
+export const NumberCompCardsSettings: FC<NumCompPropsType> = ({handleFocus, onChangeFirstCardsComp, onChangeSecondCardsComp}) => {
 
     const {
         firstCardsComposition,

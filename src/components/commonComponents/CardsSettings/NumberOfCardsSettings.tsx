@@ -1,7 +1,7 @@
-import s from './Settings.module.css'
+import s from '../../SettingsBlock/Settings.module.css'
 import React, {ChangeEvent, FC} from 'react'
 import {useSelector} from 'react-redux'
-import {AppRootStateType} from '../../store/store'
+import {AppRootStateType} from '../../../store/store'
 
 type NumberOfCardsPropsType = {
     changeCardNumber: (event: ChangeEvent<HTMLInputElement>) => void

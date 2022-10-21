@@ -14,6 +14,10 @@ import useSound from 'use-sound'
 import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
 import {NavLink, useLocation} from 'react-router-dom'
 import {PATH} from '../../enums/paths'
+import {NumberCompCountSettings} from '../commonComponents/CountSettings/NumberCompCountSettings'
+import {NumberOfActionsCountSettings} from '../commonComponents/CountSettings/NumberOfActionsCountSettings'
+import {SpeedCountSettings} from '../commonComponents/CountSettings/SpeedCountSettings'
+import {VoiceOnCountSettings} from './VoiceOnCountSettings'
 
 export const SettingsCount: FC = memo(() => {
 
@@ -80,43 +84,18 @@ export const SettingsCount: FC = memo(() => {
                 <button onClick={handleBackToSettings}>На главную</button>
             </NavLink>
             <div className={s.settings_frame}>
-                <div className={s.settings_item}>
-                    <div>Состав числа:</div>
-                    <input
-                        value={numberComposition}
-                        type="number"
-                        onChange={onChangeNumberComp}
-                        onFocus={handleFocus}
-                    />
-                </div>
-                <div className={s.settings_item}>
-                    <div>Скорость:</div>
-                    <input
-                        value={speed}
-                        type="number"
-                        onChange={onChangeTimeOutValue}
-                        onFocus={handleFocus}
-                    />
-                </div>
-                <div className={s.settings_item}>
-                    <div>Количество действий:</div>
-                    <input
-                        value={actionsCount}
-                        type="number"
-                        onChange={onChangeActionsCount}
-                        onFocus={handleFocus}
-                    />
-                </div>
-                <div className={s.settings_item}>
-                    <label>
-                        <input
-                            checked={isSoundOn}
-                            type="checkbox"
-                            onChange={onChangeSound}
-                            disabled={isDisabledCheckboxSound}
-                        />со звуком
-                    </label>
-                </div>
+                <NumberCompCountSettings onChangeNumberComp={onChangeNumberComp}
+                                         handleFocus={handleFocus}
+                                         numberComposition={numberComposition}/>
+                <SpeedCountSettings speed={speed}
+                                    handleFocus={handleFocus}
+                                    onChangeTimeOutValue={onChangeTimeOutValue}/>
+                <NumberOfActionsCountSettings actionsCount={actionsCount}
+                                              onChangeActionsCount={onChangeActionsCount}
+                                              handleFocus={handleFocus}/>
+                <VoiceOnCountSettings isSoundOn={isSoundOn}
+                                      isDisabledCheckboxSound={isDisabledCheckboxSound}
+                                      onChangeSound={onChangeSound}/>
             </div>
             <button onClick={startRocket}>
                 Старт
@@ -124,3 +103,7 @@ export const SettingsCount: FC = memo(() => {
         </div>
     }
 )
+
+
+
+

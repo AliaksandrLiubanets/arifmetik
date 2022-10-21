@@ -1,4 +1,4 @@
-import s from './Settings.module.css'
+import s from '../../SettingsBlock/Settings.module.css'
 import React, {ChangeEvent, FC, FocusEvent} from 'react'
 
 type SpeedCardsSettingsPropsType = {
