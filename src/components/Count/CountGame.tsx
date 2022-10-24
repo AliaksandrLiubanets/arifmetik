@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react'
 import s from '../GameStyles/GameStyles.module.css'
 import {PreStart} from '../PreStart/PreStart'
-import {Count} from './Count'
+import {ActionsAndAnsewrInput} from './ActionsAndAnsewrInput'
 import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
 
@@ -14,7 +14,7 @@ export const CountGame: FC = memo(() => {
             <div className={s.game}>
                 {isPreStart
                     ? <PreStart />
-                    : <Count />
+                    : <ActionsAndAnsewrInput />
                 }
             </div>
         )

@@ -8,9 +8,9 @@ export type ActionAndSoundType = {
 
 const initialState = {
     numberComposition: 10 as number,
-    speed: 1,
+    speedCount: 1,
     actionsCount: 2,
-    isSoundOn: true,
+    isVoiceOn: true,
     actionsArray: [] as ActionAndSoundType[],
     actionsAndSoundsArray: [] as ActionAndSoundType[],
     answer: 0,
@@ -24,13 +24,13 @@ export const slice = createSlice({
             state.numberComposition = action.payload.numberComposition
         },
         setSpeed(state, action: PayloadAction<{ speed: number }>) {
-            state.speed = action.payload.speed
+            state.speedCount = action.payload.speed
         },
         setActionsCount(state, action: PayloadAction<{ actionsCount: number }>) {
             state.actionsCount = action.payload.actionsCount
         },
         switchSound(state, action: PayloadAction<{ isSoundOn: boolean }>) {
-            state.isSoundOn = action.payload.isSoundOn
+            state.isVoiceOn = action.payload.isSoundOn
         },
         setActionsArrayAndAnswer(state) {
             const {

@@ -1,21 +1,23 @@
 import s from '../../SettingsBlock/Settings.module.css'
 import React, {ChangeEvent, FC, FocusEvent} from 'react'
-import {useSelector} from 'react-redux'
-import {AppRootStateType} from '../../../store/store'
 
 type NumCompPropsType = {
     handleFocus: (e: FocusEvent<HTMLInputElement>) => void
     onChangeFirstCardsComp: (e: ChangeEvent<HTMLInputElement>) => void
     onChangeSecondCardsComp: (e: ChangeEvent<HTMLInputElement>) => void
+    firstCardsComposition: number
+    secondCardsComposition: number
+    numberOfFlashCards: number
 }
 
-export const NumberCompCardsSettings: FC<NumCompPropsType> = ({handleFocus, onChangeFirstCardsComp, onChangeSecondCardsComp}) => {
-
-    const {
-        firstCardsComposition,
-        secondCardsComposition,
-        numberOfFlashCards
-    } = useSelector((state: AppRootStateType) => state.cards)
+export const NumberCompCardsSettings: FC<NumCompPropsType> = ({
+                                                                  handleFocus,
+                                                                  onChangeFirstCardsComp,
+                                                                  onChangeSecondCardsComp,
+                                                                  firstCardsComposition,
+                                                                  secondCardsComposition,
+                                                                  numberOfFlashCards
+                                                              }) => {
 
     const inputSecondCardStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
 

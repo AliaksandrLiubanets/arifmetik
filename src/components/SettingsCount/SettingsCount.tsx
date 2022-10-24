@@ -33,16 +33,15 @@ export const SettingsCount: FC = memo(() => {
         const {
             numberComposition,
             actionsCount,
-            speed,
-            isSoundOn
+            speedCount,
+            isVoiceOn
         } = useSelector((state: AppRootStateType) => state.count)
 
-        const setTimeoutValue = useCallback((speed: number) => dispatch(setSpeed({speed})), [dispatch])
-        const setSound = useCallback((isSoundOn: boolean) => dispatch(switchSound({isSoundOn})), [dispatch])
+        const setSound = useCallback((isSoundOn: boolean) => dispatch(switchSound({isSoundOn: isVoiceOn})), [dispatch])
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
 
-        const disabledCheckboxCondition: boolean = (numberComposition < 11 && speed < 1)
-            || (numberComposition > 10 && numberComposition < 21 && speed < 1.2)
+        const disabledCheckboxCondition: boolean = (numberComposition < 11 && speedCount < 1)
+            || (numberComposition > 10 && numberComposition < 21 && speedCount < 1.2)
             || numberComposition > 20
 
         useEffect(() => {
@@ -53,7 +52,7 @@ export const SettingsCount: FC = memo(() => {
                 setSound(true)
                 setIsDisabledCheckboxSound(false)
             }
-        }, [speed, setSound, disabledCheckboxCondition])
+        }, [speedCount, setSound, disabledCheckboxCondition])
 
         const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
 
@@ -61,13 +60,13 @@ export const SettingsCount: FC = memo(() => {
             dispatch(setNumberComp({numberComposition: e.currentTarget.valueAsNumber}))
         }, [dispatch])
         const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
-            setTimeoutValue(e.currentTarget.valueAsNumber)
+            dispatch(setSpeed({speed: e.currentTarget.valueAsNumber}))
         }
         const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setActionsCount({actionsCount: e.currentTarget.valueAsNumber}))
         }, [dispatch])
         const onChangeSound = (e: ChangeEvent<HTMLInputElement>) => {
-            setSound(e.currentTarget.checked)
+            dispatch(switchSound({isSoundOn: e.currentTarget.checked}))
         }
         const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer())
         const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
@@ -87,15 +86,15 @@ export const SettingsCount: FC = memo(() => {
                 <NumberCompCountSettings onChangeNumberComp={onChangeNumberComp}
                                          handleFocus={handleFocus}
                                          numberComposition={numberComposition}/>
-                <SpeedCountSettings speed={speed}
+                <SpeedCountSettings speed={speedCount}
                                     handleFocus={handleFocus}
                                     onChangeTimeOutValue={onChangeTimeOutValue}/>
                 <NumberOfActionsCountSettings actionsCount={actionsCount}
                                               onChangeActionsCount={onChangeActionsCount}
                                               handleFocus={handleFocus}/>
-                <VoiceOnCountSettings isSoundOn={isSoundOn}
+                <VoiceOnCountSettings isVoiceOn={isVoiceOn}
                                       isDisabledCheckboxSound={isDisabledCheckboxSound}
-                                      onChangeSound={onChangeSound}/>
+                                      onChangeVoice={onChangeSound}/>
             </div>
             <button onClick={startRocket}>
                 Старт

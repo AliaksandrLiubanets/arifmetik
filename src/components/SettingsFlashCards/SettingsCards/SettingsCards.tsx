@@ -37,8 +37,6 @@ export const SettingsCards: FC = memo(() => {
             speed
         } = useSelector((state: AppRootStateType) => state.cards)
 
-        const homeWork = useSelector((state: AppRootStateType) => state.homework.homeWork)
-
         const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setSpeed({speed: e.currentTarget.valueAsNumber}))
         }
@@ -80,10 +78,13 @@ export const SettingsCards: FC = memo(() => {
                                     onChangeTimeOutValue={onChangeTimeOutValue}
                                     onChangeIsSpeedOn={onChangeIsSpeedOn}
                 />
-                <NumberOfCardsSettings changeCardNumber={changeCardNumber}/>
+                <NumberOfCardsSettings changeCardNumber={changeCardNumber} numberOfFlashCards={numberOfFlashCards}/>
                 <NumberCompCardsSettings handleFocus={handleFocus}
                                          onChangeFirstCardsComp={onChangeFirstCardsComp}
                                          onChangeSecondCardsComp={onChangeSecondCardsComp}
+                                         numberOfFlashCards={numberOfFlashCards}
+                                         firstCardsComposition={firstCardsComposition}
+                                         secondCardsComposition={secondCardsComposition}
                 />
             </div>
             <button onClick={startRocket}>

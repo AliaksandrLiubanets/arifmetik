@@ -17,8 +17,8 @@ export const Actions: FC<Props> = memo(({focusOnElement, setIsShowAnswer}) => {
         const {
             actionsArray,
             actionsCount,
-            speed,
-            isSoundOn
+            speedCount,
+            isVoiceOn
         } = useSelector((state: AppRootStateType) => state.count)
 
         useEffect(() => {
@@ -35,7 +35,7 @@ export const Actions: FC<Props> = memo(({focusOnElement, setIsShowAnswer}) => {
                     id = setTimeout(() => {
                         setCalc(actionsArray[index])
                         setIndex(prevState => prevState + 1)
-                    }, 1000 * speed) // interval between every action
+                    }, 1000 * speedCount) // interval between every action
                 }
                 return () => {
                     clearInterval(id)
@@ -46,16 +46,16 @@ export const Actions: FC<Props> = memo(({focusOnElement, setIsShowAnswer}) => {
                 id = setTimeout(() => {
                     setIsShowAnswer(true)
                     focusOnElement(true)
-                }, 1000 * speed) // interval after last action
+                }, 1000 * speedCount) // interval after last action
                 return () => {
                     clearInterval(id)
                 }
             }
-        }, [calc, actionsCount, actionsArray, setIsShowAnswer, speed, index, focusOnElement])
+        }, [calc, actionsCount, actionsArray, setIsShowAnswer, speedCount, index, focusOnElement])
 
         return <div className={s.container}>
             {
-                isSoundOn && <Sound url={calc.sound} playStatus={'PLAYING'}/>
+                isVoiceOn && <Sound url={calc.sound} playStatus={'PLAYING'}/>
             }
             <div className={s.action}>{calc.action}</div>
         </div>
