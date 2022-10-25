@@ -61,11 +61,11 @@ export const HomeWork: FC = () => {
         onChangeCountTimeOutValue()
         onChangeCountActionsCount()
         onChangeSound()
-    }, [])
+    }, [currentUserId])
 
     const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
 
-    return <div className={s.container}>
+    return <div className={s.content}>
         <div className={s.icon}>
             <NavLink to={PATH.FLASH}>
                 <div className={s.item} onClick={() => {startHWDoing()}}>

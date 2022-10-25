@@ -34,7 +34,7 @@ export const Pupil: FC<PupilPropsType> = memo(({pupil, handleUserId}) => {
                 :
                 <td>
                     <NavLink to={PATH.HOMEWORK}>
-                        <div>{'Выполнить дз'}</div>
+                        <div onClick={() => handleUserId(pupil.id)}>{'Выполнить дз'}</div>
                     </NavLink>
                 </td>
 

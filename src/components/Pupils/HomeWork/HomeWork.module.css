@@ -5,9 +5,6 @@
 .icon {
     cursor: pointer;
 }
-/*.icon_link a {*/
-/*    text-decoration: none;*/
-/*}*/
 .item {
     display: flex;
     flex-direction: column;
