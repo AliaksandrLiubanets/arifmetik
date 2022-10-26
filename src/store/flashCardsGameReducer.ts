@@ -65,7 +65,10 @@ export const slice = createSlice({
                 state.secondFlashCard = getRandomCard(state.secondCardsArray, state.secondCardsComposition)
             }
             const firstCardAnswer = convertStringPictureToNumber(state.firstFlashCard)
-            const secondCardAnswer = convertStringPictureToNumber(state.secondFlashCard)
+            let secondCardAnswer = convertStringPictureToNumber(state.secondFlashCard)
+            if(state.numberOfFlashCards === 1) {
+                secondCardAnswer = 0
+            }
             state.answer = firstCardAnswer + secondCardAnswer
         },
     }

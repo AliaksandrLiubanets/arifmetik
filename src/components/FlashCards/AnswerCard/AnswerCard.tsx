@@ -20,8 +20,6 @@ export const AnswerCard: FC<AnswerCardProps> = memo(({answer, inputAnswer}) => {
 
 export const RightAnswer = () => {
 
-    // const allExerciseStr: string = `${firstFlashCard.toString()} + ${secondFlashCard.toString()} = ${answer}`
-
     return <div className={s.container}>
         <FlashCards/>
     </div>
