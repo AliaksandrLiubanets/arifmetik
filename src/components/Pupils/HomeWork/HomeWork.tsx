@@ -40,16 +40,34 @@ export const HomeWork: FC = () => {
 
     const dispatch = useDispatch()
 
-    const onChangeCardsTimeOutValue = useCallback(() => dispatch(setCardSpeed({speed: speedCards})), [dispatch, speedCards])
-    const onChangeIsSpeedOn = useCallback(() => dispatch(setIsSpeedOn({isSpeedOn: isSpeedOn})), [dispatch, isSpeedOn])
-    const changeCardNumber = useCallback(() => dispatch(setNumberOfFlashCards({numberOfFlashCards: numberOfFlashCards})), [dispatch, numberOfFlashCards])
-    const onChangeFirstCardsComp = useCallback(() => dispatch(setFirstCardsComp({firstCardsComposition: firstCardsComposition})), [dispatch, firstCardsComposition])
-    const onChangeSecondCardsComp = useCallback(() => dispatch(setSecondCardsComp({secondCardsComposition: secondCardsComposition})), [dispatch, secondCardsComposition])
+    const onChangeCardsTimeOutValue = useCallback(() => {
+        dispatch(setCardSpeed({speed: speedCards}))
+    }, [dispatch, speedCards])
+    const onChangeIsSpeedOn = useCallback(() => {
+        dispatch(setIsSpeedOn({isSpeedOn: isSpeedOn}))
+    }, [dispatch, isSpeedOn])
+    const changeCardNumber = useCallback(() => {
+        dispatch(setNumberOfFlashCards({numberOfFlashCards: numberOfFlashCards}))
+    }, [dispatch, numberOfFlashCards])
+    const onChangeFirstCardsComp = useCallback(() => {
+        dispatch(setFirstCardsComp({firstCardsComposition: firstCardsComposition}))
+    }, [dispatch, firstCardsComposition])
+    const onChangeSecondCardsComp = useCallback(() => {
+        dispatch(setSecondCardsComp({secondCardsComposition: secondCardsComposition}))
+    }, [dispatch, secondCardsComposition])
 
-    const onChangeCountNumberComp = useCallback(() => dispatch(setNumberComp({numberComposition: numberComposition})), [dispatch, numberComposition])
-    const onChangeCountTimeOutValue = useCallback(() => dispatch(setSpeed({speed: speedCount})), [dispatch, speedCount])
-    const onChangeCountActionsCount = useCallback(() => dispatch(setActionsCount({actionsCount: actionsCount})), [dispatch, actionsCount])
-    const onChangeSound = useCallback(() => dispatch(switchSound({isSoundOn: isVoiceOn})), [dispatch, isVoiceOn])
+    const onChangeCountNumberComp = useCallback(() => {
+        dispatch(setNumberComp({numberComposition: numberComposition}))
+    }, [dispatch, numberComposition])
+    const onChangeCountTimeOutValue = useCallback(() => {
+        dispatch(setSpeed({speed: speedCount}))
+    }, [dispatch, speedCount])
+    const onChangeCountActionsCount = useCallback(() => {
+        dispatch(setActionsCount({actionsCount: actionsCount}))
+    }, [dispatch, actionsCount])
+    const onChangeSound = useCallback(() => {
+        dispatch(switchSound({isSoundOn: isVoiceOn}))
+    }, [dispatch, isVoiceOn])
 
     useEffect(() => {
         onChangeCardsTimeOutValue()
