@@ -5,7 +5,7 @@ import s from './HeadButtons.module.css'
 
 
 type HeadButtonsType = {
-    handleBackToSettings: () => void
+    handleBackToSettings?: () => void
 }
 
 export const HeadButtons: FC<HeadButtonsType> = ({handleBackToSettings}) => {

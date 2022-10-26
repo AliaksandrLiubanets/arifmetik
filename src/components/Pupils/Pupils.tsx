@@ -1,15 +1,10 @@
 import React from 'react'
 import {PupilsTable} from './PupleTable/PupilsTable'
-import {PATH} from '../../enums/paths'
-import {NavLink} from 'react-router-dom'
+import {HeadButtons} from '../commonComponents/HeadButtons/HeadButtons'
 
 export const Pupils = () => {
     return <>
-        <NavLink to={PATH.MAIN}>
-            <button>На главную</button>
-        </NavLink>
-        <div>
-            <PupilsTable/>
-        </div>
+        <HeadButtons />
+        <PupilsTable/>
     </>
 }

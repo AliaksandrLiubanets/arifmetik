@@ -3,14 +3,15 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
 import {
-    setCardAndAnswer, setCardSpeed,
+    setCardAndAnswer,
+    setCardSpeed,
     setFirstCardsComp,
     setIsSpeedOn,
-    setNumberOfFlashCards, setSecondCardsComp
+    setNumberOfFlashCards,
+    setSecondCardsComp
 } from '../../../store/flashCardsGameReducer'
 import {changeGame, startGame, switchPreStart} from '../../../store/appReducer'
-import {PATH} from '../../../enums/paths'
-import {NavLink, useLocation} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import useSound from 'use-sound'
 import rocket_start from '../../../assets/sounds/rocket/rocket_2sec.mp3'
 import {SpeedCardsSettings} from '../../commonComponents/CardsSettings/SpeedCardsSettings'
@@ -70,6 +71,7 @@ export const SettingsCards: FC = memo(() => {
         return <div className={s.container}>
             <HeadButtons handleBackToSettings={handleBackToSettings}/>
             <div className={s.settings_frame}>
+                <div>Флэшкарты</div>
                 <SpeedCardsSettings isSpeedOn={isSpeedOn}
                                     speed={speed}
                                     handleFocus={handleFocus}

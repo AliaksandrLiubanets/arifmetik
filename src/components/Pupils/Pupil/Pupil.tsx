@@ -28,7 +28,7 @@ export const Pupil: FC<PupilPropsType> = memo(({pupil, handleUserId}) => {
         <td>{pupil.email}</td>
         {
             isTaskApplicationTable
-                ? <td onClick={() => {
+                ? <td className={s.make_task} onClick={() => {
                     toggleHWSettings()
                 }}>{'Назначить дз'}</td>
                 :

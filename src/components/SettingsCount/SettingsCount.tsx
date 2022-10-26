@@ -37,7 +37,7 @@ export const SettingsCount: FC = memo(() => {
             isVoiceOn
         } = useSelector((state: AppRootStateType) => state.count)
 
-        const setSound = useCallback((isSoundOn: boolean) => dispatch(switchSound({isSoundOn: isVoiceOn})), [dispatch])
+        const setSound = useCallback(() => dispatch(switchSound({isSoundOn: isVoiceOn})), [dispatch, isVoiceOn])
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
 
         const disabledCheckboxCondition: boolean = (numberComposition < 11 && speedCount < 1)
@@ -46,10 +46,10 @@ export const SettingsCount: FC = memo(() => {
 
         useEffect(() => {
             if (disabledCheckboxCondition) {
-                setSound(false)
+                setSound()
                 setIsDisabledCheckboxSound(true)
             } else {
-                setSound(true)
+                setSound()
                 setIsDisabledCheckboxSound(false)
             }
         }, [speedCount, setSound, disabledCheckboxCondition])
@@ -81,6 +81,7 @@ export const SettingsCount: FC = memo(() => {
         return <div className={s.container}>
             <HeadButtons handleBackToSettings={handleBackToSettings}/>
             <div className={s.settings_frame}>
+                <div>Счёт</div>
                 <NumberCompCountSettings onChangeNumberComp={onChangeNumberComp}
                                          handleFocus={handleFocus}
                                          numberComposition={numberComposition}/>

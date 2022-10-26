@@ -15,6 +15,7 @@ import {
 import {setActionsCount, setNumberComp, setSpeed, switchSound} from '../../../store/countGameReducer'
 import {NavLink} from 'react-router-dom'
 import {PATH} from '../../../enums/paths'
+import {HeadButtons} from '../../commonComponents/HeadButtons/HeadButtons'
 
 
 export const HomeWork: FC = () => {
@@ -26,7 +27,7 @@ export const HomeWork: FC = () => {
         secondCardsComposition,
         numberOfFlashCards,
         isSpeedOn,
-        numberOfCardsExercises,
+        // numberOfCardsExercises,
         speedCards
     } = homeWork[index].cards
 
@@ -34,7 +35,7 @@ export const HomeWork: FC = () => {
         numberComposition,
         isVoiceOn,
         speedCount,
-        numberOfCountExercises,
+        // numberOfCountExercises,
         actionsCount
     } = homeWork[index].count
 
@@ -84,24 +85,31 @@ export const HomeWork: FC = () => {
 
     const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
 
-    return <div className={s.content}>
-        <div className={s.icon}>
-            <NavLink to={PATH.FLASH}>
-                <div className={s.item} onClick={() => {startHWDoing()}}>
-                    <div>Задание</div>
-                    <img src={dominoes} alt={'dominoes_icon'}/>
-                    <div>Флэшкарты</div>
-                </div>
-            </NavLink>
-        </div>
-        <div className={s.icon}>
-            <NavLink to={PATH.COUNT}>
-                <div className={s.item} onClick={() => {startHWDoing()}}>
-                    <div>Задание</div>
-                    <img src={digits} alt={'digits_icon'}/>
-                    <div>Счёт</div>
-                </div>
-            </NavLink>
+    return <div className={s.container}>
+        <HeadButtons />
+        <div className={s.content}>
+            <div className={s.icon}>
+                <NavLink to={PATH.FLASH}>
+                    <div className={s.item} onClick={() => {
+                        startHWDoing()
+                    }}>
+                        <div>Задание</div>
+                        <img src={dominoes} alt={'dominoes_icon'}/>
+                        <div>Флэшкарты</div>
+                    </div>
+                </NavLink>
+            </div>
+            <div className={s.icon}>
+                <NavLink to={PATH.COUNT}>
+                    <div className={s.item} onClick={() => {
+                        startHWDoing()
+                    }}>
+                        <div>Задание</div>
+                        <img src={digits} alt={'digits_icon'}/>
+                        <div>Счёт</div>
+                    </div>
+                </NavLink>
+            </div>
         </div>
     </div>
 }
