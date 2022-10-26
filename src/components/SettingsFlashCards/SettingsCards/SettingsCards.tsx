@@ -16,6 +16,7 @@ import rocket_start from '../../../assets/sounds/rocket/rocket_2sec.mp3'
 import {SpeedCardsSettings} from '../../commonComponents/CardsSettings/SpeedCardsSettings'
 import {NumberOfCardsSettings} from '../../commonComponents/CardsSettings/NumberOfCardsSettings'
 import {NumberCompCardsSettings} from '../../commonComponents/CardsSettings/NumberCompCardsSettings'
+import {HeadButtons} from '../../commonComponents/HeadButtons/HeadButtons'
 
 
 export const SettingsCards: FC = memo(() => {
@@ -67,9 +68,7 @@ export const SettingsCards: FC = memo(() => {
         }
 
         return <div className={s.container}>
-            <NavLink to={PATH.MAIN}>
-                <button onClick={handleBackToSettings}>На главную</button>
-            </NavLink>
+            <HeadButtons handleBackToSettings={handleBackToSettings}/>
             <div className={s.settings_frame}>
                 <SpeedCardsSettings isSpeedOn={isSpeedOn}
                                     speed={speed}

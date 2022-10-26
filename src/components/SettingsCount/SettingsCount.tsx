@@ -12,12 +12,12 @@ import {
 import {changeGame, startGame, switchPreStart} from '../../store/appReducer'
 import useSound from 'use-sound'
 import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
-import {NavLink, useLocation} from 'react-router-dom'
-import {PATH} from '../../enums/paths'
+import {useLocation} from 'react-router-dom'
 import {NumberCompCountSettings} from '../commonComponents/CountSettings/NumberCompCountSettings'
 import {NumberOfActionsCountSettings} from '../commonComponents/CountSettings/NumberOfActionsCountSettings'
 import {SpeedCountSettings} from '../commonComponents/CountSettings/SpeedCountSettings'
 import {VoiceOnCountSettings} from './VoiceOnCountSettings'
+import {HeadButtons} from '../commonComponents/HeadButtons/HeadButtons'
 
 export const SettingsCount: FC = memo(() => {
 
@@ -79,9 +79,7 @@ export const SettingsCount: FC = memo(() => {
         }
 
         return <div className={s.container}>
-            <NavLink to={PATH.MAIN}>
-                <button onClick={handleBackToSettings}>На главную</button>
-            </NavLink>
+            <HeadButtons handleBackToSettings={handleBackToSettings}/>
             <div className={s.settings_frame}>
                 <NumberCompCountSettings onChangeNumberComp={onChangeNumberComp}
                                          handleFocus={handleFocus}
