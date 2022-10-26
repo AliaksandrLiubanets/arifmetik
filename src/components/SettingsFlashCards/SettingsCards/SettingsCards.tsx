@@ -3,11 +3,10 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
 import {
-    setCardAndAnswer,
+    setCardAndAnswer, setCardSpeed,
     setFirstCardsComp,
     setIsSpeedOn,
-    setNumberOfFlashCards, setSecondCardsComp,
-    setSpeed
+    setNumberOfFlashCards, setSecondCardsComp
 } from '../../../store/flashCardsGameReducer'
 import {changeGame, startGame, switchPreStart} from '../../../store/appReducer'
 import {PATH} from '../../../enums/paths'
@@ -38,7 +37,7 @@ export const SettingsCards: FC = memo(() => {
         } = useSelector((state: AppRootStateType) => state.cards)
 
         const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setSpeed({speed: e.currentTarget.valueAsNumber}))
+            dispatch(setCardSpeed({speed: e.currentTarget.valueAsNumber}))
         }
         const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setIsSpeedOn({isSpeedOn: e.currentTarget.checked}))

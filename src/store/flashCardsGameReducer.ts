@@ -48,7 +48,7 @@ export const slice = createSlice({
         setIsSpeedOn(state, action: PayloadAction<{ isSpeedOn: boolean }>) {
             state.isSpeedOn = action.payload.isSpeedOn
         },
-        setSpeed(state, action: PayloadAction<{ speed: number }>) {
+        setCardSpeed(state, action: PayloadAction<{ speed: number }>) {
             if (action.payload.speed >= 0) {
                 state.speed = action.payload.speed
             }
@@ -66,9 +66,7 @@ export const slice = createSlice({
             }
             const firstCardAnswer = convertStringPictureToNumber(state.firstFlashCard)
             let secondCardAnswer = convertStringPictureToNumber(state.secondFlashCard)
-            if(state.numberOfFlashCards === 1) {
-                secondCardAnswer = 0
-            }
+
             state.answer = firstCardAnswer + secondCardAnswer
         },
     }
@@ -81,7 +79,7 @@ export const {
     setSecondCardsComp,
     setNumberOfFlashCards,
     setIsSpeedOn,
-    setSpeed,
+    setCardSpeed,
     setActionsCardCount,
     setCardAndAnswer
 } = slice.actions
