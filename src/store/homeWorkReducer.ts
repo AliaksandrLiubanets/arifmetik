@@ -15,12 +15,13 @@ const HWInitialState = {
                 isVoiceOn: true
             },
             cards: {
-                numberOfCardsExercises: 5,
-                numberOfFlashCards: 2,
-                firstCardsComposition: 6,
-                secondCardsComposition: 5,
-                isSpeedOn: true,
-                speedCards: 1.5
+                decidedCardsExercisesHW: 0,
+                numberOfCardsExercisesHW: 5,
+                numberOfFlashCardsHW: 2,
+                firstCardsCompositionHW: 6,
+                secondCardsCompositionHW: 5,
+                isSpeedOnHW: true,
+                speedCardsHW: 1.5
             }
         },
         {
@@ -33,12 +34,13 @@ const HWInitialState = {
                 isVoiceOn: true
             },
             cards: {
-                numberOfCardsExercises: 5,
-                numberOfFlashCards: 2,
-                firstCardsComposition: 6,
-                secondCardsComposition: 5,
-                isSpeedOn: true,
-                speedCards: 2.5
+                decidedCardsExercisesHW: 0,
+                numberOfCardsExercisesHW: 5,
+                numberOfFlashCardsHW: 2,
+                firstCardsCompositionHW: 6,
+                secondCardsCompositionHW: 5,
+                isSpeedOnHW: true,
+                speedCardsHW: 2.5
             }
         }
     ]
@@ -58,35 +60,35 @@ export const slice = createSlice({
         setCurrentUserId(state, action: PayloadAction<{ currentUserId: number | null }>) {
             state.currentUserId = action.payload.currentUserId
         },
-        setFirstCardsNumberComp(state, action: PayloadAction<{ userId: number | null, firstCardsComposition: number }>) {
+        setFirstCardsNumberComp(state, action: PayloadAction<{ userId: number | null, firstCardsCompositionHW: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
-            const cardsComp = action.payload.firstCardsComposition
+            const cardsComp = action.payload.firstCardsCompositionHW
             if (cardsComp > 2 && cardsComp < 11) {
-                state.homeWork[index].cards.firstCardsComposition = cardsComp
+                state.homeWork[index].cards.firstCardsCompositionHW = cardsComp
             }
         },
-        setSecondCardsNumberComp(state, action: PayloadAction<{ userId: number | null, secondCardsComposition: number }>) {
+        setSecondCardsNumberComp(state, action: PayloadAction<{ userId: number | null, secondCardsCompositionHW: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
-            const cardsComp = action.payload.secondCardsComposition
+            const cardsComp = action.payload.secondCardsCompositionHW
             if (cardsComp > 2 && cardsComp < 11) {
-                state.homeWork[index].cards.secondCardsComposition = cardsComp
+                state.homeWork[index].cards.secondCardsCompositionHW = cardsComp
             }
         },
-        setNumberOfCards(state, action: PayloadAction<{ userId: number | null, numberOfFlashCards: number }>) {
+        setNumberOfCards(state, action: PayloadAction<{ userId: number | null, numberOfFlashCardsHW: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
-            state.homeWork[index].cards.numberOfFlashCards = action.payload.numberOfFlashCards
+            state.homeWork[index].cards.numberOfFlashCardsHW = action.payload.numberOfFlashCardsHW
         },
-        setIsSpeedOn(state, action: PayloadAction<{ userId: number | null, isSpeedOn: boolean }>) {
+        setIsSpeedOn(state, action: PayloadAction<{ userId: number | null, isSpeedOnHW: boolean }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
-            state.homeWork[index].cards.isSpeedOn = action.payload.isSpeedOn
+            state.homeWork[index].cards.isSpeedOnHW = action.payload.isSpeedOnHW
         },
-        setCardsSpeed(state, action: PayloadAction<{ userId: number | null, speedCards: number }>) {
+        setCardsSpeed(state, action: PayloadAction<{ userId: number | null, speedCardsHW: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
-            state.homeWork[index].cards.speedCards = action.payload.speedCards
+            state.homeWork[index].cards.speedCardsHW = action.payload.speedCardsHW
         },
-        setCardsNumberOfExercises(state, action: PayloadAction<{ userId: number | null, numberOfCardsExercises: number }>) {
+        setCardsNumberOfExercises(state, action: PayloadAction<{ userId: number | null, numberOfCardsExercisesHW: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
-            state.homeWork[index].cards.numberOfCardsExercises = action.payload.numberOfCardsExercises
+            state.homeWork[index].cards.numberOfCardsExercisesHW = action.payload.numberOfCardsExercisesHW
         },
         setCountNumberComp(state, action: PayloadAction<{ userId: number | null, numberComposition: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
@@ -145,12 +147,13 @@ export type CountTaskType = {
     isVoiceOn: boolean
 }
 export type CardsTaskType = {
-    numberOfCardsExercises: number
-    speedCards: number
-    numberOfFlashCards: number
-    firstCardsComposition: number
-    secondCardsComposition: number
-    isSpeedOn: boolean
+    decidedCardsExercisesHW: number
+    numberOfCardsExercisesHW: number
+    speedCardsHW: number
+    numberOfFlashCardsHW: number
+    firstCardsCompositionHW: number
+    secondCardsCompositionHW: number
+    isSpeedOnHW: boolean
 }
 
 // export type CountGameActionsType = InferActionTypes<typeof countGameActions>

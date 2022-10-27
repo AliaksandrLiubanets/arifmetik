@@ -3,15 +3,28 @@ import React, {ChangeEvent, FC, FocusEvent} from 'react'
 
 type SpeedCardsSettingsPropsType = {
     isSpeedOn: boolean
-    speed: number
+    speedCards: number
+    minValue: number
+    maxValue: number
     handleFocus: (e: FocusEvent<HTMLInputElement>) => void
     onChangeTimeOutValue: (e: ChangeEvent<HTMLInputElement>) => void
     onChangeIsSpeedOn: (e: ChangeEvent<HTMLInputElement>) => void
+
 }
 
-export const SpeedCardsSettings: FC<SpeedCardsSettingsPropsType> = ({isSpeedOn, speed, handleFocus, onChangeTimeOutValue, onChangeIsSpeedOn}) => {
+export const SpeedCardsSettings: FC<SpeedCardsSettingsPropsType> = ({
+                                                                        isSpeedOn,
+                                                                        speedCards,
+                                                                        handleFocus,
+                                                                        onChangeTimeOutValue,
+                                                                        onChangeIsSpeedOn,
+                                                                        minValue,
+                                                                        maxValue
+                                                                    }) => {
 
     const inputSpeedStyle = !isSpeedOn ? `${s.settings_comp_second_card}` : ''
+
+    const isDisabledInput = (speedCards <= minValue) || (speedCards >= maxValue) || !isSpeedOn
 
     return <div className={s.settings_item}>
         <div className={s.settings_wrapper}>
@@ -25,8 +38,8 @@ export const SpeedCardsSettings: FC<SpeedCardsSettingsPropsType> = ({isSpeedOn, 
                 <div>Скорость:</div>
                 <input
                     className={inputSpeedStyle}
-                    disabled={!isSpeedOn}
-                    value={speed}
+                    disabled={isDisabledInput}
+                    value={speedCards}
                     type="number"
                     onChange={onChangeTimeOutValue}
                     onFocus={handleFocus}

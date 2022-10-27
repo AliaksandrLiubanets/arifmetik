@@ -33,11 +33,11 @@ export const SettingsCardsContainer: FC = memo(() => {
             secondCardsComposition,
             numberOfFlashCards,
             isSpeedOn,
-            speed
+            speedCards
         } = useSelector((state: AppRootStateType) => state.cards)
 
         const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setCardSpeed({speed: e.currentTarget.valueAsNumber}))
+            dispatch(setCardSpeed({speedCards: e.currentTarget.valueAsNumber}))
         }
         const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setIsSpeedOn({isSpeedOn: e.currentTarget.checked}))
@@ -68,7 +68,7 @@ export const SettingsCardsContainer: FC = memo(() => {
 
         return <div className={s.container}>
             <HeadButtons handleBackToSettings={handleBackToSettings}/>
-            <CardsSettings speed={speed}
+            <CardsSettings speedCards={speedCards}
                            numberOfFlashCards={numberOfFlashCards}
                            firstCardsComposition={firstCardsComposition}
                            secondCardsComposition={secondCardsComposition}

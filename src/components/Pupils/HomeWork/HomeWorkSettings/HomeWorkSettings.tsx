@@ -103,7 +103,7 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
     const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
 
     return <div className={s.container}>
-        <CardsSettings speed={speedCards}
+        <CardsSettings speedCards={speedCards}
                        isSpeedOn={isSpeedOn}
                        numberOfFlashCards={numberOfFlashCards}
                        firstCardsComposition={firstCardsComposition}
