@@ -16,12 +16,7 @@ export const FlashCardsContainer = () => {
     const dispatch = useDispatch()
     const {
         isSpeedOn,
-        answer
     } = useSelector((state: AppRootStateType) => state.cards)
-    const countAnswer = useSelector((state: AppRootStateType) => state.count.answer)
-    const typeOfGame = useSelector((state: AppRootStateType) => state.app.typeOfGame)
-
-    const answerExercise = makeAnswerFromFlashCardOrCount(typeOfGame, countAnswer, answer)
 
     const nextFlashCard = () => dispatch(setCardAndAnswer())
 
