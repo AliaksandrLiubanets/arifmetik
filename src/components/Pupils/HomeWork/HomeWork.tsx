@@ -23,12 +23,12 @@ export const HomeWork: FC = () => {
     const {homeWork, currentUserId} = useSelector((state: AppRootStateType) => state.homework)
     const index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
     const {
-        firstCardsComposition,
-        secondCardsComposition,
-        numberOfFlashCards,
-        isSpeedOn,
+        firstCardsCompositionHW,
+        secondCardsCompositionHW,
+        numberOfFlashCardsHW,
+        isSpeedOnHW,
         // numberOfCardsExercises,
-        speedCards
+        speedCardsHW
     } = homeWork[index].cards
 
     const {
@@ -42,20 +42,20 @@ export const HomeWork: FC = () => {
     const dispatch = useDispatch()
 
     const onChangeCardsTimeOutValue = useCallback(() => {
-        dispatch(setCardSpeed({speed: speedCards}))
-    }, [dispatch, speedCards])
+        dispatch(setCardSpeed({speedCards: speedCardsHW}))
+    }, [dispatch, speedCardsHW])
     const onChangeIsSpeedOn = useCallback(() => {
-        dispatch(setIsSpeedOn({isSpeedOn: isSpeedOn}))
-    }, [dispatch, isSpeedOn])
+        dispatch(setIsSpeedOn({isSpeedOn: isSpeedOnHW}))
+    }, [dispatch, isSpeedOnHW])
     const changeCardNumber = useCallback(() => {
-        dispatch(setNumberOfFlashCards({numberOfFlashCards: numberOfFlashCards}))
-    }, [dispatch, numberOfFlashCards])
+        dispatch(setNumberOfFlashCards({numberOfFlashCards: numberOfFlashCardsHW}))
+    }, [dispatch, numberOfFlashCardsHW])
     const onChangeFirstCardsComp = useCallback(() => {
-        dispatch(setFirstCardsComp({firstCardsComposition: firstCardsComposition}))
-    }, [dispatch, firstCardsComposition])
+        dispatch(setFirstCardsComp({firstCardsComposition: firstCardsCompositionHW}))
+    }, [dispatch, firstCardsCompositionHW])
     const onChangeSecondCardsComp = useCallback(() => {
-        dispatch(setSecondCardsComp({secondCardsComposition: secondCardsComposition}))
-    }, [dispatch, secondCardsComposition])
+        dispatch(setSecondCardsComp({secondCardsComposition: secondCardsCompositionHW}))
+    }, [dispatch, secondCardsCompositionHW])
 
     const onChangeCountNumberComp = useCallback(() => {
         dispatch(setNumberComp({numberComposition: numberComposition}))
