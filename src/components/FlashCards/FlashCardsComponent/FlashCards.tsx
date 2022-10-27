@@ -15,7 +15,7 @@ export const FlashCards: FC<Props> = ({focusOnElement, showAnswer}) => {
         firstFlashCard,
         secondFlashCard,
         numberOfFlashCards,
-        speed
+        speedCards
     } = useSelector((state: AppRootStateType) => state.cards)
     let card: string = getPictureAccordingStrNumber(firstFlashCard)
     let secondCard: string = getPictureAccordingStrNumber(secondFlashCard)
@@ -26,13 +26,13 @@ export const FlashCards: FC<Props> = ({focusOnElement, showAnswer}) => {
         id = setTimeout(() => {
             showAnswer && showAnswer(true)
             focusOnElement && focusOnElement(true)
-        }, 1000 * speed)
+        }, 1000 * speedCards)
 
         return () => {
             clearInterval(id)
         }
 
-    }, [speed])
+    }, [speedCards, focusOnElement, showAnswer])
 
 
     return <div className={s.flash}>
