@@ -40,7 +40,7 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
     } = homeWork[index].cards  // get cards state data from homeWorkReducer for user with userId
 
     const {
-        // numberOfCountExercises,
+        // numberOfCountExercises
         isVoiceOn,
         numberComposition,
         actionsCount,
