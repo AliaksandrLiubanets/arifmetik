@@ -8,7 +8,6 @@ import rocket_start from '../../../assets/sounds/rocket/rocket_2sec.mp3'
 import {switchPreStart} from '../../../store/appReducer'
 import {AppRootStateType} from '../../../store/store'
 import {makeAnswerFromFlashCardOrCount} from '../../../utils/helper'
-import {AnswerCount} from '../../Answer/AnswerCount'
 import {setCardAndAnswer} from '../../../store/flashCardsGameReducer'
 import {ButtonNext} from '../../ButtonNext/ButtonNext'
 import {setActionsArrayAndAnswer} from '../../../store/countGameReducer'
@@ -36,7 +35,7 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
     const dispatch = useDispatch()
 
     const countAnswer = useSelector((state: AppRootStateType) => state.count.answer)
-    const flashCardAnswer = useSelector((state: AppRootStateType) => state.cards.answer)
+    const flashCardAnswer = useSelector((state: AppRootStateType) => state.cards.answerCards)
     const isSpeedOn = useSelector((state: AppRootStateType) => state.cards.isSpeedOn)
     const typeOfGame = useSelector((state: AppRootStateType) => state.app.typeOfGame)
 
