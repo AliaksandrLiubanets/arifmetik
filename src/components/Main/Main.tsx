@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 import {PATH} from '../../enums/paths'
 import dominoes from '../../assets/main-icons/dominoes_2.jpg'
 import digits from '../../assets/main-icons/digits_1.jpg'
-import pupils from '../../assets/pupils/avatars/pupils.jpg'
+import pupils from '../../assets/main-icons/pupils.jpg'
 import hometask from '../../assets/main-icons/homework.jpg'
 import s from './Main.module.css'
 
