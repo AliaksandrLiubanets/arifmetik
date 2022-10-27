@@ -13,15 +13,12 @@ import {changeGame, startGame, switchPreStart} from '../../store/appReducer'
 import useSound from 'use-sound'
 import rocket_start from '../../assets/sounds/rocket/rocket_2sec.mp3'
 import {useLocation} from 'react-router-dom'
-import {NumberCompCountSettings} from '../commonComponents/CountSettings/NumberCompCountSettings'
-import {NumberOfActionsCountSettings} from '../commonComponents/CountSettings/NumberOfActionsCountSettings'
-import {SpeedCountSettings} from '../commonComponents/CountSettings/SpeedCountSettings'
-import {VoiceOnCountSettings} from './VoiceOnCountSettings'
 import {HeadButtons} from '../commonComponents/HeadButtons/HeadButtons'
+import {CountSettings} from '../commonComponents/CountSettings/CountSettings'
 
-export const SettingsCount: FC = memo(() => {
+export const SettingsCountContainer: FC = memo(() => {
 
-        const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
+        const [isDisabledCheckboxVoice, setIsDisabledCheckboxVoice] = useState<boolean>(false)
         const [rocket] = useSound(rocket_start)
         const rocketSound = useCallback(() => rocket(), [rocket])
         const location = useLocation()
@@ -47,10 +44,10 @@ export const SettingsCount: FC = memo(() => {
         useEffect(() => {
             if (disabledCheckboxCondition) {
                 setSound()
-                setIsDisabledCheckboxSound(true)
+                setIsDisabledCheckboxVoice(true)
             } else {
                 setSound()
-                setIsDisabledCheckboxSound(false)
+                setIsDisabledCheckboxVoice(false)
             }
         }, [speedCount, setSound, disabledCheckboxCondition])
 
@@ -65,7 +62,7 @@ export const SettingsCount: FC = memo(() => {
         const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setActionsCount({actionsCount: e.currentTarget.valueAsNumber}))
         }, [dispatch])
-        const onChangeSound = (e: ChangeEvent<HTMLInputElement>) => {
+        const onChangeVoice = (e: ChangeEvent<HTMLInputElement>) => {
             dispatch(switchSound({isSoundOn: e.currentTarget.checked}))
         }
         const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer())
@@ -80,27 +77,24 @@ export const SettingsCount: FC = memo(() => {
 
         return <div className={s.container}>
             <HeadButtons handleBackToSettings={handleBackToSettings}/>
-            <div className={s.settings_frame}>
-                <div>Счёт</div>
-                <NumberCompCountSettings onChangeNumberComp={onChangeNumberComp}
-                                         handleFocus={handleFocus}
-                                         numberComposition={numberComposition}/>
-                <SpeedCountSettings speed={speedCount}
-                                    handleFocus={handleFocus}
-                                    onChangeTimeOutValue={onChangeTimeOutValue}/>
-                <NumberOfActionsCountSettings actionsCount={actionsCount}
-                                              onChangeActionsCount={onChangeActionsCount}
-                                              handleFocus={handleFocus}/>
-                <VoiceOnCountSettings isVoiceOn={isVoiceOn}
-                                      isDisabledCheckboxSound={isDisabledCheckboxSound}
-                                      onChangeVoice={onChangeSound}/>
-            </div>
+            <CountSettings actionsCount={actionsCount}
+                           speed={speedCount}
+                           isVoiceOn={isVoiceOn}
+                           isDisabledCheckboxVoice={isDisabledCheckboxVoice}
+                           numberComposition={numberComposition}
+                           handleFocus={handleFocus}
+                           onChangeTimeOutValue={onChangeTimeOutValue}
+                           onChangeActionsCount={onChangeActionsCount}
+                           onChangeNumberComp={onChangeNumberComp}
+                           onChangeVoice={onChangeVoice}
+            />
             <button onClick={startRocket}>
                 Старт
             </button>
         </div>
     }
 )
+
 
 
 

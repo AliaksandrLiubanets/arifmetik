@@ -1,8 +1,5 @@
 import React, {ChangeEvent, FC, FocusEvent, useCallback, useEffect, useState} from 'react'
 import s from '../../../SettingsBlock/Settings.module.css'
-import {SpeedCardsSettings} from '../../../commonComponents/CardsSettings/SpeedCardsSettings'
-import {NumberOfCardsSettings} from '../../../commonComponents/CardsSettings/NumberOfCardsSettings'
-import {NumberCompCardsSettings} from '../../../commonComponents/CardsSettings/NumberCompCardsSettings'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../../store/store'
 import {
@@ -18,10 +15,8 @@ import {
     switchCountVoice,
     switchHWSettings
 } from '../../../../store/homeWorkReducer'
-import {NumberCompCountSettings} from '../../../commonComponents/CountSettings/NumberCompCountSettings'
-import {SpeedCountSettings} from '../../../commonComponents/CountSettings/SpeedCountSettings'
-import {NumberOfActionsCountSettings} from '../../../commonComponents/CountSettings/NumberOfActionsCountSettings'
-import {VoiceOnCountSettings} from '../../../SettingsCount/VoiceOnCountSettings'
+import {CountSettings} from '../../../commonComponents/CountSettings/CountSettings'
+import {CardsSettings} from '../../../commonComponents/CardsSettings/CardsSettings'
 
 type HomeWorkSettingsType = {
     userId: number | null
@@ -29,7 +24,7 @@ type HomeWorkSettingsType = {
 
 export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
 
-    const [isDisabledCheckboxSound, setIsDisabledCheckboxSound] = useState<boolean>(false)
+    const [isDisabledCheckboxVoice, setIsDisabledCheckboxVoice] = useState<boolean>(false)
 
     const dispatch = useDispatch()
 
@@ -49,14 +44,14 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
         isVoiceOn,
         numberComposition,
         actionsCount,
-        speedCount,
+        speedCount
     } = homeWork[index].count  // get count state data from homeWorkReducer for user with userId
 
     const onChangeCardsTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setCardsSpeed({userId, speedCards: e.currentTarget.valueAsNumber}))
     }
     const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setIsSpeedOn({ userId, isSpeedOn: e.currentTarget.checked}))
+        dispatch(setIsSpeedOn({userId, isSpeedOn: e.currentTarget.checked}))
     }
     const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
         dispatch(setNumberOfCards({userId, numberOfFlashCards: Number(event.target.value)}))
@@ -68,7 +63,10 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
         dispatch(setSecondCardsNumberComp({userId, secondCardsComposition: e.currentTarget.valueAsNumber}))
     }, [dispatch, userId])
 
-    const setVoice = useCallback((isVoiceOn: boolean) => dispatch(switchCountVoice({userId, isVoiceOn})), [dispatch, userId])
+    const setVoice = useCallback((isVoiceOn: boolean) => dispatch(switchCountVoice({
+        userId,
+        isVoiceOn
+    })), [dispatch, userId])
     const saveSettings = useCallback(() => dispatch(switchHWSettings({isHWSettings: false})), [dispatch])
 
     const disabledCheckboxCondition: boolean = (numberComposition < 11 && speedCount < 1)
@@ -78,15 +76,15 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
     useEffect(() => {
         if (disabledCheckboxCondition) {
             setVoice(false)
-            setIsDisabledCheckboxSound(true)
+            setIsDisabledCheckboxVoice(true)
         } else {
             setVoice(true)
-            setIsDisabledCheckboxSound(false)
+            setIsDisabledCheckboxVoice(false)
         }
         return () => {
             saveSettings()  // don't show settings after leaving this page
         }
-    }, [speedCount, setVoice, disabledCheckboxCondition, saveSettings ])
+    }, [speedCount, setVoice, disabledCheckboxCondition, saveSettings])
 
 
     const onChangeNumberComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -105,40 +103,32 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
     const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
 
     return <div className={s.container}>
-        <div className={s.settings_frame}>
-            <div>Флэшкарты</div>
-            <SpeedCardsSettings isSpeedOn={isSpeedOn}
-                                speed={speedCards}
-                                handleFocus={handleFocus}
-                                onChangeTimeOutValue={onChangeCardsTimeOutValue}
-                                onChangeIsSpeedOn={onChangeIsSpeedOn}
-            />
-            <NumberOfCardsSettings changeCardNumber={changeCardNumber} numberOfFlashCards={numberOfFlashCards}/>
-            <NumberCompCardsSettings handleFocus={handleFocus}
-                                     onChangeFirstCardsComp={onChangeFirstCardsComp}
-                                     onChangeSecondCardsComp={onChangeSecondCardsComp}
-                                     firstCardsComposition={firstCardsComposition}
-                                     secondCardsComposition={secondCardsComposition}
-                                     numberOfFlashCards={numberOfFlashCards}
-            />
-        </div>
-        <div className={s.settings_frame}>
-            <div>Счёт</div>
-            <NumberCompCountSettings onChangeNumberComp={onChangeNumberComp}
-                                     handleFocus={handleFocus}
-                                     numberComposition={numberComposition}/>
-            <SpeedCountSettings speed={speedCount}
-                                handleFocus={handleFocus}
-                                onChangeTimeOutValue={onChangeTimeOutValue}/>
-            <NumberOfActionsCountSettings actionsCount={actionsCount}
-                                          onChangeActionsCount={onChangeActionsCount}
-                                          handleFocus={handleFocus}/>
-            <VoiceOnCountSettings isVoiceOn={isVoiceOn}
-                                  isDisabledCheckboxSound={isDisabledCheckboxSound}
-                                  onChangeVoice={onChangeVoice}/>
-        </div>
+        <CardsSettings speed={speedCards}
+                       isSpeedOn={isSpeedOn}
+                       numberOfFlashCards={numberOfFlashCards}
+                       firstCardsComposition={firstCardsComposition}
+                       secondCardsComposition={secondCardsComposition}
+                       changeCardNumber={changeCardNumber}
+                       handleFocus={handleFocus}
+                       onChangeFirstCardsComp={onChangeFirstCardsComp}
+                       onChangeSecondCardsComp={onChangeSecondCardsComp}
+                       onChangeIsSpeedOn={onChangeIsSpeedOn}
+                       onChangeTimeOutValue={onChangeCardsTimeOutValue}
+        />
+        <CountSettings actionsCount={actionsCount}
+                       speed={speedCount}
+                       isVoiceOn={isVoiceOn}
+                       numberComposition={numberComposition}
+                       isDisabledCheckboxVoice={isDisabledCheckboxVoice}
+                       onChangeVoice={onChangeVoice}
+                       onChangeActionsCount={onChangeActionsCount}
+                       handleFocus={handleFocus}
+                       onChangeTimeOutValue={onChangeTimeOutValue}
+                       onChangeNumberComp={onChangeNumberComp}
+        />
         <button onClick={saveSettings}>
             Сохранить
         </button>
     </div>
 }
+

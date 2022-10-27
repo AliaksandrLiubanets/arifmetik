@@ -12,6 +12,9 @@
     border-radius: 20px;
     width: inherit;
 }
+.settings_name {
+    text-align: center;
+}
 .settings_item {
     display: flex;
     flex-direction: column;

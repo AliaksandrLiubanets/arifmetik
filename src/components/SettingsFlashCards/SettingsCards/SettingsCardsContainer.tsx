@@ -14,13 +14,11 @@ import {changeGame, startGame, switchPreStart} from '../../../store/appReducer'
 import {useLocation} from 'react-router-dom'
 import useSound from 'use-sound'
 import rocket_start from '../../../assets/sounds/rocket/rocket_2sec.mp3'
-import {SpeedCardsSettings} from '../../commonComponents/CardsSettings/SpeedCardsSettings'
-import {NumberOfCardsSettings} from '../../commonComponents/CardsSettings/NumberOfCardsSettings'
-import {NumberCompCardsSettings} from '../../commonComponents/CardsSettings/NumberCompCardsSettings'
 import {HeadButtons} from '../../commonComponents/HeadButtons/HeadButtons'
+import {CardsSettings} from '../../commonComponents/CardsSettings/CardsSettings'
 
 
-export const SettingsCards: FC = memo(() => {
+export const SettingsCardsContainer: FC = memo(() => {
         const [rocket] = useSound(rocket_start)
         const rocketSound = useCallback(() => rocket(), [rocket])
 
@@ -70,26 +68,22 @@ export const SettingsCards: FC = memo(() => {
 
         return <div className={s.container}>
             <HeadButtons handleBackToSettings={handleBackToSettings}/>
-            <div className={s.settings_frame}>
-                <div>Флэшкарты</div>
-                <SpeedCardsSettings isSpeedOn={isSpeedOn}
-                                    speed={speed}
-                                    handleFocus={handleFocus}
-                                    onChangeTimeOutValue={onChangeTimeOutValue}
-                                    onChangeIsSpeedOn={onChangeIsSpeedOn}
-                />
-                <NumberOfCardsSettings changeCardNumber={changeCardNumber} numberOfFlashCards={numberOfFlashCards}/>
-                <NumberCompCardsSettings handleFocus={handleFocus}
-                                         onChangeFirstCardsComp={onChangeFirstCardsComp}
-                                         onChangeSecondCardsComp={onChangeSecondCardsComp}
-                                         numberOfFlashCards={numberOfFlashCards}
-                                         firstCardsComposition={firstCardsComposition}
-                                         secondCardsComposition={secondCardsComposition}
-                />
-            </div>
+            <CardsSettings speed={speed}
+                           numberOfFlashCards={numberOfFlashCards}
+                           firstCardsComposition={firstCardsComposition}
+                           secondCardsComposition={secondCardsComposition}
+                           isSpeedOn={isSpeedOn}
+                           onChangeTimeOutValue={onChangeTimeOutValue}
+                           onChangeIsSpeedOn={onChangeIsSpeedOn}
+                           handleFocus={handleFocus}
+                           onChangeFirstCardsComp={onChangeFirstCardsComp}
+                           onChangeSecondCardsComp={onChangeSecondCardsComp}
+                           changeCardNumber={changeCardNumber}
+            />
             <button onClick={startRocket}>
                 Старт
             </button>
         </div>
     }
 )
+

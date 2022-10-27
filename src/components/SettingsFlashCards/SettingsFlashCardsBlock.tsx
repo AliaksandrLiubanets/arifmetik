@@ -2,7 +2,7 @@ import React, {FC, memo} from 'react'
 import {PreStart} from '../PreStart/PreStart'
 import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../store/store'
-import {SettingsCards} from './SettingsCards/SettingsCards'
+import {SettingsCardsContainer} from './SettingsCards/SettingsCardsContainer'
 
 
 export const SettingsFlashCardsBlock: FC = memo(() => {
@@ -12,7 +12,7 @@ export const SettingsFlashCardsBlock: FC = memo(() => {
     return <>
         {isPreStart
             ? <PreStart/>
-            : <SettingsCards />
+            : <SettingsCardsContainer />
         }
     </>
 })

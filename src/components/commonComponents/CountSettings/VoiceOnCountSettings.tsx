@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC} from 'react'
-import s from '../SettingsBlock/Settings.module.css'
+import s from '../../SettingsBlock/Settings.module.css'
 
 type VoiceOnCountSettingsType = {
     isVoiceOn: boolean
