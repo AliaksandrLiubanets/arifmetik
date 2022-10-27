@@ -31,12 +31,12 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
     const homeWork = useSelector((state: AppRootStateType) => state.homework.homeWork)
     const index = homeWork.findIndex((data: HomeWorkType) => data.userId === userId)
     const {
-        firstCardsComposition,
-        secondCardsComposition,
-        numberOfFlashCards,
-        speedCards,
+        firstCardsCompositionHW,
+        secondCardsCompositionHW,
+        numberOfFlashCardsHW,
+        speedCardsHW,
         // numberOfCardsExercises,
-        isSpeedOn
+        isSpeedOnHW
     } = homeWork[index].cards  // get cards state data from homeWorkReducer for user with userId
 
     const {
@@ -48,19 +48,19 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
     } = homeWork[index].count  // get count state data from homeWorkReducer for user with userId
 
     const onChangeCardsTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCardsSpeed({userId, speedCards: e.currentTarget.valueAsNumber}))
+        dispatch(setCardsSpeed({userId, speedCardsHW: e.currentTarget.valueAsNumber}))
     }
     const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setIsSpeedOn({userId, isSpeedOn: e.currentTarget.checked}))
+        dispatch(setIsSpeedOn({userId, isSpeedOnHW: e.currentTarget.checked}))
     }
     const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setNumberOfCards({userId, numberOfFlashCards: Number(event.target.value)}))
+        dispatch(setNumberOfCards({userId, numberOfFlashCardsHW: Number(event.target.value)}))
     }
     const onChangeFirstCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setFirstCardsNumberComp({userId, firstCardsComposition: e.currentTarget.valueAsNumber}))
+        dispatch(setFirstCardsNumberComp({userId, firstCardsCompositionHW: e.currentTarget.valueAsNumber}))
     }, [dispatch, userId])
     const onChangeSecondCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setSecondCardsNumberComp({userId, secondCardsComposition: e.currentTarget.valueAsNumber}))
+        dispatch(setSecondCardsNumberComp({userId, secondCardsCompositionHW: e.currentTarget.valueAsNumber}))
     }, [dispatch, userId])
 
     const setVoice = useCallback((isVoiceOn: boolean) => dispatch(switchCountVoice({
@@ -103,11 +103,11 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
     const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
 
     return <div className={s.container}>
-        <CardsSettings speedCards={speedCards}
-                       isSpeedOn={isSpeedOn}
-                       numberOfFlashCards={numberOfFlashCards}
-                       firstCardsComposition={firstCardsComposition}
-                       secondCardsComposition={secondCardsComposition}
+        <CardsSettings speedCards={speedCardsHW}
+                       isSpeedOn={isSpeedOnHW}
+                       numberOfFlashCards={numberOfFlashCardsHW}
+                       firstCardsComposition={firstCardsCompositionHW}
+                       secondCardsComposition={secondCardsCompositionHW}
                        changeCardNumber={changeCardNumber}
                        handleFocus={handleFocus}
                        onChangeFirstCardsComp={onChangeFirstCardsComp}
