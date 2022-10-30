@@ -11,7 +11,7 @@ import {
     setFirstCardsNumberComp,
     setIsSpeedOn,
     setNumberOfCards,
-    setSecondCardsNumberComp,
+    setSecondCardsNumberComp, setStartHWDoing,
     switchCountVoice,
     switchHWSettings
 } from '../../../../store/homeWorkReducer'
@@ -47,8 +47,8 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
         speedCount
     } = homeWork[index].count  // get count state data from homeWorkReducer for user with userId
 
-    const onChangeCardsTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCardsSpeed({userId, speedCardsHW: e.currentTarget.valueAsNumber}))
+    const onChangeCardsTimeOutValue = (value: number) => {
+        dispatch(setCardsSpeed({userId, speedCardsHW: value}))
     }
     const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setIsSpeedOn({userId, isSpeedOnHW: e.currentTarget.checked}))
@@ -67,7 +67,10 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
         userId,
         isVoiceOn
     })), [dispatch, userId])
-    const saveSettings = useCallback(() => dispatch(switchHWSettings({isHWSettings: false})), [dispatch])
+
+    const saveSettings = useCallback(() => {
+        dispatch(switchHWSettings({isHWSettings: false}))
+    }, [dispatch])
 
     const disabledCheckboxCondition: boolean = (numberComposition < 11 && speedCount < 1)
         || (numberComposition > 10 && numberComposition < 21 && speedCount < 1.2)

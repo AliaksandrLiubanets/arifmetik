@@ -3,7 +3,7 @@ import s from './Pupil.module.css'
 import {AuthUserData} from '../../../store/authReducer'
 import {NavLink, useLocation} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
-import {switchHWSettings} from '../../../store/homeWorkReducer'
+import {setStartHWDoing, switchHWSettings} from '../../../store/homeWorkReducer'
 import {PATH} from '../../../enums/paths'
 
 type PupilPropsType = {
@@ -20,6 +20,11 @@ export const Pupil: FC<PupilPropsType> = memo(({pupil, handleUserId}) => {
         handleUserId(pupil.id)
         dispatch(switchHWSettings({isHWSettings: true}))
     }
+    // const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
+    const toggleHWDoing = () => {
+        handleUserId(pupil.id)
+        dispatch(setStartHWDoing({isStartHWDoing: true}))
+    }
 
     return <tr>
         <td style={{cursor: 'pointer'}}>{pupil.id}</td>
@@ -28,13 +33,11 @@ export const Pupil: FC<PupilPropsType> = memo(({pupil, handleUserId}) => {
         <td>{pupil.email}</td>
         {
             isTaskApplicationTable
-                ? <td className={s.make_task} onClick={() => {
-                    toggleHWSettings()
-                }}>{'Назначить дз'}</td>
+                ? <td className={s.make_task} onClick={toggleHWSettings}>{'Назначить дз'}</td>
                 :
                 <td>
                     <NavLink to={PATH.HOMEWORK}>
-                        <div onClick={() => handleUserId(pupil.id)}>{'Выполнить дз'}</div>
+                        <div onClick={toggleHWDoing}>{'Выполнить дз'}</div>
                     </NavLink>
                 </td>
 

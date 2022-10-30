@@ -36,8 +36,8 @@ export const SettingsCardsContainer: FC = memo(() => {
             speedCards
         } = useSelector((state: AppRootStateType) => state.cards)
 
-        const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setCardSpeed({speedCards: e.currentTarget.valueAsNumber}))
+        const onChangeTimeOutValue = (value: number) => {
+            dispatch(setCardSpeed({speedCards: value}))
         }
         const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setIsSpeedOn({isSpeedOn: e.currentTarget.checked}))
