@@ -11,7 +11,7 @@ import {
     setFirstCardsNumberComp,
     setIsSpeedOn,
     setNumberOfCards,
-    setSecondCardsNumberComp, setStartHWDoing,
+    setSecondCardsNumberComp,
     switchCountVoice,
     switchHWSettings
 } from '../../../../store/homeWorkReducer'

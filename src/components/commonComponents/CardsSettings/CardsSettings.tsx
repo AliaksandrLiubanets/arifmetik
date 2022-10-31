@@ -1,11 +1,8 @@
-import React, {ChangeEvent, FC, FocusEvent, useEffect} from 'react'
+import React, {ChangeEvent, FC, FocusEvent} from 'react'
 import s from '../../SettingsBlock/Settings.module.css'
 import {SpeedCardsSettings} from './SpeedCardsSettings'
 import {NumberOfCardsSettings} from './NumberOfCardsSettings'
 import {NumberCompCardsSettings} from './NumberCompCardsSettings'
-import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from '../../../store/store'
-import {HomeWorkType, setStartHWDoing} from '../../../store/homeWorkReducer'
 
 type SettingsCardsPropsType = {
     isSpeedOn: boolean
@@ -34,47 +31,6 @@ export const CardsSettings: FC<SettingsCardsPropsType> = ({
                                                               onChangeFirstCardsComp,
                                                               onChangeSecondCardsComp
                                                           }) => {
-    // const {isStartHWDoing, isHWSettings} = useSelector((state: AppRootStateType) => state.homework)
-    // const currentUserId = useSelector((state: AppRootStateType) => state.homework.currentUserId)
-    // const homeWork = useSelector((state: AppRootStateType) => state.homework.homeWork)
-    // let index: number
-    // if (!currentUserId) {
-    //     index = 1
-    // } else {
-    //     index = homeWork.findIndex((data: HomeWorkType) =>  data.userId === currentUserId )
-    // }
-    //
-    // const {
-    //     isSpeedOnHW,
-    //     speedCardsHW,
-    //     numberOfFlashCardsHW,
-    //     firstCardsCompositionHW,
-    //     secondCardsCompositionHW
-    // } = homeWork[index].cards
-    //
-    // const dispatch = useDispatch()
-    // const stopHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: false}))
-    //
-    // useEffect(() => {
-    //     if(isStartHWDoing) {
-    //         return () => {
-    //             stopHWDoing()
-    //         }
-    //     }
-    // }, [])
-    //
-    // const step = 0.1
-    // let minSpeedValue = 0.1
-    // let maxSpeedValue = 5
-    // const minFirstCardsCompositionValue = isStartHWDoing ? firstCardsCompositionHW: 3
-    // const maxSecondCardsCompositionValue = isStartHWDoing ? secondCardsCompositionHW: 3
-    // const minNumberOfFlashCardsValue = isStartHWDoing ? numberOfFlashCardsHW: 1
-    // const isStrictSpeedOnMode = isStartHWDoing ? isSpeedOnHW: isSpeedOn
-    //
-    // if (isStartHWDoing) {
-    //     minSpeedValue = 0.1
-    //     maxSpeedValue = speedCardsHW
-    // }
 
     return <div className={s.settings_frame}>
         <div className={s.settings_name}>Флэшкарты</div>
@@ -83,9 +39,6 @@ export const CardsSettings: FC<SettingsCardsPropsType> = ({
                             handleFocus={handleFocus}
                             onChangeTimeOutValue={onChangeTimeOutValue}
                             onChangeIsSpeedOn={onChangeIsSpeedOn}
-                            // minValue={minSpeedValue}
-                            // maxValue={maxSpeedValue}
-                            // stepValue={step}
         />
         <NumberOfCardsSettings changeCardNumber={changeCardNumber} numberOfFlashCards={numberOfFlashCards}/>
         <NumberCompCardsSettings handleFocus={handleFocus}
@@ -94,8 +47,6 @@ export const CardsSettings: FC<SettingsCardsPropsType> = ({
                                  firstCardsComposition={firstCardsComposition}
                                  secondCardsComposition={secondCardsComposition}
                                  numberOfFlashCards={numberOfFlashCards}
-                                 // minValue={minFirstCardsCompositionValue}
-                                 // maxValue={maxSecondCardsCompositionValue}
         />
     </div>
 }

@@ -21,7 +21,8 @@ const HWInitialState = {
                 firstCardsCompositionHW: 6,
                 secondCardsCompositionHW: 5,
                 isSpeedOnHW: true,
-                speedCardsHW: 1.5
+                speedCardsHW: 1.5,
+                maxSpeedHW: 3.5,
             }
         },
         {
@@ -40,7 +41,8 @@ const HWInitialState = {
                 firstCardsCompositionHW: 6,
                 secondCardsCompositionHW: 5,
                 isSpeedOnHW: true,
-                speedCardsHW: 2.5
+                speedCardsHW: 2.5,
+                maxSpeedHW: 8
             }
         }
     ]
@@ -156,6 +158,7 @@ export type CardsTaskType = {
     firstCardsCompositionHW: number
     secondCardsCompositionHW: number
     isSpeedOnHW: boolean
+    maxSpeedHW: number
 }
 
 // export type CountGameActionsType = InferActionTypes<typeof countGameActions>

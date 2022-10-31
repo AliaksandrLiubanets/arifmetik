@@ -4,13 +4,13 @@ import digits from '../../../assets/main-icons/digits_1.jpg'
 import React, {FC, useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
-import {HomeWorkType, setStartHWDoing} from '../../../store/homeWorkReducer'
+import {HomeWorkType} from '../../../store/homeWorkReducer'
 import {
     setCardSpeed,
     setFirstCardsComp,
     setIsSpeedOn,
     setNumberOfFlashCards,
-    setSecondCardsComp,
+    setSecondCardsComp
 } from '../../../store/flashCardsGameReducer'
 import {setActionsCount, setNumberComp, setSpeed, switchSound} from '../../../store/countGameReducer'
 import {NavLink} from 'react-router-dom'
@@ -20,17 +20,13 @@ import {HeadButtons} from '../../commonComponents/HeadButtons/HeadButtons'
 
 export const HomeWork: FC = () => {
 
-    const {homeWork, currentUserId, isStartHWDoing} = useSelector((state: AppRootStateType) => state.homework)
-    console.log('isStartHWDoing:', isStartHWDoing)
+    const {homeWork, currentUserId} = useSelector((state: AppRootStateType) => state.homework)
     let index: number
     if (!currentUserId) {
         index = 1
     } else {
         index = homeWork.findIndex((data: HomeWorkType) =>  data.userId === currentUserId )
     }
-    console.log('index:', index)
-    // костыль - чтобы проходила компелляция при чтении всех компонент:
-
 
     const {
         firstCardsCompositionHW,
