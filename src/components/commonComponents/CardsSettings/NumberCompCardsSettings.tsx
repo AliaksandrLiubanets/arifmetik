@@ -1,15 +1,17 @@
 import s from '../../SettingsBlock/Settings.module.css'
-import React, {ChangeEvent, FC, FocusEvent} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, useEffect, useState} from 'react'
 
 type NumCompPropsType = {
     handleFocus: (e: FocusEvent<HTMLInputElement>) => void
-    onChangeFirstCardsComp: (e: ChangeEvent<HTMLInputElement>) => void
-    onChangeSecondCardsComp: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeFirstCardsComp: (value: number) => void
+    onChangeSecondCardsComp: (value: number) => void
     firstCardsComposition: number
     secondCardsComposition: number
     numberOfFlashCards: number
-    minValue: number
-    maxValue: number
+    minFirstValue: number
+    maxFirstValue: number
+    minSecondValue: number
+    maxSecondValue: number
 }
 
 export const NumberCompCardsSettings: FC<NumCompPropsType> = ({
@@ -19,33 +21,60 @@ export const NumberCompCardsSettings: FC<NumCompPropsType> = ({
                                                                   firstCardsComposition,
                                                                   secondCardsComposition,
                                                                   numberOfFlashCards,
-                                                                  minValue,
-                                                                  maxValue
+                                                                  minFirstValue,
+                                                                  maxFirstValue,
+                                                                  minSecondValue,
+                                                                  maxSecondValue
                                                               }) => {
 
     const inputSecondCardStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
-    const isDisabledFirstInput = (firstCardsComposition <= minValue) || (firstCardsComposition >= maxValue)
-    const isDisabledSecondInput = (secondCardsComposition <= minValue) || (secondCardsComposition >= maxValue) || numberOfFlashCards !== 2
+
+    const [firstCurrentValue, setFirstCurrentValue] = useState(minFirstValue)
+    const [secondCurrentValue, setSecondCurrentValue] = useState(minSecondValue)
+
+    const onChangeFirstCurrentValue = (e: ChangeEvent<HTMLInputElement>) => {
+        let value = e.currentTarget.valueAsNumber
+        if (value <= maxFirstValue && value >= minFirstValue) {
+            setFirstCurrentValue(value)
+        }
+    }
+    const onChangeSecondCurrentValue = (e: ChangeEvent<HTMLInputElement>) => {
+        let value = e.currentTarget.valueAsNumber
+        if (value <= maxSecondValue && value >= minSecondValue) {
+            setSecondCurrentValue(value)
+        }
+    }
+
+    useEffect(() => {
+        onChangeFirstCardsComp(firstCurrentValue)
+    }, [firstCurrentValue])
+
+    useEffect(() => {
+        onChangeSecondCardsComp(secondCurrentValue)
+    }, [secondCurrentValue])
+
 
     return <div className={s.settings_item}>
         <div>Состав числа:</div>
         <div className={s.settings_comp}>
             <div>
                 <input
-                    value={firstCardsComposition}
+                    value={firstCurrentValue}
                     type="number"
-                    onChange={onChangeFirstCardsComp}
+                    onChange={onChangeFirstCurrentValue}
                     onFocus={handleFocus}
-                    disabled={isDisabledFirstInput}
+                    disabled={false}
+                    step={'1'}
                 />
             </div>
             <div className={inputSecondCardStyle}>
                 <input
-                    disabled={isDisabledSecondInput}
-                    value={secondCardsComposition}
+                    disabled={false}
+                    value={secondCurrentValue}
                     type="number"
-                    onChange={onChangeSecondCardsComp}
+                    onChange={onChangeSecondCurrentValue}
                     onFocus={handleFocus}
+                    step={'1'}
                 />
             </div>
         </div>

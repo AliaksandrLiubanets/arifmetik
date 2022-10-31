@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, FocusEvent, memo, useCallback} from 'react'
+import React, {FC, FocusEvent, memo, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import s from '../../SettingsBlock/Settings.module.css'
@@ -39,17 +39,17 @@ export const SettingsCardsContainer: FC = memo(() => {
         const onChangeTimeOutValue = (value: number) => {
             dispatch(setCardSpeed({speedCards: value}))
         }
-        const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setIsSpeedOn({isSpeedOn: e.currentTarget.checked}))
+        const onChangeIsSpeedOn = (value: boolean) => {
+            dispatch(setIsSpeedOn({isSpeedOn: value}))
         }
-        const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setNumberOfFlashCards({numberOfFlashCards: Number(event.target.value)}))
+        const changeCardNumber = (value: number) => {
+            dispatch(setNumberOfFlashCards({numberOfFlashCards: value}))
         }
-        const onChangeFirstCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setFirstCardsComp({firstCardsComposition: e.currentTarget.valueAsNumber}))
+        const onChangeFirstCardsComp = useCallback((value: number) => {
+            dispatch(setFirstCardsComp({firstCardsComposition: value}))
         }, [dispatch])
-        const onChangeSecondCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setSecondCardsComp({secondCardsComposition: e.currentTarget.valueAsNumber}))
+        const onChangeSecondCardsComp = useCallback((value: number) => {
+            dispatch(setSecondCardsComp({secondCardsComposition: value}))
         }, [dispatch])
 
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])

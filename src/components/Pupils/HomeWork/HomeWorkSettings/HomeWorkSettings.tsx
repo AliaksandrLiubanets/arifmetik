@@ -11,7 +11,7 @@ import {
     setFirstCardsNumberComp,
     setIsSpeedOn,
     setNumberOfCards,
-    setSecondCardsNumberComp, setStartHWDoing,
+    setSecondCardsNumberComp,
     switchCountVoice,
     switchHWSettings
 } from '../../../../store/homeWorkReducer'
@@ -50,17 +50,17 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
     const onChangeCardsTimeOutValue = (value: number) => {
         dispatch(setCardsSpeed({userId, speedCardsHW: value}))
     }
-    const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setIsSpeedOn({userId, isSpeedOnHW: e.currentTarget.checked}))
+    const onChangeIsSpeedOn = (value: boolean) => {
+        dispatch(setIsSpeedOn({userId, isSpeedOnHW: value}))
     }
-    const changeCardNumber = (event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setNumberOfCards({userId, numberOfFlashCardsHW: Number(event.target.value)}))
+    const changeCardNumber = (value: number) => {
+        dispatch(setNumberOfCards({userId, numberOfFlashCardsHW: value}))
     }
-    const onChangeFirstCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setFirstCardsNumberComp({userId, firstCardsCompositionHW: e.currentTarget.valueAsNumber}))
+    const onChangeFirstCardsComp = useCallback((value: number) => {
+        dispatch(setFirstCardsNumberComp({userId, firstCardsCompositionHW: value}))
     }, [dispatch, userId])
-    const onChangeSecondCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setSecondCardsNumberComp({userId, secondCardsCompositionHW: e.currentTarget.valueAsNumber}))
+    const onChangeSecondCardsComp = useCallback((value: number) => {
+        dispatch(setSecondCardsNumberComp({userId, secondCardsCompositionHW: value}))
     }, [dispatch, userId])
 
     const setVoice = useCallback((isVoiceOn: boolean) => dispatch(switchCountVoice({

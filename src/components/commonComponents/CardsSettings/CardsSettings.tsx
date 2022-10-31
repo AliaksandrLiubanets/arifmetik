@@ -15,18 +15,18 @@ type SettingsCardsPropsType = {
     secondCardsComposition: number
     handleFocus: (e: FocusEvent<HTMLInputElement>) => void
     onChangeTimeOutValue: (value: number) => void
-    onChangeIsSpeedOn: (e: ChangeEvent<HTMLInputElement>) => void
-    changeCardNumber: (event: ChangeEvent<HTMLInputElement>) => void
-    onChangeFirstCardsComp: (e: ChangeEvent<HTMLInputElement>) => void
-    onChangeSecondCardsComp: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeIsSpeedOn: (value: boolean) => void
+    changeCardNumber: (value: number) => void
+    onChangeFirstCardsComp: (value: number) => void
+    onChangeSecondCardsComp: (value: number) => void
 }
 
 export const CardsSettings: FC<SettingsCardsPropsType> = ({
-                                                              isSpeedOn,
-                                                              speedCards,
-                                                              numberOfFlashCards,
-                                                              firstCardsComposition,
-                                                              secondCardsComposition,
+                                                              // isSpeedOn,
+                                                              // speedCards,
+                                                              // numberOfFlashCards,
+                                                              // firstCardsComposition,
+                                                              // secondCardsComposition,
                                                               handleFocus,
                                                               onChangeTimeOutValue,
                                                               onChangeIsSpeedOn,
@@ -41,7 +41,7 @@ export const CardsSettings: FC<SettingsCardsPropsType> = ({
     if (!currentUserId) {
         index = 1
     } else {
-        index = homeWork.findIndex((data: HomeWorkType) =>  data.userId === currentUserId )
+        index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
     }
 
     const {
@@ -51,12 +51,19 @@ export const CardsSettings: FC<SettingsCardsPropsType> = ({
         firstCardsCompositionHW,
         secondCardsCompositionHW
     } = homeWork[index].cards
+    const {
+        isSpeedOn,
+        speedCards,
+        numberOfFlashCards,
+        firstCardsComposition,
+        secondCardsComposition
+    } = useSelector((state: AppRootStateType) => state.cards)
 
     const dispatch = useDispatch()
     const stopHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: false}))
 
     useEffect(() => {
-        if(isStartHWDoing) {
+        if (isStartHWDoing) {
             return () => {
                 stopHWDoing()
             }
@@ -66,29 +73,42 @@ export const CardsSettings: FC<SettingsCardsPropsType> = ({
     const step = 0.1
     let minSpeedValue = 0.1
     let maxSpeedValue = 5
-    const minFirstCardsCompositionValue = isStartHWDoing ? firstCardsCompositionHW: 3
-    const maxSecondCardsCompositionValue = isStartHWDoing ? secondCardsCompositionHW: 3
-    const minNumberOfFlashCardsValue = isStartHWDoing ? numberOfFlashCardsHW: 1
-    const isStrictSpeedOnMode = isStartHWDoing ? isSpeedOnHW: isSpeedOn
+    let minFirstCardsCompositionValue = 3
+    let maxFirstCardsCompositionValue = 10
+    let minSecondCardsCompositionValue = 3
+    let maxSecondCardsCompositionValue = 10
+    let minNumberOfFlashCardsValue = 1
+    let isSpeedOnMode = false
 
     if (isStartHWDoing) {
-        minSpeedValue = 0.1
         maxSpeedValue = speedCardsHW
+        minFirstCardsCompositionValue = firstCardsCompositionHW
+        minSecondCardsCompositionValue = secondCardsCompositionHW
+        minNumberOfFlashCardsValue = numberOfFlashCardsHW
+        isSpeedOnMode = isSpeedOnHW
     }
+    if (isHWSettings) {
+        maxSpeedValue = speedCards
+        minFirstCardsCompositionValue = firstCardsComposition
+        minSecondCardsCompositionValue = secondCardsComposition
+        minNumberOfFlashCardsValue = numberOfFlashCards
+        isSpeedOnMode = isSpeedOn
+    }
+
+
     console.log('isStartHWDoing in CardsSettings:', isStartHWDoing)
-    console.log('speedCardsHW:', speedCardsHW)
-    console.log('maxSpeedValue:', maxSpeedValue)
+    console.log('isHWSettings in CardsSettings:', isHWSettings)
+    console.log('isSpeedOn:', isSpeedOn)
+    console.log('numberOfFlashCards:', numberOfFlashCards)
 
     return <div className={s.settings_frame}>
         <div className={s.settings_name}>Флэшкарты</div>
-        <SpeedCardsSettings isSpeedOn={isStrictSpeedOnMode}
-                            speedCards={speedCards}
+        <SpeedCardsSettings isSpeedOn={isSpeedOnMode}
                             handleFocus={handleFocus}
                             onChangeTimeOutValue={onChangeTimeOutValue}
                             onChangeIsSpeedOn={onChangeIsSpeedOn}
                             minValue={minSpeedValue}
                             maxValue={maxSpeedValue}
-                            stepValue={step}
         />
         <NumberOfCardsSettings changeCardNumber={changeCardNumber} numberOfFlashCards={minNumberOfFlashCardsValue}/>
         <NumberCompCardsSettings handleFocus={handleFocus}
@@ -97,8 +117,10 @@ export const CardsSettings: FC<SettingsCardsPropsType> = ({
                                  firstCardsComposition={firstCardsComposition}
                                  secondCardsComposition={secondCardsComposition}
                                  numberOfFlashCards={numberOfFlashCards}
-                                 minValue={minFirstCardsCompositionValue}
-                                 maxValue={maxSecondCardsCompositionValue}
+                                 minFirstValue={minFirstCardsCompositionValue}
+                                 maxFirstValue={maxFirstCardsCompositionValue}
+                                 minSecondValue={minSecondCardsCompositionValue}
+                                 maxSecondValue={maxSecondCardsCompositionValue}
         />
     </div>
 }

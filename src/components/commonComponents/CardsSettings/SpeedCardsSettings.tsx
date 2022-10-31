@@ -1,32 +1,29 @@
 import s from '../../SettingsBlock/Settings.module.css'
-import React, {ChangeEvent, FC, FocusEvent, useCallback, useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, useEffect, useState} from 'react'
 
 type SpeedCardsSettingsPropsType = {
     isSpeedOn: boolean
-    speedCards: number
     minValue: number
     maxValue: number
-    stepValue: number
     handleFocus: (e: FocusEvent<HTMLInputElement>) => void
     onChangeTimeOutValue: (value: number) => void
-    onChangeIsSpeedOn: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeIsSpeedOn: (value: boolean) => void
 
 }
 
 export const SpeedCardsSettings: FC<SpeedCardsSettingsPropsType> = ({
                                                                         isSpeedOn,
-                                                                        speedCards,
                                                                         handleFocus,
                                                                         onChangeTimeOutValue,
                                                                         onChangeIsSpeedOn,
                                                                         minValue,
                                                                         maxValue,
-                                                                        stepValue
                                                                     }) => {
 
-    const inputSpeedStyle = !isSpeedOn ? `${s.settings_comp_second_card}` : ''
+
 
     const [currentValue, setCurrentValue] = useState(maxValue)
+    const [currenIsSpeedOn, setCurrentisSpeedOn] = useState(isSpeedOn)
 
     const onChangeCurrentValue = (e: ChangeEvent<HTMLInputElement>) => {
         let value = e.currentTarget.valueAsNumber
@@ -34,48 +31,43 @@ export const SpeedCardsSettings: FC<SpeedCardsSettingsPropsType> = ({
             setCurrentValue(value)
         }
     }
+    const onChangeCurrentIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
+        let value = e.currentTarget.checked
+        if (!isSpeedOn) {
+            setCurrentisSpeedOn(value)
+        }
+    }
 
     useEffect(() => {
         onChangeTimeOutValue(currentValue)
     }, [currentValue])
 
+    useEffect(() => {
+        onChangeIsSpeedOn(currenIsSpeedOn)
+    }, [currenIsSpeedOn])
+
+    const inputSpeedStyle = !currenIsSpeedOn ? `${s.settings_comp_second_card}` : ''
+
     return <div className={s.settings_item}>
         <div className={s.settings_wrapper}>
             <div className={s.settings_speed}>
                 <div>На скорость</div>
-                <input type="checkbox" id="sdeedOn" name="sdeedOn" checked={isSpeedOn}
-                       onChange={onChangeIsSpeedOn}
+                <input type="checkbox" id="sdeedOn" name="sdeedOn" checked={currenIsSpeedOn}
+                       onChange={onChangeCurrentIsSpeedOn}
                 />
             </div>
             <div className={s.settings_speed}>
                 <div>Скорость:</div>
                 <input
                     className={inputSpeedStyle}
-                    disabled={!isSpeedOn}
+                    disabled={!currenIsSpeedOn}
                     value={currentValue}
                     type="number"
                     onChange={onChangeCurrentValue}
                     onFocus={handleFocus}
-                    step={stepValue}
-                    // min={minValue}
-                    // max={maxValue}
+                    step={'0.1'}
                 />
             </div>
         </div>
     </div>
 }
-
-// const onChangeValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-//     const currentValue: number = e.currentTarget.valueAsNumber
-//     console.log('currentValue:', currentValue)
-//     console.log('speedCards:', speedCards)
-//     console.log('minValue:', minValue)
-//     console.log('maxValue:', maxValue)
-//     // onChangeTimeOutValue(currentValue)
-//     // const conditionForMinCerrentValue = (speedCards >= minValue) && (speedCards + currentValue >= minValue)
-//     // const conditionForMaxCerrentValue = (speedCards <= maxValue) && (speedCards + currentValue <= maxValue)
-//     // if (conditionForMinCerrentValue && conditionForMaxCerrentValue) {
-//     onChangeTimeOutValue(currentValue)
-//     // }
-// }, [speedCards, minValue, maxValue])
-
