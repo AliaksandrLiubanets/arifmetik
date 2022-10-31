@@ -47,8 +47,8 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
         speedCount
     } = homeWork[index].count  // get count state data from homeWorkReducer for user with userId
 
-    const onChangeCardsTimeOutValue = (value: number) => {
-        dispatch(setCardsSpeed({userId, speedCardsHW: value}))
+    const onChangeCardsTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setCardsSpeed({userId, speedCardsHW: e.currentTarget.valueAsNumber}))
     }
     const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setIsSpeedOn({userId, isSpeedOnHW: e.currentTarget.checked}))

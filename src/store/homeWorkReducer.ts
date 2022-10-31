@@ -84,7 +84,9 @@ export const slice = createSlice({
         },
         setCardsSpeed(state, action: PayloadAction<{ userId: number | null, speedCardsHW: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
-            state.homeWork[index].cards.speedCardsHW = action.payload.speedCardsHW
+            if (action.payload.speedCardsHW > 0) {
+                state.homeWork[index].cards.speedCardsHW = action.payload.speedCardsHW
+            }
         },
         setCardsNumberOfExercises(state, action: PayloadAction<{ userId: number | null, numberOfCardsExercisesHW: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)

@@ -8,8 +8,8 @@ type NumCompPropsType = {
     firstCardsComposition: number
     secondCardsComposition: number
     numberOfFlashCards: number
-    minValue: number
-    maxValue: number
+    // minValue: number
+    // maxValue: number
 }
 
 export const NumberCompCardsSettings: FC<NumCompPropsType> = ({
@@ -19,13 +19,13 @@ export const NumberCompCardsSettings: FC<NumCompPropsType> = ({
                                                                   firstCardsComposition,
                                                                   secondCardsComposition,
                                                                   numberOfFlashCards,
-                                                                  minValue,
-                                                                  maxValue
+                                                                  // minValue,
+                                                                  // maxValue
                                                               }) => {
 
     const inputSecondCardStyle = numberOfFlashCards !== 2 ? `${s.settings_comp_second_card}` : ''
-    const isDisabledFirstInput = (firstCardsComposition <= minValue) || (firstCardsComposition >= maxValue)
-    const isDisabledSecondInput = (secondCardsComposition <= minValue) || (secondCardsComposition >= maxValue) || numberOfFlashCards !== 2
+    // const isDisabledFirstInput = (firstCardsComposition <= minValue) || (firstCardsComposition >= maxValue)
+    // const isDisabledSecondInput = (secondCardsComposition <= minValue) || (secondCardsComposition >= maxValue) || numberOfFlashCards !== 2
 
     return <div className={s.settings_item}>
         <div>Состав числа:</div>
@@ -36,12 +36,12 @@ export const NumberCompCardsSettings: FC<NumCompPropsType> = ({
                     type="number"
                     onChange={onChangeFirstCardsComp}
                     onFocus={handleFocus}
-                    disabled={isDisabledFirstInput}
+                    // disabled={isDisabledFirstInput}
                 />
             </div>
             <div className={inputSecondCardStyle}>
                 <input
-                    disabled={isDisabledSecondInput}
+                    disabled={numberOfFlashCards !== 2}
                     value={secondCardsComposition}
                     type="number"
                     onChange={onChangeSecondCardsComp}
