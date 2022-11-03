@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../../store/store'
 import {
     HomeWorkType,
+    makeCardsTasksAmount,
     setCardsSpeed,
     setCountActionsCount,
     setCountNumberComp,
@@ -35,7 +36,6 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
         secondCardsCompositionHW,
         numberOfFlashCardsHW,
         speedCardsHW,
-        // numberOfCardsExercises,
         isSpeedOnHW
     } = homeWork[index].cards  // get cards state data from homeWorkReducer for user with userId
 
@@ -63,6 +63,7 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
         dispatch(setSecondCardsNumberComp({userId, secondCardsCompositionHW: e.currentTarget.valueAsNumber}))
     }, [dispatch, userId])
 
+
     const setVoice = useCallback((isVoiceOn: boolean) => dispatch(switchCountVoice({
         userId,
         isVoiceOn
@@ -70,7 +71,8 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
 
     const saveSettings = useCallback(() => {
         dispatch(switchHWSettings({isHWSettings: false}))
-    }, [dispatch])
+        dispatch(makeCardsTasksAmount({userId}))
+    }, [dispatch, userId])
 
     const disabledCheckboxCondition: boolean = (numberComposition < 11 && speedCount < 1)
         || (numberComposition > 10 && numberComposition < 21 && speedCount < 1.2)
@@ -117,6 +119,8 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
                        onChangeSecondCardsComp={onChangeSecondCardsComp}
                        onChangeIsSpeedOn={onChangeIsSpeedOn}
                        onChangeTimeOutValue={onChangeCardsTimeOutValue}
+                       // numberOfExercises={numberOfCardsExercisesHW}
+                       // onChangeNumberOfExercises={onChangeCardsNumberOfExercises}
         />
         <CountSettings actionsCount={actionsCount}
                        speed={speedCount}

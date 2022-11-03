@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useCallback} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import useSound from 'use-sound'
 import right_sund from '../../../assets/sounds/right_answer_sound.mp3'
@@ -12,6 +12,7 @@ import {setCardAndAnswer} from '../../../store/flashCardsGameReducer'
 import {ButtonNext} from '../../ButtonNext/ButtonNext'
 import {setActionsArrayAndAnswer} from '../../../store/countGameReducer'
 import {AnswerCard} from '../../FlashCards/AnswerCard/AnswerCard'
+import {addRightAnswerToCardsTasksAmount} from '../../../store/homeWorkReducer'
 
 type AnswerInputProps = {
     inputAnswer: number
@@ -57,13 +58,13 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
     }
     const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer()), [dispatch])
     const nextFlashCard = useCallback(() => dispatch(setCardAndAnswer()), [dispatch])
-    const nextStep = () => {
+    const nextStep = useCallback(() => {
         if (typeOfGame === '/count') {
             makeActionsArrayAndAnswer()
         } else {
             nextFlashCard()
         }
-    }
+    }, [typeOfGame, makeActionsArrayAndAnswer, nextFlashCard])
     const setIsPrestart = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
 
     const nextExercise = useCallback(() => {
@@ -75,7 +76,15 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
         focusOnElement(false)
         setInputAnswer(0)
         nextStep()
-    }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound, isSpeedOn, showAnswer, focusOnElement, setInputAnswer])
+    }, [setIsPrestart, rocketSound, isSpeedOn, showAnswer, focusOnElement, setInputAnswer, nextStep])
+
+
+
+    useEffect(() => {
+        if (answer === inputAnswer) {
+            dispatch(addRightAnswerToCardsTasksAmount())
+        }
+    }, [inputAnswer, answer, dispatch])
 
     return <div className={s.answer_input}>
         {isFocus

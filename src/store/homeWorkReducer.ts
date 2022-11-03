@@ -15,8 +15,9 @@ const HWInitialState = {
                 isVoiceOn: true
             },
             cards: {
-                decidedCardsExercisesHW: 0,
+                rightCardsAnswerCountHW: 0,
                 numberOfCardsExercisesHW: 5,
+                tasks: [{isDone: false}],
                 numberOfFlashCardsHW: 2,
                 firstCardsCompositionHW: 6,
                 secondCardsCompositionHW: 5,
@@ -35,8 +36,9 @@ const HWInitialState = {
                 isVoiceOn: true
             },
             cards: {
-                decidedCardsExercisesHW: 0,
+                rightCardsAnswerCountHW: 0,
                 numberOfCardsExercisesHW: 5,
+                tasks: [{isDone: false}],
                 numberOfFlashCardsHW: 2,
                 firstCardsCompositionHW: 6,
                 secondCardsCompositionHW: 5,
@@ -94,6 +96,29 @@ export const slice = createSlice({
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
             state.homeWork[index].cards.numberOfCardsExercisesHW = action.payload.numberOfCardsExercisesHW
         },
+        makeCardsTasksAmount(state, action: PayloadAction<{ userId: number | null}>) {
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+            const item = {isDone: false}
+            const tasksArr = [] as ExercisesAmountType
+            const numberOfCardsExercises = state.homeWork[index].cards.numberOfCardsExercisesHW
+            for (let i = 1; i <= numberOfCardsExercises; i++) {
+                tasksArr.push(item)
+            }
+            state.homeWork[index].cards.tasks = tasksArr
+        },
+        addRightAnswerToCardsTasksAmount(state) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+            const tasksArr = state.homeWork[index].cards.tasks
+            const copyTask = [...tasksArr]
+            const changingItem = copyTask.find((item: ItemType) => !item.isDone)
+            if (changingItem) {
+                changingItem.isDone = true
+                state.homeWork[index].cards.tasks = copyTask
+            } else {
+                console.warn('no item')
+            }
+        },
         setCountNumberComp(state, action: PayloadAction<{ userId: number | null, numberComposition: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
             state.homeWork[index].count.numberComposition = action.payload.numberComposition
@@ -113,7 +138,7 @@ export const slice = createSlice({
         setCountActionsCount(state, action: PayloadAction<{ userId: number | null, actionsCount: number }>) {
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
             state.homeWork[index].count.actionsCount = action.payload.actionsCount
-        }
+        },
     }
 })
 
@@ -129,6 +154,8 @@ export const {
     setIsSpeedOn,
     setCardsSpeed,
     setCardsNumberOfExercises,
+    makeCardsTasksAmount,
+    addRightAnswerToCardsTasksAmount,
     setCountNumberComp,
     switchCountVoice,
     setCountSpeed,
@@ -141,8 +168,12 @@ export type HomeWorkType = {
     userId: number | null
     count: CountTaskType
     cards: CardsTaskType
-
 }
+type ItemType = {
+    isDone: boolean
+}
+export type ExercisesAmountType = ItemType []
+
 export type CountTaskType = {
     numberOfCountExercises: number
     speedCount: number
@@ -151,8 +182,9 @@ export type CountTaskType = {
     isVoiceOn: boolean
 }
 export type CardsTaskType = {
-    decidedCardsExercisesHW: number
+    rightCardsAnswerCountHW: number
     numberOfCardsExercisesHW: number
+    tasks: ExercisesAmountType
     speedCardsHW: number
     numberOfFlashCardsHW: number
     firstCardsCompositionHW: number
