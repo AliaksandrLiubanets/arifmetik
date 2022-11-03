@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useCallback, useEffect} from 'react'
+import React, {ChangeEvent, FC, FocusEvent, KeyboardEvent, memo, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import useSound from 'use-sound'
 import right_sund from '../../../assets/sounds/right_answer_sound.mp3'
@@ -54,6 +54,9 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
             showAnswer(true)
             focusOnElement(false)
             answerSound()
+            if (answer === inputAnswer) {
+                dispatch(addRightAnswerToCardsTasksAmount())
+            }
         }
     }
     const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer()), [dispatch])
@@ -79,12 +82,12 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
     }, [setIsPrestart, rocketSound, isSpeedOn, showAnswer, focusOnElement, setInputAnswer, nextStep])
 
 
-
-    useEffect(() => {
-        if (answer === inputAnswer) {
-            dispatch(addRightAnswerToCardsTasksAmount())
-        }
-    }, [inputAnswer, answer, dispatch])
+    //
+    // useEffect(() => {
+    //     if (answer === inputAnswer) {
+    //         dispatch(addRightAnswerToCardsTasksAmount())
+    //     }
+    // }, [inputAnswer, answer, dispatch])
 
     return <div className={s.answer_input}>
         {isFocus
