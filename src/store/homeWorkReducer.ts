@@ -114,9 +114,10 @@ export const slice = createSlice({
             const changingItem = copyTask.find((item: ItemType) => !item.isDone)
             if (changingItem) {
                 changingItem.isDone = true
+                state.homeWork[index].cards.rightCardsAnswerCountHW += 1 // add 1 more right answer
                 state.homeWork[index].cards.tasks = copyTask
             } else {
-                console.warn('no item')
+                console.warn('no item found')
             }
         },
         setCountNumberComp(state, action: PayloadAction<{ userId: number | null, numberComposition: number }>) {
