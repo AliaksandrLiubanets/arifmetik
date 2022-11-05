@@ -35,6 +35,7 @@ export const SpeedCardsSettings: FC<SpeedCardsSettingsPropsType> = ({
                     disabled={!isSpeedOn}
                     value={speedCards}
                     type="number"
+                    step={'0.1'}
                     onChange={onChangeTimeOutValue}
                     onFocus={handleFocus}
                 />

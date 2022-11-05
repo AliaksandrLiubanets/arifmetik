@@ -15,6 +15,7 @@ export const SpeedCountSettings: FC<SpeedCountSettingsType> = ({speed, onChangeT
             type="number"
             onChange={onChangeTimeOutValue}
             onFocus={handleFocus}
+            step={'0.1'}
         />
     </div>
 }

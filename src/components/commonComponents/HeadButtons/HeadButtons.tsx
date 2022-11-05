@@ -5,13 +5,13 @@ import s from './HeadButtons.module.css'
 
 
 type HeadButtonsType = {
-    handleBackToSettings?: () => void
+    callBack?: () => void
 }
 
-export const HeadButtons: FC<HeadButtonsType> = ({handleBackToSettings}) => {
+export const HeadButtons: FC<HeadButtonsType> = ({callBack}) => {
     const navigate = useNavigate()
     return <div className={s.head_buttons}><NavLink to={PATH.MAIN}>
-        <button onClick={handleBackToSettings}>На главную</button>
+        <button onClick={callBack}>На главную</button>
     </NavLink>
         <div>
             <button onClick={() => navigate(-1)}>Назад</button>

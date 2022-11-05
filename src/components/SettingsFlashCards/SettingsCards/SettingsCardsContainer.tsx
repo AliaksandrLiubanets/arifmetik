@@ -67,7 +67,7 @@ export const SettingsCardsContainer: FC = memo(() => {
         }
 
         return <div className={s.container}>
-            <HeadButtons handleBackToSettings={handleBackToSettings}/>
+            <HeadButtons callBack={handleBackToSettings}/>
             <CardsSettings speedCards={speedCards}
                            numberOfFlashCards={numberOfFlashCards}
                            firstCardsComposition={firstCardsComposition}

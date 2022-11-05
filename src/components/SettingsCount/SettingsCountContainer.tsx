@@ -76,7 +76,7 @@ export const SettingsCountContainer: FC = memo(() => {
         }
 
         return <div className={s.container}>
-            <HeadButtons handleBackToSettings={handleBackToSettings}/>
+            <HeadButtons callBack={handleBackToSettings}/>
             <CountSettings actionsCount={actionsCount}
                            speed={speedCount}
                            isVoiceOn={isVoiceOn}
