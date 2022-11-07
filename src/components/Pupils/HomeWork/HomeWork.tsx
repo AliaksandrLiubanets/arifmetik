@@ -4,7 +4,7 @@ import digits from '../../../assets/main-icons/digits_1.jpg'
 import React, {FC, useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
-import {HomeWorkType} from '../../../store/homeWorkReducer'
+import {HomeWorkType, setStartHWDoing} from '../../../store/homeWorkReducer'
 import {
     setCardSpeed,
     setFirstCardsComp,
@@ -89,10 +89,10 @@ export const HomeWork: FC = () => {
     }, [currentUserId, onChangeCardsTimeOutValue, onChangeIsSpeedOn, changeCardNumber, onChangeFirstCardsComp,
         onChangeSecondCardsComp, onChangeCountNumberComp, onChangeCountTimeOutValue, onChangeCountActionsCount, onChangeSound])
 
-    // const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
+    const stopHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: false}))
 
     return <div className={s.container}>
-        <HeadButtons />
+        <HeadButtons callBack={stopHWDoing}/>
         <div className={s.content}>
             <div className={s.icon}>
                 <NavLink to={PATH.FLASH}>

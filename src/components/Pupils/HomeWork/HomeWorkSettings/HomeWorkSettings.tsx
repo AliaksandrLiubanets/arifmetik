@@ -86,10 +86,10 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
             setVoice(true)
             setIsDisabledCheckboxVoice(false)
         }
-        return () => {
-            saveSettings()  // don't show settings after leaving this page
-        }
-    }, [speedCount, setVoice, disabledCheckboxCondition, saveSettings])
+        // return () => {
+        //     saveSettings()  // don't show settings after leaving this page
+        // }
+    }, [setVoice, speedCount, disabledCheckboxCondition, saveSettings])
 
 
     const onChangeNumberComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
