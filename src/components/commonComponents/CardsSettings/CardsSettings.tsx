@@ -80,8 +80,8 @@ export const NumberOfExercises: FC<NumberOfExerPropsType> = () => {
     const numberOfExercises = homeWork[index].cards.numberOfCardsExercisesHW
 
     const onChangeCardsNumberOfExercises = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCardsNumberOfExercises({userId: currentUserId, numberOfCardsExercisesHW: e.currentTarget.valueAsNumber}))
-    }, [dispatch, currentUserId])
+        dispatch(setCardsNumberOfExercises({numberOfCardsExercisesHW: e.currentTarget.valueAsNumber}))
+    }, [dispatch])
 
     return <div className={s.settings_item}>
             <div className={s.settings_speed}>

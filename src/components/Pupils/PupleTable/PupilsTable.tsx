@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import {setCurrentUserId} from '../../../store/homeWorkReducer'
 
+
 export const PupilsTable = () => {
 
     const dispatch = useDispatch()
@@ -37,7 +38,7 @@ export const PupilsTable = () => {
             </tbody>
         </table>
             {
-                isHWSettings && <HomeWorkSettings userId={currentUserId}/>
+                isHWSettings && <HomeWorkSettings userId={currentUserId} />
             }
     </div>
 }

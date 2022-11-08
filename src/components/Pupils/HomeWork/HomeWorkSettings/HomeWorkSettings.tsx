@@ -3,8 +3,7 @@ import s from '../../../SettingsBlock/Settings.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../../store/store'
 import {
-    HomeWorkType,
-    makeCardsTasksAmount,
+    HomeWorkType, makeCardsTasksAmount,
     setCardsSpeed,
     setCountActionsCount,
     setCountNumberComp,
@@ -13,8 +12,7 @@ import {
     setIsSpeedOn,
     setNumberOfCards,
     setSecondCardsNumberComp,
-    switchCountVoice,
-    switchHWSettings
+    switchCountVoice, switchHWSettings
 } from '../../../../store/homeWorkReducer'
 import {CountSettings} from '../../../commonComponents/CountSettings/CountSettings'
 import {CardsSettings} from '../../../commonComponents/CardsSettings/CardsSettings'
@@ -71,8 +69,8 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
 
     const saveSettings = useCallback(() => {
         dispatch(switchHWSettings({isHWSettings: false}))
-        dispatch(makeCardsTasksAmount({userId}))
-    }, [dispatch, userId])
+        dispatch(makeCardsTasksAmount())
+    }, [dispatch])
 
     const disabledCheckboxCondition: boolean = (numberComposition < 11 && speedCount < 1)
         || (numberComposition > 10 && numberComposition < 21 && speedCount < 1.2)

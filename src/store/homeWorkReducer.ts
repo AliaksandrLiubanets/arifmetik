@@ -92,12 +92,14 @@ export const slice = createSlice({
                 state.homeWork[index].cards.speedCardsHW = action.payload.speedCardsHW
             }
         },
-        setCardsNumberOfExercises(state, action: PayloadAction<{ userId: number | null, numberOfCardsExercisesHW: number }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        setCardsNumberOfExercises(state, action: PayloadAction<{ numberOfCardsExercisesHW: number }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             state.homeWork[index].cards.numberOfCardsExercisesHW = action.payload.numberOfCardsExercisesHW
         },
-        makeCardsTasksAmount(state, action: PayloadAction<{ userId: number | null}>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        makeCardsTasksAmount(state) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             const item = {isDone: false}
             const tasksArr = [] as ExercisesAmountType
             const numberOfCardsExercises = state.homeWork[index].cards.numberOfCardsExercisesHW
