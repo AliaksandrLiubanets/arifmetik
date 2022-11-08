@@ -84,9 +84,6 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
             setVoice(true)
             setIsDisabledCheckboxVoice(false)
         }
-        // return () => {
-        //     saveSettings()  // don't show settings after leaving this page
-        // }
     }, [setVoice, speedCount, disabledCheckboxCondition, saveSettings])
 
 
@@ -117,8 +114,6 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
                        onChangeSecondCardsComp={onChangeSecondCardsComp}
                        onChangeIsSpeedOn={onChangeIsSpeedOn}
                        onChangeTimeOutValue={onChangeCardsTimeOutValue}
-                       // numberOfExercises={numberOfCardsExercisesHW}
-                       // onChangeNumberOfExercises={onChangeCardsNumberOfExercises}
         />
         <CountSettings actionsCount={actionsCount}
                        speed={speedCount}

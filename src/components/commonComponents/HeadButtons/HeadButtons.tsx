@@ -20,6 +20,7 @@ export const HeadButtons: FC<HeadButtonsType> = ({callBack, switchHWSettings, ma
 
     const back = () => {
         navigate(-1)
+        callBack && callBack()
         saveSettings()
     }
     const toMain = () => {

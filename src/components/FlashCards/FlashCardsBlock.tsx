@@ -8,11 +8,16 @@ import {startGame} from '../../store/appReducer'
 import {FlashCardsContainer} from './FlashCardsContainer/FlashCardscontainer'
 import {RightAnswerCount} from '../commonComponents/RightAnswerCount/RightAnswerCount'
 import {AppRootStateType} from '../../store/store'
+import {setStartHWDoing} from '../../store/homeWorkReducer'
 
 export const FlashCardsBlock = () => {
 
     const dispatch = useDispatch()
-    const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
+    const stopHWDoing = useCallback(() => dispatch(setStartHWDoing({isStartHWDoing: false})), [dispatch])
+    const handleBackToSettings = useCallback(() => {
+        dispatch(startGame({isStarted: false}))
+        stopHWDoing()
+    }, [dispatch, stopHWDoing])
     const isStartHWDoing = useSelector((state: AppRootStateType) => state.homework.isStartHWDoing)
 
     return <div className={p.container}>

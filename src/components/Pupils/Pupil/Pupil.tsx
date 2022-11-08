@@ -20,7 +20,6 @@ export const Pupil: FC<PupilPropsType> = memo(({pupil, handleUserId}) => {
         handleUserId(pupil.id)
         dispatch(switchHWSettings({isHWSettings: true}))
     }
-    // const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
     const toggleHWDoing = () => {
         handleUserId(pupil.id)
         dispatch(setStartHWDoing({isStartHWDoing: true}))
@@ -40,7 +39,6 @@ export const Pupil: FC<PupilPropsType> = memo(({pupil, handleUserId}) => {
                         <div onClick={toggleHWDoing}>{'Выполнить дз'}</div>
                     </NavLink>
                 </td>
-
         }
         <td>
             😉
