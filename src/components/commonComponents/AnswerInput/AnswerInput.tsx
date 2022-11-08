@@ -40,8 +40,7 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
     const flashCardAnswer = useSelector((state: AppRootStateType) => state.cards.answerCards)
     const isSpeedOn = useSelector((state: AppRootStateType) => state.cards.isSpeedOn)
     const typeOfGame = useSelector((state: AppRootStateType) => state.app.typeOfGame)
-    // const rightAnswersAmount = useSelector((state: AppRootStateType) => state.homework.homeWork)
-    const {homeWork, currentUserId} = useSelector((state: AppRootStateType) => state.homework)
+    const {homeWork, currentUserId, isStartHWDoing} = useSelector((state: AppRootStateType) => state.homework)
     const index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
     const rightAnswersAmount = homeWork[index].cards.rightCardsAnswerCountHW
     const cardsExercisesAmount = homeWork[index].cards.numberOfCardsExercisesHW
@@ -59,7 +58,7 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
             showAnswer(true)
             focusOnElement(false)
             answerSound()
-            if (answer === inputAnswer) {
+            if ((answer === inputAnswer) && isStartHWDoing) {
                 dispatch(addRightAnswerToCardsTasksAmount())
             }
         }
