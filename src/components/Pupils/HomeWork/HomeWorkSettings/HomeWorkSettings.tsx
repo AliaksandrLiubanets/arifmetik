@@ -3,7 +3,7 @@ import s from '../../../SettingsBlock/Settings.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../../store/store'
 import {
-    HomeWorkType,
+    HomeWorkType, makeCardsTasksAmount, makeCountTasksAmount,
     setCardsSpeed,
     setCountActionsCount,
     setCountNumberComp,
@@ -12,18 +12,16 @@ import {
     setIsSpeedOn,
     setNumberOfCards,
     setSecondCardsNumberComp,
-    switchCountVoice,
-    switchHWSettings
+    switchCountVoice, switchHWSettings
 } from '../../../../store/homeWorkReducer'
 import {CountSettings} from '../../../commonComponents/CountSettings/CountSettings'
 import {CardsSettings} from '../../../commonComponents/CardsSettings/CardsSettings'
 
 type HomeWorkSettingsType = {
-    userId: number | null
+    userId: number
 }
 
 export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
-
     const [isDisabledCheckboxVoice, setIsDisabledCheckboxVoice] = useState<boolean>(false)
 
     const dispatch = useDispatch()
@@ -35,41 +33,40 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
         secondCardsCompositionHW,
         numberOfFlashCardsHW,
         speedCardsHW,
-        // numberOfCardsExercises,
         isSpeedOnHW
     } = homeWork[index].cards  // get cards state data from homeWorkReducer for user with userId
 
     const {
-        // numberOfCountExercises
         isVoiceOn,
         numberComposition,
         actionsCount,
         speedCount
     } = homeWork[index].count  // get count state data from homeWorkReducer for user with userId
 
-    const onChangeCardsTimeOutValue = (value: number) => {
-        dispatch(setCardsSpeed({userId, speedCardsHW: value}))
-    }
-    const onChangeIsSpeedOn = (value: boolean) => {
-        dispatch(setIsSpeedOn({userId, isSpeedOnHW: value}))
-    }
-    const changeCardNumber = (value: number) => {
-        dispatch(setNumberOfCards({userId, numberOfFlashCardsHW: value}))
-    }
-    const onChangeFirstCardsComp = useCallback((value: number) => {
-        dispatch(setFirstCardsNumberComp({userId, firstCardsCompositionHW: value}))
-    }, [dispatch, userId])
-    const onChangeSecondCardsComp = useCallback((value: number) => {
-        dispatch(setSecondCardsNumberComp({userId, secondCardsCompositionHW: value}))
-    }, [dispatch, userId])
+    const onChangeCardsTimeOutValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setCardsSpeed({speedCardsHW: e.currentTarget.valueAsNumber}))
+    }, [dispatch])
+    const onChangeIsSpeedOn = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setIsSpeedOn({isSpeedOnHW: e.currentTarget.checked}))
+    }, [dispatch])
+    const changeCardNumber = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setNumberOfCards({numberOfFlashCardsHW: Number(e.target.value)}))
+    }, [dispatch])
+    const onChangeFirstCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setFirstCardsNumberComp({firstCardsCompositionHW: e.currentTarget.valueAsNumber}))
+    }, [dispatch])
+    const onChangeSecondCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setSecondCardsNumberComp({secondCardsCompositionHW: e.currentTarget.valueAsNumber}))
+    }, [dispatch])
 
     const setVoice = useCallback((isVoiceOn: boolean) => dispatch(switchCountVoice({
-        userId,
         isVoiceOn
-    })), [dispatch, userId])
+    })), [dispatch])
 
     const saveSettings = useCallback(() => {
         dispatch(switchHWSettings({isHWSettings: false}))
+        dispatch(makeCardsTasksAmount())
+        dispatch(makeCountTasksAmount())
     }, [dispatch])
 
     const disabledCheckboxCondition: boolean = (numberComposition < 11 && speedCount < 1)
@@ -84,26 +81,22 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
             setVoice(true)
             setIsDisabledCheckboxVoice(false)
         }
-        return () => {
-            saveSettings()  // don't show settings after leaving this page
-        }
-    }, [speedCount, setVoice, disabledCheckboxCondition, saveSettings])
-
+    }, [setVoice, speedCount, disabledCheckboxCondition, saveSettings])
 
     const onChangeNumberComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCountNumberComp({userId, numberComposition: e.currentTarget.valueAsNumber}))
-    }, [dispatch, userId])
-    const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCountSpeed({userId, speedCount: e.currentTarget.valueAsNumber}))
-    }
+        dispatch(setCountNumberComp({numberComposition: e.currentTarget.valueAsNumber}))
+    }, [dispatch])
+    const onChangeTimeOutValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setCountSpeed({speedCount: e.currentTarget.valueAsNumber}))
+    }, [dispatch])
     const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCountActionsCount({userId, actionsCount: e.currentTarget.valueAsNumber}))
-    }, [dispatch, userId])
-    const onChangeVoice = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setCountActionsCount({ actionsCount: e.currentTarget.valueAsNumber}))
+    }, [dispatch])
+    const onChangeVoice = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setVoice(e.currentTarget.checked)
-    }
+    }, [setVoice])
 
-    const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
+    const handleFocus = useCallback((e: FocusEvent<HTMLInputElement>) => e.target.select(), [])
 
     return <div className={s.container}>
         <CardsSettings speedCards={speedCardsHW}

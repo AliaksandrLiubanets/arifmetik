@@ -49,7 +49,7 @@ export const slice = createSlice({
             state.isSpeedOn = action.payload.isSpeedOn
         },
         setCardSpeed(state, action: PayloadAction<{ speedCards: number }>) {
-            if (action.payload.speedCards >= 0) {
+            if (action.payload.speedCards > 0) {
                 state.speedCards = action.payload.speedCards
             }
         },

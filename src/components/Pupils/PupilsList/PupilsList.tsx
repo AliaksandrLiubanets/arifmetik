@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 
 type PupilsListPropsType = {
-    handleUserId: (userId: number | null) => void
+    handleUserId: (userId: number) => void
 }
 
 export const PupilsList: FC<PupilsListPropsType> = memo(({handleUserId}) => {

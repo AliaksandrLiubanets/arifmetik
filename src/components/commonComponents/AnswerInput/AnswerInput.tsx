@@ -12,6 +12,8 @@ import {setCardAndAnswer} from '../../../store/flashCardsGameReducer'
 import {ButtonNext} from '../../ButtonNext/ButtonNext'
 import {setActionsArrayAndAnswer} from '../../../store/countGameReducer'
 import {AnswerCard} from '../../FlashCards/AnswerCard/AnswerCard'
+import {addRightAnswerToCardsTasksAmount, addRightAnswerToCountTasksAmount} from '../../../store/homeWorkReducer'
+import {AnswerCount} from '../../Answer/AnswerCount'
 
 type AnswerInputProps = {
     inputAnswer: number
@@ -38,7 +40,10 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
     const flashCardAnswer = useSelector((state: AppRootStateType) => state.cards.answerCards)
     const isSpeedOn = useSelector((state: AppRootStateType) => state.cards.isSpeedOn)
     const typeOfGame = useSelector((state: AppRootStateType) => state.app.typeOfGame)
-
+    const {homeWork, currentUserId, isStartHWDoing} = useSelector((state: AppRootStateType) => state.homework)
+    // const index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+    // const cardsRightAnswersAmount = homeWork[index].cards.rightAnswersAmount
+    // const cardsExercisesAmount = homeWork[index].cards.numberOfExercises
     const answer = makeAnswerFromFlashCardOrCount(typeOfGame, countAnswer, flashCardAnswer)
 
     const [right] = useSound(right_sund)
@@ -53,21 +58,29 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
             showAnswer(true)
             focusOnElement(false)
             answerSound()
+            if ((answer === inputAnswer) && isStartHWDoing) {
+                if (typeOfGame === '/flash') {
+                    dispatch(addRightAnswerToCardsTasksAmount())
+                }
+                if (typeOfGame === '/count') {
+                    dispatch(addRightAnswerToCountTasksAmount())
+                }
+            }
         }
     }
     const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer()), [dispatch])
     const nextFlashCard = useCallback(() => dispatch(setCardAndAnswer()), [dispatch])
-    const nextStep = () => {
+    const nextStep = useCallback(() => {
         if (typeOfGame === '/count') {
             makeActionsArrayAndAnswer()
         } else {
             nextFlashCard()
         }
-    }
+    }, [typeOfGame, makeActionsArrayAndAnswer, nextFlashCard])
     const setIsPrestart = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
 
     const nextExercise = useCallback(() => {
-        if(!isSpeedOn) {
+        if (!isSpeedOn) {
             rocketSound()
             setIsPrestart(true)
         }
@@ -75,7 +88,7 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
         focusOnElement(false)
         setInputAnswer(0)
         nextStep()
-    }, [makeActionsArrayAndAnswer, setIsPrestart, rocketSound, isSpeedOn, showAnswer, focusOnElement, setInputAnswer])
+    }, [setIsPrestart, rocketSound, isSpeedOn, showAnswer, focusOnElement, setInputAnswer, nextStep])
 
     return <div className={s.answer_input}>
         {isFocus
@@ -89,7 +102,7 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
             />
             : <div className={s.answer_card}>
                 {typeOfGame === '/flash' && <AnswerCard answer={answer} inputAnswer={inputAnswer}/>}
-                {/*{typeOfGame === '/count' && <AnswerCount answer={answer} inputAnswer={inputAnswer}/>}*/}
+                {typeOfGame === '/count' && <AnswerCount answer={answer} inputAnswer={inputAnswer}/>}
                 <ButtonNext isOnFocus={!isFocus} callback={nextExercise}/>
             </div>
         }

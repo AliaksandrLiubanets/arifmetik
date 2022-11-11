@@ -1,10 +1,10 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {AppRootStateType} from './store/store'
-import {FlashCardsGame} from './components/FlashCards/FlashCardsGame'
-import {SettingsFlashCardsBlock} from './components/SettingsFlashCards/SettingsFlashCardsBlock'
+import {AppRootStateType} from '../../store/store'
+import {FlashCardsGame} from './FlashCardsGame'
+import {SettingsFlashCardsBlock} from '../SettingsFlashCards/SettingsFlashCardsBlock'
 
-export const FlashCardsBlock = () => {
+export const CardsBlock = () => {
     const isStarted = useSelector((state: AppRootStateType) => state.app.isStarted)
 
     return <>

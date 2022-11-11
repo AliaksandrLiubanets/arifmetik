@@ -1,0 +1,21 @@
+.item_block {
+    display: flex;
+}
+
+.item, .filled {
+    min-width: 35px;
+    height: 15px;
+    border: 1px solid gold;
+    border-radius: 5px;
+}
+
+.filled {
+    background-color: gold;
+}
+
+.line {
+    min-width: 7px;
+    height: 1px;
+    border-bottom: 1px solid gold;
+    margin-top: 8px;
+}

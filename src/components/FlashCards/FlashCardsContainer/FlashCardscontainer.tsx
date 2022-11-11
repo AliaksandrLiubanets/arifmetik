@@ -1,7 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
-import {makeAnswerFromFlashCardOrCount} from '../../../utils/helper'
 import {setCardAndAnswer} from '../../../store/flashCardsGameReducer'
 import {ButtonNext} from '../../ButtonNext/ButtonNext'
 import {FlashCards} from '../FlashCardsComponent/FlashCards'

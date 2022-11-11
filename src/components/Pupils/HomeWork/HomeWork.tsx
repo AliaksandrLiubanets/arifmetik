@@ -19,18 +19,14 @@ import {HeadButtons} from '../../commonComponents/HeadButtons/HeadButtons'
 
 
 export const HomeWork: FC = () => {
-
-    const {homeWork, currentUserId, isStartHWDoing} = useSelector((state: AppRootStateType) => state.homework)
-    console.log('isStartHWDoing:', isStartHWDoing)
+    const dispatch = useDispatch()
+    const {homeWork, currentUserId} = useSelector((state: AppRootStateType) => state.homework)
     let index: number
     if (!currentUserId) {
         index = 1
     } else {
         index = homeWork.findIndex((data: HomeWorkType) =>  data.userId === currentUserId )
     }
-    console.log('index:', index)
-    // костыль - чтобы проходила компелляция при чтении всех компонент:
-
 
     const {
         firstCardsCompositionHW,
@@ -48,8 +44,6 @@ export const HomeWork: FC = () => {
         // numberOfCountExercises,
         actionsCount
     } = homeWork[index].count
-
-    const dispatch = useDispatch()
 
     const onChangeCardsTimeOutValue = useCallback(() => {
         dispatch(setCardSpeed({speedCards: speedCardsHW}))
@@ -93,15 +87,16 @@ export const HomeWork: FC = () => {
     }, [currentUserId, onChangeCardsTimeOutValue, onChangeIsSpeedOn, changeCardNumber, onChangeFirstCardsComp,
         onChangeSecondCardsComp, onChangeCountNumberComp, onChangeCountTimeOutValue, onChangeCountActionsCount, onChangeSound])
 
-    // const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
+    const stopHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: false}))
+    const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
 
     return <div className={s.container}>
-        <HeadButtons />
+        <HeadButtons callBack={stopHWDoing}/>
         <div className={s.content}>
             <div className={s.icon}>
                 <NavLink to={PATH.FLASH}>
                     <div className={s.item}
-                         // onClick={() => startHWDoing()}
+                         onClick={startHWDoing}
                     >
                         <div>Задание</div>
                         <img src={dominoes} alt={'dominoes_icon'}/>
@@ -112,7 +107,7 @@ export const HomeWork: FC = () => {
             <div className={s.icon}>
                 <NavLink to={PATH.COUNT}>
                     <div className={s.item}
-                         // onClick={() => startHWDoing()}
+                         onClick={startHWDoing}
                     >
                         <div>Задание</div>
                         <img src={digits} alt={'digits_icon'}/>

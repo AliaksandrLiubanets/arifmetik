@@ -7,12 +7,13 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import {setCurrentUserId} from '../../../store/homeWorkReducer'
 
+
 export const PupilsTable = () => {
 
     const dispatch = useDispatch()
     const {isHWSettings, currentUserId} = useSelector((state: AppRootStateType) => state.homework)
 
-    const handleUserId = (userId: number | null) => dispatch(setCurrentUserId({currentUserId: userId }))
+    const handleUserId = (userId: number ) => dispatch(setCurrentUserId({currentUserId: userId }))
 
     const location = useLocation()
     const isTaskApplicationTable = location.pathname === '/hometask'
@@ -37,7 +38,7 @@ export const PupilsTable = () => {
             </tbody>
         </table>
             {
-                isHWSettings && <HomeWorkSettings userId={currentUserId}/>
+                isHWSettings && <HomeWorkSettings userId={currentUserId} />
             }
     </div>
 }
