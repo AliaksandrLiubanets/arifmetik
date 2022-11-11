@@ -90,12 +90,6 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
         nextStep()
     }, [setIsPrestart, rocketSound, isSpeedOn, showAnswer, focusOnElement, setInputAnswer, nextStep])
 
-    // useEffect(() => {
-    //     if (rightAnswersAmount === cardsExercisesAmount) {
-    //         dispatch(setStartHWDoing({isStartHWDoing: false}))
-    //     }
-    // }, [cardsExercisesAmount, rightAnswersAmount, dispatch])
-
     return <div className={s.answer_input}>
         {isFocus
             ? <input
