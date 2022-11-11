@@ -8,7 +8,7 @@ import {PATH} from '../../../enums/paths'
 
 type PupilPropsType = {
     pupil: AuthUserData
-    handleUserId: (userId: number | null) => void
+    handleUserId: (userId: number) => void
 }
 
 export const Pupil: FC<PupilPropsType> = memo(({pupil, handleUserId}) => {

@@ -20,14 +20,9 @@ import {CardsSettings} from '../../commonComponents/CardsSettings/CardsSettings'
 
 export const SettingsCardsContainer: FC = memo(() => {
         const [rocket] = useSound(rocket_start)
-        const rocketSound = useCallback(() => rocket(), [rocket])
-
         const location = useLocation()
-        const setTypeOfGame = () => {
-            dispatch(changeGame({typeOfGame: location.pathname}))
-        }
-
         const dispatch = useDispatch()
+
         const {
             firstCardsComposition,
             secondCardsComposition,
@@ -36,27 +31,33 @@ export const SettingsCardsContainer: FC = memo(() => {
             speedCards
         } = useSelector((state: AppRootStateType) => state.cards)
 
-        const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
+        const onChangeTimeOutValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setCardSpeed({speedCards: e.currentTarget.valueAsNumber}))
-        }
-        const onChangeIsSpeedOn = (e: ChangeEvent<HTMLInputElement>) => {
+        }, [dispatch])
+        const onChangeIsSpeedOn = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setIsSpeedOn({isSpeedOn: e.currentTarget.checked}))
-        }
-        const changeCardNumber = (e: ChangeEvent<HTMLInputElement>) => {
+        }, [dispatch])
+        const changeCardNumber = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setNumberOfFlashCards({numberOfFlashCards: Number(e.target.value)}))
-        }
+        }, [dispatch])
         const onChangeFirstCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setFirstCardsComp({firstCardsComposition: e.currentTarget.valueAsNumber}))
         }, [dispatch])
         const onChangeSecondCardsComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setSecondCardsComp({secondCardsComposition: e.currentTarget.valueAsNumber}))
         }, [dispatch])
+        const handleFocus = useCallback((e: FocusEvent<HTMLInputElement>) => {
+            e.target.select()
+        }, [])
+        const handleBackToSettings = useCallback(() => {
+            dispatch(startGame({isStarted: false}))
+        }, [dispatch])
 
         const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
-        const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
+        const rocketSound = useCallback(() => rocket(), [rocket])
         const setRandomCard = () => dispatch(setCardAndAnswer())
         const start = () => dispatch(startGame({isStarted: true}))
-        const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
+        const setTypeOfGame = () => dispatch(changeGame({typeOfGame: location.pathname}))
 
         const startRocket = () => {
             setIsRocket(true)

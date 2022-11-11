@@ -19,7 +19,7 @@ import {HeadButtons} from '../../commonComponents/HeadButtons/HeadButtons'
 
 
 export const HomeWork: FC = () => {
-
+    const dispatch = useDispatch()
     const {homeWork, currentUserId} = useSelector((state: AppRootStateType) => state.homework)
     let index: number
     if (!currentUserId) {
@@ -44,8 +44,6 @@ export const HomeWork: FC = () => {
         // numberOfCountExercises,
         actionsCount
     } = homeWork[index].count
-
-    const dispatch = useDispatch()
 
     const onChangeCardsTimeOutValue = useCallback(() => {
         dispatch(setCardSpeed({speedCards: speedCardsHW}))
@@ -90,6 +88,7 @@ export const HomeWork: FC = () => {
         onChangeSecondCardsComp, onChangeCountNumberComp, onChangeCountTimeOutValue, onChangeCountActionsCount, onChangeSound])
 
     const stopHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: false}))
+    const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
 
     return <div className={s.container}>
         <HeadButtons callBack={stopHWDoing}/>
@@ -97,7 +96,7 @@ export const HomeWork: FC = () => {
             <div className={s.icon}>
                 <NavLink to={PATH.FLASH}>
                     <div className={s.item}
-                         // onClick={() => startHWDoing()}
+                         onClick={startHWDoing}
                     >
                         <div>Задание</div>
                         <img src={dominoes} alt={'dominoes_icon'}/>
@@ -108,7 +107,7 @@ export const HomeWork: FC = () => {
             <div className={s.icon}>
                 <NavLink to={PATH.COUNT}>
                     <div className={s.item}
-                         // onClick={() => startHWDoing()}
+                         onClick={startHWDoing}
                     >
                         <div>Задание</div>
                         <img src={digits} alt={'digits_icon'}/>

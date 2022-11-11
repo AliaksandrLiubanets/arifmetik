@@ -19,8 +19,6 @@ type SettingsCardsPropsType = {
     changeCardNumber: (e: ChangeEvent<HTMLInputElement>) => void
     onChangeFirstCardsComp: (e: ChangeEvent<HTMLInputElement>) => void
     onChangeSecondCardsComp: (e: ChangeEvent<HTMLInputElement>) => void
-    // onChangeNumberOfExercises?: (e: ChangeEvent<HTMLInputElement>) => void
-    // numberOfExercises?: number
 }
 
 export const CardsSettings: FC<SettingsCardsPropsType> = ({
@@ -35,11 +33,18 @@ export const CardsSettings: FC<SettingsCardsPropsType> = ({
                                                               changeCardNumber,
                                                               onChangeFirstCardsComp,
                                                               onChangeSecondCardsComp,
-                                                              // numberOfExercises,
-                                                              // onChangeNumberOfExercises
+
                                                           }) => {
 
-    const isHWSettings = useSelector((state: AppRootStateType) => state.homework.isHWSettings)
+    const dispatch = useDispatch()
+    const {currentUserId, homeWork, isHWSettings} = useSelector((state: AppRootStateType) => state.homework)
+    let index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+    if (index === -1) index = 0
+    const numberOfExercises = homeWork[index].cards.numberOfExercises
+
+    const onChangeNumberOfExercises = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setCardsNumberOfExercises({numberOfExercises: e.currentTarget.valueAsNumber}))
+    }, [dispatch])
 
     return <div className={s.settings_frame}>
         <div className={s.settings_name}>Флэшкарты</div>
@@ -58,40 +63,29 @@ export const CardsSettings: FC<SettingsCardsPropsType> = ({
                                  numberOfFlashCards={numberOfFlashCards}
         />
         {
-            isHWSettings && <NumberOfExercises
-                // numberOfExercises={numberOfExercises}
-                // handleFocus={handleFocus}
-                //                                onChangeNumberOfExercises={onChangeNumberOfExercises}
+            isHWSettings && <NumberOfExercises numberOfExercises={numberOfExercises} onChangeNumberOfExercises={onChangeNumberOfExercises}
             />
         }
 
     </div>
 }
 
-type NumberOfExerPropsType = {
-    // numberOfExercises?: number
-    // onChangeNumberOfExercises?: (e: ChangeEvent<HTMLInputElement>) => void
+type NumberOfExercisesPropsType = {
+    numberOfExercises: number
+    onChangeNumberOfExercises: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const NumberOfExercises: FC<NumberOfExerPropsType> = () => {
-    const {currentUserId, homeWork} = useSelector((state: AppRootStateType) => state.homework)
-    const index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
-    const dispatch = useDispatch()
-    const numberOfExercises = homeWork[index].cards.numberOfCardsExercisesHW
-
-    const onChangeCardsNumberOfExercises = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCardsNumberOfExercises({numberOfCardsExercisesHW: e.currentTarget.valueAsNumber}))
-    }, [dispatch])
+export const NumberOfExercises: FC<NumberOfExercisesPropsType> = ({numberOfExercises, onChangeNumberOfExercises}) => {
 
     return <div className={s.settings_item}>
-            <div className={s.settings_speed}>
-                <div>Число примеров:</div>
-                <input
-                    className={''}
-                    value={numberOfExercises}
-                    type="number"
-                    onChange={onChangeCardsNumberOfExercises}
-                />
-            </div>
+        <div className={s.settings_speed}>
+            <div>Число примеров:</div>
+            <input
+                className={''}
+                value={numberOfExercises}
+                type="number"
+                onChange={onChangeNumberOfExercises}
+            />
+        </div>
     </div>
 }

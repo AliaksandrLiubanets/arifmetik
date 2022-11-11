@@ -20,13 +20,9 @@ export const SettingsCountContainer: FC = memo(() => {
 
         const [isDisabledCheckboxVoice, setIsDisabledCheckboxVoice] = useState<boolean>(false)
         const [rocket] = useSound(rocket_start)
-        const rocketSound = useCallback(() => rocket(), [rocket])
         const location = useLocation()
-        const setTypeOfGame = () => {
-            dispatch(changeGame({typeOfGame: location.pathname}))
-        }
-
         const dispatch = useDispatch()
+
         const {
             numberComposition,
             actionsCount,
@@ -34,12 +30,11 @@ export const SettingsCountContainer: FC = memo(() => {
             isVoiceOn
         } = useSelector((state: AppRootStateType) => state.count)
 
-        const setSound = useCallback(() => dispatch(switchSound({isSoundOn: isVoiceOn})), [dispatch, isVoiceOn])
-        const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
-
         const disabledCheckboxCondition: boolean = (numberComposition < 11 && speedCount < 1)
             || (numberComposition > 10 && numberComposition < 21 && speedCount < 1.2)
             || numberComposition > 20
+
+        const setSound = useCallback(() => dispatch(switchSound({isSoundOn: isVoiceOn})), [dispatch, isVoiceOn])
 
         useEffect(() => {
             if (disabledCheckboxCondition) {
@@ -51,22 +46,25 @@ export const SettingsCountContainer: FC = memo(() => {
             }
         }, [speedCount, setSound, disabledCheckboxCondition])
 
-        const handleFocus = (e: FocusEvent<HTMLInputElement>) => e.target.select()
-
         const onChangeNumberComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setNumberComp({numberComposition: e.currentTarget.valueAsNumber}))
         }, [dispatch])
-        const onChangeTimeOutValue = (e: ChangeEvent<HTMLInputElement>) => {
+        const onChangeTimeOutValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setSpeed({speed: e.currentTarget.valueAsNumber}))
-        }
+        }, [dispatch])
         const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setActionsCount({actionsCount: e.currentTarget.valueAsNumber}))
         }, [dispatch])
-        const onChangeVoice = (e: ChangeEvent<HTMLInputElement>) => {
+        const onChangeVoice = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(switchSound({isSoundOn: e.currentTarget.checked}))
-        }
-        const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer())
+        }, [dispatch])
+        const handleFocus = useCallback((e: FocusEvent<HTMLInputElement>) => e.target.select(), [])
         const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
+
+        const setIsRocket = useCallback((isPreStart: boolean) => dispatch(switchPreStart({isPreStart})), [dispatch])
+        const makeActionsArrayAndAnswer = () => dispatch(setActionsArrayAndAnswer())
+        const rocketSound = useCallback(() => rocket(), [rocket])
+        const setTypeOfGame = () => dispatch(changeGame({typeOfGame: location.pathname}))
 
         const startRocket = () => {
             setIsRocket(true)

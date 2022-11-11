@@ -3,20 +3,22 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 const HWInitialState = {
     isHWSettings: false,
     isStartHWDoing: false,
-    currentUserId: null as number | null,
+    currentUserId: 0,
     homeWork: [
         {
             userId: 1,
             count: {
-                numberOfCountExercises: 5,
+                rightAnswersAmount: 0,
+                numberOfExercises: 5,
+                tasks: [{isDone: false}],
                 numberComposition: 10,
                 speedCount: 1.5,
                 actionsCount: 10,
                 isVoiceOn: true
             },
             cards: {
-                rightCardsAnswerCountHW: 0,
-                numberOfCardsExercisesHW: 5,
+                rightAnswersAmount: 0,
+                numberOfExercises: 5,
                 tasks: [{isDone: false}],
                 numberOfFlashCardsHW: 2,
                 firstCardsCompositionHW: 6,
@@ -29,15 +31,17 @@ const HWInitialState = {
         {
             userId: 2,
             count: {
-                numberOfCountExercises: 5,
+                rightAnswersAmount: 0,
+                numberOfExercises: 4,
+                tasks: [{isDone: false}],
                 numberComposition: 10,
                 speedCount: 7,
                 actionsCount: 8,
                 isVoiceOn: true
             },
             cards: {
-                rightCardsAnswerCountHW: 0,
-                numberOfCardsExercisesHW: 5,
+                rightAnswersAmount: 0,
+                numberOfExercises: 4,
                 tasks: [{isDone: false}],
                 numberOfFlashCardsHW: 2,
                 firstCardsCompositionHW: 6,
@@ -61,90 +65,154 @@ export const slice = createSlice({
         setStartHWDoing(state, action: PayloadAction<{ isStartHWDoing: boolean }>) {
             state.isStartHWDoing = action.payload.isStartHWDoing
         },
-        setCurrentUserId(state, action: PayloadAction<{ currentUserId: number | null }>) {
+        setCurrentUserId(state, action: PayloadAction<{ currentUserId: number }>) {
             state.currentUserId = action.payload.currentUserId
         },
-        setFirstCardsNumberComp(state, action: PayloadAction<{ userId: number | null, firstCardsCompositionHW: number }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        setFirstCardsNumberComp(state, action: PayloadAction<{firstCardsCompositionHW: number }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             const cardsComp = action.payload.firstCardsCompositionHW
             if (cardsComp > 2 && cardsComp < 11) {
                 state.homeWork[index].cards.firstCardsCompositionHW = cardsComp
             }
         },
-        setSecondCardsNumberComp(state, action: PayloadAction<{ userId: number | null, secondCardsCompositionHW: number }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        setSecondCardsNumberComp(state, action: PayloadAction<{secondCardsCompositionHW: number }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             const cardsComp = action.payload.secondCardsCompositionHW
             if (cardsComp > 2 && cardsComp < 11) {
                 state.homeWork[index].cards.secondCardsCompositionHW = cardsComp
             }
         },
-        setNumberOfCards(state, action: PayloadAction<{ userId: number | null, numberOfFlashCardsHW: number }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        setNumberOfCards(state, action: PayloadAction<{numberOfFlashCardsHW: number }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             state.homeWork[index].cards.numberOfFlashCardsHW = action.payload.numberOfFlashCardsHW
         },
-        setIsSpeedOn(state, action: PayloadAction<{ userId: number | null, isSpeedOnHW: boolean }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        setIsSpeedOn(state, action: PayloadAction<{isSpeedOnHW: boolean }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             state.homeWork[index].cards.isSpeedOnHW = action.payload.isSpeedOnHW
         },
-        setCardsSpeed(state, action: PayloadAction<{ userId: number | null, speedCardsHW: number }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        setCardsSpeed(state, action: PayloadAction<{ speedCardsHW: number }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             if (action.payload.speedCardsHW > 0) {
                 state.homeWork[index].cards.speedCardsHW = action.payload.speedCardsHW
             }
         },
-        setCardsNumberOfExercises(state, action: PayloadAction<{ numberOfCardsExercisesHW: number }>) {
+        setCardsNumberOfExercises(state, action: PayloadAction<{ numberOfExercises: number }>) {
             const currentUserId = state.currentUserId
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
-            state.homeWork[index].cards.numberOfCardsExercisesHW = action.payload.numberOfCardsExercisesHW
+            state.homeWork[index].cards.numberOfExercises = action.payload.numberOfExercises
         },
         makeCardsTasksAmount(state) {
-            const currentUserId = state.currentUserId
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
-            const item = {isDone: false}
-            const tasksArr = [] as ExercisesAmountType
-            const numberOfCardsExercises = state.homeWork[index].cards.numberOfCardsExercisesHW
-            for (let i = 1; i <= numberOfCardsExercises; i++) {
-                tasksArr.push(item)
-            }
-            state.homeWork[index].cards.tasks = tasksArr
+            makeTasksAmount('cards', state)
+            // const currentUserId = state.currentUserId
+            // const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+            // const item = {isDone: false}
+            // const tasksArr = [] as ExercisesAmountType
+            // const numberOfExercises = state.homeWork[index].cards.numberOfCountExercises
+            // for (let i = 1; i <= numberOfExercises; i++) {
+            //     tasksArr.push(item)
+            // }
+            // state.homeWork[index].cards.tasks = tasksArr
         },
         addRightAnswerToCardsTasksAmount(state) {
+            addRightAnswer('cards', state)
+            // const currentUserId = state.currentUserId
+            // const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+            // const tasksArr = state.homeWork[index].cards.tasks
+            // const copyTask = [...tasksArr]
+            // const changingItem = copyTask.find((item: ItemType) => !item.isDone)
+            // if (changingItem) {
+            //     changingItem.isDone = true
+            //     state.homeWork[index].cards.rightAnswersAmount += 1 // add 1 more right answer
+            //     state.homeWork[index].cards.tasks = copyTask
+            // } else {
+            //     console.warn('no item found')
+            // }
+        },
+        setCountNumberComp(state, action: PayloadAction<{numberComposition: number }>) {
             const currentUserId = state.currentUserId
             const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
-            const tasksArr = state.homeWork[index].cards.tasks
-            const copyTask = [...tasksArr]
-            const changingItem = copyTask.find((item: ItemType) => !item.isDone)
-            if (changingItem) {
-                changingItem.isDone = true
-                state.homeWork[index].cards.rightCardsAnswerCountHW += 1 // add 1 more right answer
-                state.homeWork[index].cards.tasks = copyTask
-            } else {
-                console.warn('no item found')
-            }
-        },
-        setCountNumberComp(state, action: PayloadAction<{ userId: number | null, numberComposition: number }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
             state.homeWork[index].count.numberComposition = action.payload.numberComposition
         },
-        switchCountVoice(state, action: PayloadAction<{ userId: number | null, isVoiceOn: boolean }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        switchCountVoice(state, action: PayloadAction<{ isVoiceOn: boolean }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             state.homeWork[index].count.isVoiceOn = action.payload.isVoiceOn
         },
-        setCountSpeed(state, action: PayloadAction<{ userId: number | null, speedCount: number }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        setCountSpeed(state, action: PayloadAction<{speedCount: number }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             state.homeWork[index].count.speedCount = action.payload.speedCount
         },
-        setCountNumberOfExercises(state, action: PayloadAction<{ userId: number | null, numberOfCountExercises: number }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
-            state.homeWork[index].count.numberOfCountExercises = action.payload.numberOfCountExercises
+        setCountNumberOfExercises(state, action: PayloadAction<{ numberOfExercises: number }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+            state.homeWork[index].count.numberOfExercises = action.payload.numberOfExercises
         },
-        setCountActionsCount(state, action: PayloadAction<{ userId: number | null, actionsCount: number }>) {
-            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === action.payload.userId)
+        setCountActionsCount(state, action: PayloadAction<{actionsCount: number }>) {
+            const currentUserId = state.currentUserId
+            const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
             state.homeWork[index].count.actionsCount = action.payload.actionsCount
+        },
+        makeCountTasksAmount(state) {
+            makeTasksAmount('count', state)
+            // const currentUserId = state.currentUserId
+            // const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+            // const item = {isDone: false}
+            // const tasksArr = [] as ExercisesAmountType
+            // const numberOfExercises = state.homeWork[index].count.numberOfCountExercises
+            // for (let i = 1; i <= numberOfExercises; i++) {
+            //     tasksArr.push(item)
+            // }
+            // state.homeWork[index].count.tasks = tasksArr
+        },
+        addRightAnswerToCountTasksAmount(state) {
+            addRightAnswer('count', state)
+            // const currentUserId = state.currentUserId
+            // const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+            // const tasksArr = state.homeWork[index].count.tasks
+            // const copyTask = [...tasksArr]
+            // const changingItem = copyTask.find((item: ItemType) => !item.isDone)
+            // if (changingItem) {
+            //     changingItem.isDone = true
+            //     state.homeWork[index].count.rightCountAnswer += 1 // add 1 more right answer
+            //     state.homeWork[index].count.tasks = copyTask
+            // } else {
+            //     console.warn('no item found')
+            // }
         },
     }
 })
 
+export const addRightAnswer = (taskType: 'count' | 'cards', state: stateType) => {
+    const currentUserId = state.currentUserId
+    const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+    const tasksArr = state.homeWork[index][taskType].tasks
+    const copyTask = [...tasksArr]
+    const changingItem = copyTask.find((item: ItemType) => !item.isDone)
+    if (changingItem) {
+        changingItem.isDone = true
+        state.homeWork[index][taskType].rightAnswersAmount += 1 // add 1 more right answer
+        state.homeWork[index][taskType].tasks = copyTask
+    } else {
+        console.warn('no item found')
+    }
+}
+export const makeTasksAmount = (taskType: 'count' | 'cards', state: stateType) => {
+    const currentUserId = state.currentUserId
+    const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
+    const item = {isDone: false}
+    const tasksArr = [] as ExercisesAmountType
+    const numberOfExercises = state.homeWork[index][taskType].numberOfExercises
+    for (let i = 1; i <= numberOfExercises; i++) {
+        tasksArr.push(item)
+    }
+    state.homeWork[index][taskType].tasks = tasksArr
+}
 
 export const homeworkReducer = slice.reducer
 export const {
@@ -163,30 +231,37 @@ export const {
     switchCountVoice,
     setCountSpeed,
     setCountNumberOfExercises,
-    setCountActionsCount
+    setCountActionsCount,
+    makeCountTasksAmount,
+    addRightAnswerToCountTasksAmount
 } = slice.actions
 
 //types
+
+type stateType = typeof HWInitialState
+
 export type HomeWorkType = {
     userId: number | null
     count: CountTaskType
     cards: CardsTaskType
 }
-type ItemType = {
+export type ItemType = {
     isDone: boolean
 }
-export type ExercisesAmountType = ItemType []
+export type ExercisesAmountType = ItemType[]
 
 export type CountTaskType = {
-    numberOfCountExercises: number
+    rightAnswersAmount: number,
+    numberOfExercises: number,
+    tasks: ItemType[],
     speedCount: number
     numberComposition: number
     actionsCount: number
     isVoiceOn: boolean
 }
 export type CardsTaskType = {
-    rightCardsAnswerCountHW: number
-    numberOfCardsExercisesHW: number
+    rightAnswersAmount: number
+    numberOfExercises: number
     tasks: ExercisesAmountType
     speedCardsHW: number
     numberOfFlashCardsHW: number

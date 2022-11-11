@@ -1,6 +1,6 @@
 import {Navigate, Route, Routes} from 'react-router-dom'
 import {Error404} from '../Error404/Error404'
-import {FlashCardsBlock} from '../../FlashCardsBlock'
+import {CardsBlock} from '../FlashCards/CardsBlock'
 import {CountBlock} from '../Count/CountBlock'
 import {Main} from '../Main/Main'
 import {PATH} from '../../enums/paths'
@@ -13,7 +13,7 @@ export const AllRoutes = () => {
         <Routes>
             <Route path="/" element={<Navigate to={PATH.MAIN}/>}/>
             <Route path={PATH.COUNT} element={<CountBlock/>}/>
-            <Route path={PATH.FLASH} element={<FlashCardsBlock/>}/>
+            <Route path={PATH.FLASH} element={<CardsBlock/>}/>
             <Route path={PATH.MAIN} element={<Main/>}/>
             <Route path={PATH.PUPILS} element={<Pupils/>}/>
             <Route path={PATH.HOMETASK} element={<TaskTable />}/>
