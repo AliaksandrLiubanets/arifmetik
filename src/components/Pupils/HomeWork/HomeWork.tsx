@@ -4,7 +4,7 @@ import digits from '../../../assets/main-icons/digits_1.jpg'
 import React, {FC, useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
-import {HomeWorkType} from '../../../store/homeWorkReducer'
+import {HomeWorkType, setStartHWDoing} from '../../../store/homeWorkReducer'
 import {
     setCardSpeed,
     setFirstCardsComp,
@@ -33,7 +33,6 @@ export const HomeWork: FC = () => {
         secondCardsCompositionHW,
         numberOfFlashCardsHW,
         isSpeedOnHW,
-        // numberOfCardsExercises,
         speedCardsHW
     } = homeWork[index].cards
 
@@ -41,7 +40,6 @@ export const HomeWork: FC = () => {
         numberComposition,
         isVoiceOn,
         speedCount,
-        // numberOfCountExercises,
         actionsCount
     } = homeWork[index].count
 
