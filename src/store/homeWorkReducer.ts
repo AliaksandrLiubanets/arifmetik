@@ -108,30 +108,9 @@ export const slice = createSlice({
         },
         makeCardsTasksAmount(state) {
             makeTasksAmount('cards', state)
-            // const currentUserId = state.currentUserId
-            // const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
-            // const item = {isDone: false}
-            // const tasksArr = [] as ExercisesAmountType
-            // const numberOfExercises = state.homeWork[index].cards.numberOfCountExercises
-            // for (let i = 1; i <= numberOfExercises; i++) {
-            //     tasksArr.push(item)
-            // }
-            // state.homeWork[index].cards.tasks = tasksArr
         },
         addRightAnswerToCardsTasksAmount(state) {
             addRightAnswer('cards', state)
-            // const currentUserId = state.currentUserId
-            // const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
-            // const tasksArr = state.homeWork[index].cards.tasks
-            // const copyTask = [...tasksArr]
-            // const changingItem = copyTask.find((item: ItemType) => !item.isDone)
-            // if (changingItem) {
-            //     changingItem.isDone = true
-            //     state.homeWork[index].cards.rightAnswersAmount += 1 // add 1 more right answer
-            //     state.homeWork[index].cards.tasks = copyTask
-            // } else {
-            //     console.warn('no item found')
-            // }
         },
         setCountNumberComp(state, action: PayloadAction<{numberComposition: number }>) {
             const currentUserId = state.currentUserId
@@ -160,30 +139,9 @@ export const slice = createSlice({
         },
         makeCountTasksAmount(state) {
             makeTasksAmount('count', state)
-            // const currentUserId = state.currentUserId
-            // const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
-            // const item = {isDone: false}
-            // const tasksArr = [] as ExercisesAmountType
-            // const numberOfExercises = state.homeWork[index].count.numberOfCountExercises
-            // for (let i = 1; i <= numberOfExercises; i++) {
-            //     tasksArr.push(item)
-            // }
-            // state.homeWork[index].count.tasks = tasksArr
         },
         addRightAnswerToCountTasksAmount(state) {
             addRightAnswer('count', state)
-            // const currentUserId = state.currentUserId
-            // const index = state.homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
-            // const tasksArr = state.homeWork[index].count.tasks
-            // const copyTask = [...tasksArr]
-            // const changingItem = copyTask.find((item: ItemType) => !item.isDone)
-            // if (changingItem) {
-            //     changingItem.isDone = true
-            //     state.homeWork[index].count.rightCountAnswer += 1 // add 1 more right answer
-            //     state.homeWork[index].count.tasks = copyTask
-            // } else {
-            //     console.warn('no item found')
-            // }
         },
     }
 })
