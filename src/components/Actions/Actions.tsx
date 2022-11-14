@@ -16,13 +16,13 @@ export const Actions: FC<Props> = memo(({focusOnElement, setIsShowAnswer}) => {
 
         const {
             actionsArray,
-            actionsCount,
-            speedCount,
+            actionsAmount,
+            speed,
             isVoiceOn
         } = useSelector((state: AppRootStateType) => state.count)
 
         useEffect(() => {
-            if (index < actionsCount) {
+            if (index < actionsAmount) {
                 setIsShowAnswer(false)
                 let id: ReturnType<typeof setTimeout>
                 if (index === 0) {
@@ -35,23 +35,23 @@ export const Actions: FC<Props> = memo(({focusOnElement, setIsShowAnswer}) => {
                     id = setTimeout(() => {
                         setCalc(actionsArray[index])
                         setIndex(prevState => prevState + 1)
-                    }, 1000 * speedCount) // interval between every action
+                    }, 1000 * speed) // interval between every action
                 }
                 return () => {
                     clearInterval(id)
                 }
             }
-            if (index === actionsCount) {
+            if (index === actionsAmount) {
                 let id: ReturnType<typeof setTimeout>
                 id = setTimeout(() => {
                     setIsShowAnswer(true)
                     focusOnElement(true)
-                }, 1000 * speedCount) // interval after last action
+                }, 1000 * speed) // interval after last action
                 return () => {
                     clearInterval(id)
                 }
             }
-        }, [calc, actionsCount, actionsArray, setIsShowAnswer, speedCount, index, focusOnElement])
+        }, [calc, actionsAmount, actionsArray, setIsShowAnswer, speed, index, focusOnElement])
 
         return <div className={s.container}>
             {

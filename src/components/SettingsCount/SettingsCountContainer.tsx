@@ -25,13 +25,13 @@ export const SettingsCountContainer: FC = memo(() => {
 
         const {
             numberComposition,
-            actionsCount,
-            speedCount,
+            actionsAmount,
+            speed,
             isVoiceOn
         } = useSelector((state: AppRootStateType) => state.count)
 
-        const disabledCheckboxCondition: boolean = (numberComposition < 11 && speedCount < 1)
-            || (numberComposition > 10 && numberComposition < 21 && speedCount < 1.2)
+        const disabledCheckboxCondition: boolean = (numberComposition < 11 && speed < 1)
+            || (numberComposition > 10 && numberComposition < 21 && speed < 1.2)
             || numberComposition > 20
 
         const setSound = useCallback(() => dispatch(switchSound({isSoundOn: isVoiceOn})), [dispatch, isVoiceOn])
@@ -44,7 +44,7 @@ export const SettingsCountContainer: FC = memo(() => {
                 setSound()
                 setIsDisabledCheckboxVoice(false)
             }
-        }, [speedCount, setSound, disabledCheckboxCondition])
+        }, [speed, setSound, disabledCheckboxCondition])
 
         const onChangeNumberComp = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setNumberComp({numberComposition: e.currentTarget.valueAsNumber}))
@@ -53,7 +53,7 @@ export const SettingsCountContainer: FC = memo(() => {
             dispatch(setSpeed({speed: e.currentTarget.valueAsNumber}))
         }, [dispatch])
         const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(setActionsCount({actionsCount: e.currentTarget.valueAsNumber}))
+            dispatch(setActionsCount({actionsAmount: e.currentTarget.valueAsNumber}))
         }, [dispatch])
         const onChangeVoice = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             dispatch(switchSound({isSoundOn: e.currentTarget.checked}))
@@ -75,8 +75,8 @@ export const SettingsCountContainer: FC = memo(() => {
 
         return <div className={s.container}>
             <HeadButtons callBack={handleBackToSettings}/>
-            <CountSettings actionsCount={actionsCount}
-                           speed={speedCount}
+            <CountSettings actionsAmount={actionsAmount}
+                           speed={speed}
                            isVoiceOn={isVoiceOn}
                            isDisabledCheckboxVoice={isDisabledCheckboxVoice}
                            numberComposition={numberComposition}

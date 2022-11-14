@@ -8,8 +8,8 @@ export type ActionAndSoundType = {
 
 const initialState = {
     numberComposition: 10 as number,
-    speedCount: 1,
-    actionsCount: 2,
+    speed: 1,
+    actionsAmount: 2,
     isVoiceOn: true,
     actionsArray: [] as ActionAndSoundType[],
     actionsAndSoundsArray: [] as ActionAndSoundType[],
@@ -21,13 +21,13 @@ export const slice = createSlice({
     initialState: initialState,
     reducers: {
         setNumberComp(state, action: PayloadAction<{ numberComposition: number }>) {
-            state.numberComposition = action.payload.numberComposition
+            if (action.payload.numberComposition > 2) state.numberComposition = action.payload.numberComposition
         },
         setSpeed(state, action: PayloadAction<{ speed: number }>) {
-            state.speedCount = action.payload.speed
+            if (action.payload.speed > 0) state.speed = action.payload.speed
         },
-        setActionsCount(state, action: PayloadAction<{ actionsCount: number }>) {
-            state.actionsCount = action.payload.actionsCount
+        setActionsCount(state, action: PayloadAction<{ actionsAmount: number }>) {
+            if (action.payload.actionsAmount > 1) state.actionsAmount = action.payload.actionsAmount
         },
         switchSound(state, action: PayloadAction<{ isSoundOn: boolean }>) {
             state.isVoiceOn = action.payload.isSoundOn
@@ -36,7 +36,7 @@ export const slice = createSlice({
             const {
                 arrayOfCalculations,
                 answer
-            } = getArrayOfCalculationsAndAnswer(state.actionsCount, state.numberComposition)
+            } = getArrayOfCalculationsAndAnswer(state.actionsAmount, state.numberComposition)
             state.actionsArray = arrayOfCalculations
             state.answer = answer
         },

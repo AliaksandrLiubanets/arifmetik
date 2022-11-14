@@ -40,7 +40,7 @@ export const HomeWork: FC = () => {
         numberComposition,
         isVoiceOn,
         speedCount,
-        actionsCount
+        actionsAmount
     } = homeWork[index].count
 
     const onChangeCardsTimeOutValue = useCallback(() => {
@@ -66,8 +66,8 @@ export const HomeWork: FC = () => {
         dispatch(setSpeed({speed: speedCount}))
     }, [dispatch, speedCount])
     const onChangeCountActionsCount = useCallback(() => {
-        dispatch(setActionsCount({actionsCount: actionsCount}))
-    }, [dispatch, actionsCount])
+        dispatch(setActionsCount({actionsAmount}))
+    }, [dispatch, actionsAmount])
     const onChangeSound = useCallback(() => {
         dispatch(switchSound({isSoundOn: isVoiceOn}))
     }, [dispatch, isVoiceOn])

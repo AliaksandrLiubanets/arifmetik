@@ -9,7 +9,6 @@ import {setCurrentUserId} from '../../../store/homeWorkReducer'
 
 
 export const PupilsTable = () => {
-
     const dispatch = useDispatch()
     const {isHWSettings, currentUserId} = useSelector((state: AppRootStateType) => state.homework)
 

@@ -39,7 +39,7 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
     const {
         isVoiceOn,
         numberComposition,
-        actionsCount,
+        actionsAmount,
         speedCount
     } = homeWork[index].count  // get count state data from homeWorkReducer for user with userId
 
@@ -87,10 +87,10 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
         dispatch(setCountNumberComp({numberComposition: e.currentTarget.valueAsNumber}))
     }, [dispatch])
     const onChangeTimeOutValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCountSpeed({speedCount: e.currentTarget.valueAsNumber}))
+        dispatch(setCountSpeed({speed: e.currentTarget.valueAsNumber}))
     }, [dispatch])
     const onChangeActionsCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setCountActionsCount({ actionsCount: e.currentTarget.valueAsNumber}))
+        dispatch(setCountActionsCount({ actionsAmount: e.currentTarget.valueAsNumber}))
     }, [dispatch])
     const onChangeVoice = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setVoice(e.currentTarget.checked)
@@ -111,7 +111,7 @@ export const HomeWorkSettings: FC<HomeWorkSettingsType> = ({userId}) => {
                        onChangeIsSpeedOn={onChangeIsSpeedOn}
                        onChangeTimeOutValue={onChangeCardsTimeOutValue}
         />
-        <CountSettings actionsCount={actionsCount}
+        <CountSettings actionsAmount={actionsAmount}
                        speed={speedCount}
                        isVoiceOn={isVoiceOn}
                        numberComposition={numberComposition}

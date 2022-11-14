@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC, FocusEvent, useCallback} from 'react'
 import s from '../../SettingsBlock/Settings.module.css'
 import {NumberCompCountSettings} from './NumberCompCountSettings'
 import {SpeedCountSettings} from './SpeedCountSettings'
-import {NumberOfActionsCountSettings} from './NumberOfActionsCountSettings'
+import {ActionsAmountSettings} from './ActionsAmountSettings'
 import {VoiceOnCountSettings} from './VoiceOnCountSettings'
 import {NumberOfExercises} from '../CardsSettings/CardsSettings'
 import {useDispatch, useSelector} from 'react-redux'
@@ -12,7 +12,7 @@ import {HomeWorkType, setCountNumberOfExercises} from '../../../store/homeWorkRe
 type SettingsCountPropsType = {
     numberComposition: number
     speed: number
-    actionsCount: number
+    actionsAmount: number
     isVoiceOn: boolean
     isDisabledCheckboxVoice: boolean
     onChangeNumberComp: (e: ChangeEvent<HTMLInputElement>) => void
@@ -25,7 +25,7 @@ type SettingsCountPropsType = {
 export const CountSettings: FC<SettingsCountPropsType> = ({
                                                               numberComposition,
                                                               speed,
-                                                              actionsCount,
+                                                              actionsAmount,
                                                               isVoiceOn,
                                                               isDisabledCheckboxVoice,
                                                               onChangeNumberComp,
@@ -38,10 +38,9 @@ export const CountSettings: FC<SettingsCountPropsType> = ({
 
     const {currentUserId, homeWork, isHWSettings} = useSelector((state: AppRootStateType) => state.homework)
     let index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
-    console.log('index before:', index)
+
     if(index === -1) index = 0
-    console.log('index:', index)
-    console.log('homeWork:', homeWork)
+
     const numberOfExercises = homeWork[index].count.numberOfExercises
 
     const onChangeNumberOfExercises = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -56,9 +55,9 @@ export const CountSettings: FC<SettingsCountPropsType> = ({
         <SpeedCountSettings speed={speed}
                             handleFocus={handleFocus}
                             onChangeTimeOutValue={onChangeTimeOutValue}/>
-        <NumberOfActionsCountSettings actionsCount={actionsCount}
-                                      onChangeActionsCount={onChangeActionsCount}
-                                      handleFocus={handleFocus}/>
+        <ActionsAmountSettings actionsAmount={actionsAmount}
+                               onChangeActionsCount={onChangeActionsCount}
+                               handleFocus={handleFocus}/>
         <VoiceOnCountSettings isVoiceOn={isVoiceOn}
                               isDisabledCheckboxSound={isDisabledCheckboxVoice}
                               onChangeVoice={onChangeVoice}/>
