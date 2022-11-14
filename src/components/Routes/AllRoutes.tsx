@@ -18,6 +18,8 @@ export const AllRoutes = () => {
             <Route path={PATH.PUPILS} element={<Pupils/>}/>
             <Route path={PATH.HOMETASK} element={<TaskTable />}/>
             <Route path={PATH.HOMEWORK} element={<HomeWork />}/>
+            <Route path={PATH.HOMEWORK_COUNT} element={<CountBlock />}/>
+            <Route path={PATH.HOMEWORK_FLASH} element={<CardsBlock />}/>
             <Route path={PATH.ERROR_404} element={<Error404/>}/>
             <Route path="*" element={<Navigate to={PATH.ERROR_404}/>}/>
         </Routes>

@@ -3,7 +3,7 @@ import {Actions} from '../Actions/Actions'
 import {useDispatch, useSelector} from 'react-redux'
 import {ButtonBack} from '../ButtonBack/ButtonBack'
 import {PATH} from '../../enums/paths'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
 import {startGame} from '../../store/appReducer'
 import p from '../GameStyles/GameStyles.module.css'
 import {AnswerInput} from '../commonComponents/AnswerInput/AnswerInput'
@@ -16,12 +16,13 @@ export const ActionsAndAnsewrInput: FC = () => {
     const [isShowAnswer, setIsShowAnswer] = useState(false)
     const [inputAnswer, setInputAnswer] = useState(0)
     const [isFocus, setIsFocus] = useState(true)
+    const location = useLocation()
 
     const dispatch = useDispatch()
     const showAnswer = useCallback((isShowInput: boolean) => setIsShowAnswer(isShowInput), [])
     const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
     // const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
-    const {currentUserId, homeWork, isStartHWDoing} = useSelector((state: AppRootStateType) => state.homework)
+    const {currentUserId, homeWork} = useSelector((state: AppRootStateType) => state.homework)
     let index: number
     if (!currentUserId) {
         index = 1
@@ -34,7 +35,11 @@ export const ActionsAndAnsewrInput: FC = () => {
     const handleBackToSettings = useCallback(() => {
         dispatch(startGame({isStarted: false}))
         stopHWDoing()
-    }, [dispatch, stopHWDoing])
+    }, [dispatch,
+        stopHWDoing
+    ])
+
+    const isShowAnswersCount = location.pathname.includes('homework')
 
     return <div className={p.container}>
         <NavLink to={PATH.MAIN}>
@@ -42,7 +47,7 @@ export const ActionsAndAnsewrInput: FC = () => {
         </NavLink>
         <ButtonBack callback={handleBackToSettings}/>
         {
-            isStartHWDoing && <RightAnswerCount tasks={tasks} />
+            isShowAnswersCount && <RightAnswerCount tasks={tasks} />
         }
         {!isShowAnswer
             ? <Actions setIsShowAnswer={setIsShowAnswer} focusOnElement={focusOnElement}/>

@@ -207,10 +207,10 @@ export const convertStringPictureToNumber = (str: string) => {
 }
 
 export const makeAnswerFromFlashCardOrCount = (typeOfGame: string, answerCount: number, answerFlashCard: number) => {
-    if (typeOfGame === '/count') {
+    if (typeOfGame === '/homework/count') {
         return answerCount
     }
-    if (typeOfGame === '/flash') {
+    if (typeOfGame === '/homework/flash') {
         return answerFlashCard
     } else {
         return answerFlashCard

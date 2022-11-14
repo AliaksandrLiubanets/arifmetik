@@ -3,7 +3,7 @@ import React, {useCallback} from 'react'
 import p from '../GameStyles/GameStyles.module.css'
 import {ButtonBack} from '../ButtonBack/ButtonBack'
 import {PATH} from '../../enums/paths'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
 import {startGame} from '../../store/appReducer'
 import {FlashCardsContainer} from './FlashCardsContainer/FlashCardscontainer'
 import {RightAnswerCount} from '../commonComponents/RightAnswerCount/RightAnswerCount'
@@ -11,15 +11,14 @@ import {AppRootStateType} from '../../store/store'
 import {HomeWorkType, setStartHWDoing} from '../../store/homeWorkReducer'
 
 export const FlashCardsBlock = () => {
-
+    const location = useLocation()
     const dispatch = useDispatch()
     const {currentUserId, homeWork} = useSelector((state: AppRootStateType) => state.homework)
-    const isStartHWDoing = useSelector((state: AppRootStateType) => state.homework.isStartHWDoing)
     let index: number
     if (!currentUserId) {
         index = 1
     } else {
-        index = homeWork.findIndex((data: HomeWorkType) =>  data.userId === currentUserId )
+        index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
     }
     const tasks = homeWork[index].cards.tasks
 
@@ -29,6 +28,7 @@ export const FlashCardsBlock = () => {
         stopHWDoing()
     }, [dispatch, stopHWDoing])
 
+    const isShowAnswersCount = location.pathname.includes('homework')
 
     return <div className={p.container}>
         <NavLink to={PATH.MAIN}>
@@ -36,7 +36,7 @@ export const FlashCardsBlock = () => {
         </NavLink>
         <ButtonBack callback={handleBackToSettings}/>
         {
-            isStartHWDoing && <RightAnswerCount tasks={tasks}/>
+            isShowAnswersCount && <RightAnswerCount tasks={tasks}/>
         }
         <FlashCardsContainer/>
     </div>

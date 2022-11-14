@@ -92,7 +92,7 @@ export const HomeWork: FC = () => {
         <HeadButtons callBack={stopHWDoing}/>
         <div className={s.content}>
             <div className={s.icon}>
-                <NavLink to={PATH.FLASH}>
+                <NavLink to={PATH.HOMEWORK_FLASH}>
                     <div className={s.item}
                          onClick={startHWDoing}
                     >
@@ -103,7 +103,7 @@ export const HomeWork: FC = () => {
                 </NavLink>
             </div>
             <div className={s.icon}>
-                <NavLink to={PATH.COUNT}>
+                <NavLink to={PATH.HOMEWORK_COUNT}>
                     <div className={s.item}
                          onClick={startHWDoing}
                     >
