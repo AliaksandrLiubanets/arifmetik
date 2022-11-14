@@ -8,7 +8,7 @@ import {startGame} from '../../store/appReducer'
 import {FlashCardsContainer} from './FlashCardsContainer/FlashCardscontainer'
 import {RightAnswerCount} from '../commonComponents/RightAnswerCount/RightAnswerCount'
 import {AppRootStateType} from '../../store/store'
-import {HomeWorkType, setStartHWDoing} from '../../store/homeWorkReducer'
+import {HomeWorkType} from '../../store/homeWorkReducer'
 
 export const FlashCardsBlock = () => {
     const location = useLocation()
@@ -22,11 +22,9 @@ export const FlashCardsBlock = () => {
     }
     const tasks = homeWork[index].cards.tasks
 
-    const stopHWDoing = useCallback(() => dispatch(setStartHWDoing({isStartHWDoing: false})), [dispatch])
     const handleBackToSettings = useCallback(() => {
         dispatch(startGame({isStarted: false}))
-        stopHWDoing()
-    }, [dispatch, stopHWDoing])
+    }, [dispatch])
 
     const isShowAnswersCount = location.pathname.includes('homework')
 

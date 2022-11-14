@@ -3,7 +3,7 @@ import s from './Pupil.module.css'
 import {AuthUserData} from '../../../store/authReducer'
 import {NavLink, useLocation} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
-import {setStartHWDoing, switchHWSettings} from '../../../store/homeWorkReducer'
+import {switchHWSettings} from '../../../store/homeWorkReducer'
 import {PATH} from '../../../enums/paths'
 
 type PupilPropsType = {
@@ -22,7 +22,6 @@ export const Pupil: FC<PupilPropsType> = memo(({pupil, handleUserId}) => {
     }
     const toggleHWDoing = () => {
         handleUserId(pupil.id)
-        dispatch(setStartHWDoing({isStartHWDoing: true}))
     }
 
     return <tr>

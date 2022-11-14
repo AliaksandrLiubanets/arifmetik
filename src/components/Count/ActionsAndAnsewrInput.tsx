@@ -9,7 +9,7 @@ import p from '../GameStyles/GameStyles.module.css'
 import {AnswerInput} from '../commonComponents/AnswerInput/AnswerInput'
 import {AppRootStateType} from '../../store/store'
 import {RightAnswerCount} from '../commonComponents/RightAnswerCount/RightAnswerCount'
-import {HomeWorkType, setStartHWDoing} from '../../store/homeWorkReducer'
+import {HomeWorkType} from '../../store/homeWorkReducer'
 
 
 export const ActionsAndAnsewrInput: FC = () => {
@@ -21,7 +21,6 @@ export const ActionsAndAnsewrInput: FC = () => {
     const dispatch = useDispatch()
     const showAnswer = useCallback((isShowInput: boolean) => setIsShowAnswer(isShowInput), [])
     const focusOnElement = useCallback((isFocus: boolean) => setIsFocus(isFocus), [])
-    // const handleBackToSettings = useCallback(() => dispatch(startGame({isStarted: false})), [dispatch])
     const {currentUserId, homeWork} = useSelector((state: AppRootStateType) => state.homework)
     let index: number
     if (!currentUserId) {
@@ -31,13 +30,9 @@ export const ActionsAndAnsewrInput: FC = () => {
     }
     const tasks = homeWork[index].count.tasks
 
-    const stopHWDoing = useCallback(() => dispatch(setStartHWDoing({isStartHWDoing: false})), [dispatch])
     const handleBackToSettings = useCallback(() => {
         dispatch(startGame({isStarted: false}))
-        stopHWDoing()
-    }, [dispatch,
-        stopHWDoing
-    ])
+    }, [dispatch])
 
     const isShowAnswersCount = location.pathname.includes('homework')
 
