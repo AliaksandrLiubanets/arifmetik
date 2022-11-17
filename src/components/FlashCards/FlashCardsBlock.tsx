@@ -9,6 +9,7 @@ import {FlashCardsContainer} from './FlashCardsContainer/FlashCardscontainer'
 import {RightAnswerCount} from '../commonComponents/RightAnswerCount/RightAnswerCount'
 import {AppRootStateType} from '../../store/store'
 import {HomeWorkType} from '../../store/homeWorkReducer'
+import {FinishedHomework} from '../commonComponents/FinishedHomework/FinishedHomework'
 
 export const FlashCardsBlock = () => {
     const location = useLocation()
@@ -20,13 +21,17 @@ export const FlashCardsBlock = () => {
     } else {
         index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
     }
-    const tasks = homeWork[index].cards.tasks
+    const cards = homeWork[index].cards
+    const tasks = cards.tasks
+    const numberOfExercises = cards.numberOfExercises
+    const rightAnswerAmount = cards.rightAnswersAmount
 
     const handleBackToSettings = useCallback(() => {
         dispatch(startGame({isStarted: false}))
     }, [dispatch])
 
     const isShowAnswersCount = location.pathname.includes('homework')
+    const isHomeworkFinished = numberOfExercises === rightAnswerAmount
 
     return <div className={p.container}>
         <NavLink to={PATH.MAIN}>
@@ -37,6 +42,9 @@ export const FlashCardsBlock = () => {
             isShowAnswersCount && <RightAnswerCount tasks={tasks}/>
         }
         <FlashCardsContainer/>
+        {
+            isShowAnswersCount && isHomeworkFinished && <FinishedHomework />
+        }
     </div>
 }
 
