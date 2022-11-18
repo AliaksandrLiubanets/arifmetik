@@ -9,45 +9,45 @@ const HWInitialState = {
             userId: 1,
             count: {
                 rightAnswersAmount: 0,
-                numberOfExercises: 5,
+                numberOfExercises: 3,
                 tasks: [{isDone: false}],
                 numberComposition: 10,
                 speedCount: 1.5,
-                actionsAmount: 10,
+                actionsAmount: 2,
                 isVoiceOn: true
             },
             cards: {
                 rightAnswersAmount: 0,
-                numberOfExercises: 5,
+                numberOfExercises: 3,
                 tasks: [{isDone: false}],
                 numberOfFlashCardsHW: 2,
-                firstCardsCompositionHW: 6,
+                firstCardsCompositionHW: 3,
                 secondCardsCompositionHW: 5,
                 isSpeedOnHW: true,
                 speedCardsHW: 1.5,
-                maxSpeedHW: 3.5
+                maxSpeedHW: 5
             }
         },
         {
             userId: 2,
             count: {
                 rightAnswersAmount: 0,
-                numberOfExercises: 4,
+                numberOfExercises: 3,
                 tasks: [{isDone: false}],
                 numberComposition: 10,
-                speedCount: 7,
-                actionsAmount: 8,
+                speedCount: 1.5,
+                actionsAmount: 2,
                 isVoiceOn: true
             },
             cards: {
                 rightAnswersAmount: 0,
-                numberOfExercises: 4,
+                numberOfExercises: 3,
                 tasks: [{isDone: false}],
                 numberOfFlashCardsHW: 2,
-                firstCardsCompositionHW: 6,
+                firstCardsCompositionHW: 4,
                 secondCardsCompositionHW: 5,
                 isSpeedOnHW: true,
-                speedCardsHW: 2.5,
+                speedCardsHW: 1.5,
                 maxSpeedHW: 8
             }
         }

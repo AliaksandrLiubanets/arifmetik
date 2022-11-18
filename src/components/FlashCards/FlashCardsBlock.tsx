@@ -24,7 +24,10 @@ export const FlashCardsBlock = () => {
     const cards = homeWork[index].cards
     const tasks = cards.tasks
     const numberOfExercises = cards.numberOfExercises
-    const rightAnswerAmount = cards.rightAnswersAmount
+
+    // find rightAnswerAmount with userId === currentUserId
+    let rightAnswerAmount
+    if(currentUserId === homeWork[index].userId) rightAnswerAmount = tasks.filter(task => task.isDone).length
 
     const handleBackToSettings = useCallback(() => {
         dispatch(startGame({isStarted: false}))
