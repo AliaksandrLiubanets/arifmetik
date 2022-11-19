@@ -31,16 +31,18 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
                                                            isFocus
                                                        }) => {
 
+
     const [rocket] = useSound(rocket_start)
     const rocketSound = useCallback(() => rocket(), [rocket])
 
     const dispatch = useDispatch()
 
     const countAnswer = useSelector((state: AppRootStateType) => state.count.answer)
-    const flashCardAnswer = useSelector((state: AppRootStateType) => state.cards.answerCards)
+    const cardAnswer = useSelector((state: AppRootStateType) => state.cards.answerCards)
     const isSpeedOn = useSelector((state: AppRootStateType) => state.cards.isSpeedOn)
     const typeOfGame = useSelector((state: AppRootStateType) => state.app.typeOfGame)
-    const answer = makeAnswerFromFlashCardOrCount(typeOfGame, countAnswer, flashCardAnswer)
+
+    const answer = makeAnswerFromFlashCardOrCount(typeOfGame, countAnswer, cardAnswer)
 
     const [right] = useSound(right_sund)
     const [wrong] = useSound(wrong_sound)

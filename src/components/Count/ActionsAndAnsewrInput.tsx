@@ -44,7 +44,8 @@ export const ActionsAndAnsewrInput: FC = () => {
         {
             isShowAnswersCount && <RightAnswerCount tasks={tasks} />
         }
-        {!isShowAnswer
+        {
+            !isShowAnswer
             ? <Actions setIsShowAnswer={setIsShowAnswer} focusOnElement={focusOnElement}/>
             : <AnswerInput inputAnswer={inputAnswer}
                            setInputAnswer={setInputAnswer}

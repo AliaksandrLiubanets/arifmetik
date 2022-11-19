@@ -61,6 +61,15 @@ export const getRandomCard = (array: string[][], cardsComposition: number) => {
     return randomInnerArray[innerIndex]
 }
 
+
+export const makeAnswerFromFlashCardOrCount = (typeOfGame: string, countAnswer: number, cardAnswer: number) => {
+    if (typeOfGame === '/homework/count' || typeOfGame === '/count') {
+        return countAnswer
+    } else {
+        return cardAnswer
+    }
+}
+
 export const convertStringPictureToNumber = (str: string) => {
     let digitalValueOfPicture: number
     switch (str) {
@@ -204,15 +213,4 @@ export const convertStringPictureToNumber = (str: string) => {
             digitalValueOfPicture = 0
     }
     return digitalValueOfPicture
-}
-
-export const makeAnswerFromFlashCardOrCount = (typeOfGame: string, answerCount: number, answerFlashCard: number) => {
-    if (typeOfGame === '/homework/count') {
-        return answerCount
-    }
-    if (typeOfGame === '/homework/flash') {
-        return answerFlashCard
-    } else {
-        return answerFlashCard
-    }
 }
