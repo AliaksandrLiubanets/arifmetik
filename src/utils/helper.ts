@@ -61,7 +61,6 @@ export const getRandomCard = (array: string[][], cardsComposition: number) => {
     return randomInnerArray[innerIndex]
 }
 
-
 export const makeAnswerFromFlashCardOrCount = (typeOfGame: string, countAnswer: number, cardAnswer: number) => {
     if (typeOfGame === '/homework/count' || typeOfGame === '/count') {
         return countAnswer

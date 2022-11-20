@@ -99,8 +99,8 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
                 onKeyPress={handleEnterPress}
             />
             : <div className={s.answer_card}>
-                {typeOfGame === '/flash' && <AnswerCard answer={answer} inputAnswer={inputAnswer}/>}
-                {typeOfGame === '/count' && <AnswerCount answer={answer} inputAnswer={inputAnswer}/>}
+                {(typeOfGame === '/flash' || typeOfGame === '/homework/flash') && <AnswerCard answer={answer} inputAnswer={inputAnswer}/>}
+                {(typeOfGame === '/count' || typeOfGame === '/homework/count') && <AnswerCount answer={answer} inputAnswer={inputAnswer}/>}
                 <ButtonNext isOnFocus={!isFocus} callback={nextExercise}/>
             </div>
         }
