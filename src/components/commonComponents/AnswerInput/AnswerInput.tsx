@@ -69,7 +69,7 @@ export const AnswerInput: FC<AnswerInputProps> = memo(({
     const makeActionsArrayAndAnswer = useCallback(() => dispatch(setActionsArrayAndAnswer()), [dispatch])
     const nextFlashCard = useCallback(() => dispatch(setCardAndAnswer()), [dispatch])
     const nextStep = useCallback(() => {
-        if (typeOfGame === '/count') {
+        if (typeOfGame === '/count' || typeOfGame === '/homework/count') {
             makeActionsArrayAndAnswer()
         } else {
             nextFlashCard()

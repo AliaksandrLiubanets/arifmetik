@@ -34,14 +34,14 @@ export const getStep = (
     return {newResult, action}
 }
 
-export const getArrayOfCalculationsAndAnswer = (actionsCount: number, numberComp: number) => {
+export const getArrayOfCalculationsAndAnswer = (actionsAmount: number, numberComp: number) => {
     let arrayOfCalculations: ActionAndSoundType[] = []
     let result = 0
     let prevAction = ''
     let sound: string
     let actionAndSound: ActionAndSoundType
 
-    for (let i = 0; i < actionsCount; i++) {
+    for (let i = 0; i < actionsAmount; i++) {
         const {newResult, action} = getStep(numberComp, result, prevAction)
         result = newResult
         prevAction = action
