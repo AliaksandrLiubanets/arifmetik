@@ -35,6 +35,7 @@ export const FlashCardsBlock = () => {
 
     const isShowAnswersCount = location.pathname.includes('homework')
     const isHomeworkFinished = numberOfExercises === rightAnswerAmount
+    const finishHW = isShowAnswersCount && isHomeworkFinished
 
     return <div className={p.container}>
         <NavLink to={PATH.MAIN}>
@@ -44,9 +45,9 @@ export const FlashCardsBlock = () => {
         {
             isShowAnswersCount && <RightAnswerCount tasks={tasks}/>
         }
-        <FlashCardsContainer/>
+        {!finishHW && <FlashCardsContainer />}
         {
-            isShowAnswersCount && isHomeworkFinished && <FinishedHomework />
+            finishHW && <FinishedHomework />
         }
     </div>
 }

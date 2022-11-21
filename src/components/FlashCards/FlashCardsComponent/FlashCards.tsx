@@ -37,10 +37,10 @@ export const FlashCards: FC<Props> = ({focusOnElement, showAnswer}) => {
 
     return <div className={s.flash}>
 
-        <div className={s.card}><img src={card} alt={'card'}/></div>
-        {
-            numberOfFlashCards === 2 &&
-            <div className={s.card}><img src={secondCard} alt={'card'}/></div>
-        }
+            <div className={s.card}><img src={card} alt={'card'}/></div>
+            {
+                numberOfFlashCards === 2 &&
+                <div className={s.card}><img src={secondCard} alt={'card'}/></div>
+            }
     </div>
 }

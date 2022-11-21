@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {FC, useCallback, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../store/store'
 import {setCardAndAnswer} from '../../../store/flashCardsGameReducer'
@@ -6,15 +6,17 @@ import {ButtonNext} from '../../ButtonNext/ButtonNext'
 import {FlashCards} from '../FlashCardsComponent/FlashCards'
 import {AnswerInput} from '../../commonComponents/AnswerInput/AnswerInput'
 
-export const FlashCardsContainer = () => {
+type FlashCardscontainerPropsType = {
+}
+
+export const FlashCardsContainer: FC<FlashCardscontainerPropsType> = () => {
 
     const [isShowAnswer, setIsShowAnswer] = useState(false)
-    const [inputAnswer, setInputAnswer] = useState(0)
     const [isFocus, setIsFocus] = useState(true)
 
     const dispatch = useDispatch()
     const {
-        isSpeedOn,
+        isSpeedOn
     } = useSelector((state: AppRootStateType) => state.cards)
 
     const nextFlashCard = () => dispatch(setCardAndAnswer())
@@ -24,21 +26,40 @@ export const FlashCardsContainer = () => {
 
     return <>
         {isSpeedOn
-            ? <>
-                {!isShowAnswer
-                    ? <FlashCards focusOnElement={focusOnElement} showAnswer={showAnswer}/>
-                    : <AnswerInput inputAnswer={inputAnswer}
-                                   setInputAnswer={setInputAnswer}
-                                   showAnswer={showAnswer}
-                                   isFocus={isFocus}
-                                   focusOnElement={focusOnElement}
-                    />
-                }
-            </>
+            ? <FlashCardsOrAnswerInput focusOnElement={focusOnElement}
+                                       showAnswer={showAnswer}
+                                       isShowAnswer={isShowAnswer}
+                                       isFocus={isFocus}
+            />
             : <>
                 <FlashCards/>
-                <ButtonNext isOnFocus={true} callback={nextFlashCard}/>
+                <ButtonNext isOnFocus={true} callback={nextFlashCard} />
             </>
+        }
+    </>
+}
+
+type FlashCardsOrInputPropsType = {
+    isShowAnswer: boolean
+    isFocus: boolean
+    focusOnElement: (isShowInput: boolean) => void
+    showAnswer: (isFocus: boolean) => void
+}
+export const FlashCardsOrAnswerInput: FC<FlashCardsOrInputPropsType> = ({isShowAnswer, isFocus, showAnswer, focusOnElement}) => {
+
+    const [inputAnswer, setInputAnswer] = useState(0)
+
+    return <>
+        {!isShowAnswer
+            ? <FlashCards focusOnElement={focusOnElement}
+                          showAnswer={showAnswer}
+            />
+            : <AnswerInput inputAnswer={inputAnswer}
+                           setInputAnswer={setInputAnswer}
+                           showAnswer={showAnswer}
+                           isFocus={isFocus}
+                           focusOnElement={focusOnElement}
+            />
         }
     </>
 }
