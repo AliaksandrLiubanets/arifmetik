@@ -37,6 +37,8 @@ export const FlashCardsBlock = () => {
     const isHomeworkFinished = numberOfExercises === rightAnswerAmount
     const finishHW = isShowAnswersCount && isHomeworkFinished
 
+    const text = 'Задание выполнено!'
+
     return <div className={p.container}>
         <NavLink to={PATH.MAIN}>
             <button onClick={handleBackToSettings}>На главную</button>
@@ -47,7 +49,7 @@ export const FlashCardsBlock = () => {
         }
         {!finishHW && <FlashCardsContainer />}
         {
-            finishHW && <FinishedHomework />
+            finishHW && <FinishedHomework text={text}/>
         }
     </div>
 }

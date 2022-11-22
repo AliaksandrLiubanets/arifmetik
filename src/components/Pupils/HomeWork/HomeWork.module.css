@@ -1,6 +1,7 @@
 .container{
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 .content {
     display: flex;
@@ -31,6 +32,9 @@
     pointer-events: none;
     opacity: 50%;
 
+}
+.finish {
+    margin-top: 30px;
 }
 /*.disable_cursor {*/
 /*    cursor: cell;*/

@@ -16,25 +16,34 @@ import {setActionsCount, setNumberComp, setSpeed, switchSound} from '../../../st
 import {NavLink, useLocation} from 'react-router-dom'
 import {PATH} from '../../../enums/paths'
 import {HeadButtons} from '../../commonComponents/HeadButtons/HeadButtons'
+import {FinishedHomework} from '../../commonComponents/FinishedHomework/FinishedHomework'
 
 
 export const HomeWork: FC = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const {homeWork, currentUserId} = useSelector((state: AppRootStateType) => state.homework)
+
     let index: number
     if (!currentUserId) {
         index = 1
     } else {
         index = homeWork.findIndex((data: HomeWorkType) =>  data.userId === currentUserId )
     }
+
     const cards = homeWork[index].cards
-    const tasks = cards.tasks
-    const numberOfExercises = cards.numberOfExercises
+    const cardsTasks = cards.tasks
+    const numberOfCardsExercises = cards.numberOfExercises
+
+    const count = homeWork[index].count
+    const countTasks = count.tasks
+    const numberOfCountExercises = count.numberOfExercises
 
     // find rightAnswerAmount with userId === currentUserId
-    let rightAnswerAmount
-    if(currentUserId === homeWork[index].userId) rightAnswerAmount = tasks.filter(task => task.isDone).length
+    let rightAnswerAmountOfCards
+    if(currentUserId === homeWork[index].userId) rightAnswerAmountOfCards = cardsTasks.filter(task => task.isDone).length
+    let rightAnswerAmountOfCount
+    if(currentUserId === homeWork[index].userId) rightAnswerAmountOfCount = countTasks.filter(task => task.isDone).length
 
     const {
         firstCardsCompositionHW,
@@ -93,21 +102,50 @@ export const HomeWork: FC = () => {
     }, [currentUserId, onChangeCardsTimeOutValue, onChangeIsSpeedOn, changeCardNumber, onChangeFirstCardsComp,
         onChangeSecondCardsComp, onChangeCountNumberComp, onChangeCountTimeOutValue, onChangeCountActionsCount, onChangeSound])
 
-    const isShowAnswersCount = location.pathname.includes('homework')
-    const isHomeworkFinished = numberOfExercises === rightAnswerAmount
-    const finishHW = isShowAnswersCount && isHomeworkFinished
+    const isShowAnswers = location.pathname.includes('homework')
+    const isCardsHomeworkFinished = numberOfCardsExercises === rightAnswerAmountOfCards
+    const finishCardsHW = isShowAnswers && isCardsHomeworkFinished
+
+    const isCountHomeworkFinished = numberOfCountExercises === rightAnswerAmountOfCount
+    const finishCountHW = isShowAnswers && isCountHomeworkFinished
 
     const stopHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: false}))
     const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
 
-    const linkStyle = finishHW ? `${s.link}` : ''
-    const iconStyle = finishHW ? '' : `${s.icon}` // cursor: default if finishHW
+    // disable link if finishCardsHW:
+    const makeStyleForLink = (finish: boolean) => {
+        let linkStyle: string
+        if (finish) {
+            linkStyle = `${s.link}`
+        } else {
+            linkStyle = ''
+        }
+        return linkStyle
+    }
+
+    // cursor: default if finishCardsHW:
+    const makeStyleForIcon = (finish: boolean) => {
+        let iconStyle: string
+        if (finish) {
+            iconStyle = ''
+        } else {
+            iconStyle = `${s.icon}`
+        }
+        return iconStyle
+    }
+
+    const styleForCardsLink = makeStyleForLink(finishCardsHW)
+    const styleForCountLink = makeStyleForLink(finishCountHW)
+    const styleForCardsIcon = makeStyleForIcon(finishCardsHW)
+    const styleForCountIcon = makeStyleForIcon(finishCountHW)
+
+    const text = 'Домашнее задание выполнено!'
 
     return <div className={s.container}>
         <HeadButtons callBack={stopHWDoing}/>
         <div className={s.content}>
-            <div className={iconStyle}>
-                <NavLink to={PATH.HOMEWORK_FLASH} className={linkStyle}>
+            <div className={styleForCardsIcon}>
+                <NavLink to={PATH.HOMEWORK_FLASH} className={styleForCardsLink}>
                     <div className={s.item}
                          onClick={startHWDoing}
                     >
@@ -117,8 +155,8 @@ export const HomeWork: FC = () => {
                     </div>
                 </NavLink>
             </div>
-            <div className={s.icon}>
-                <NavLink to={PATH.HOMEWORK_COUNT}>
+            <div className={styleForCountIcon}>
+                <NavLink to={PATH.HOMEWORK_COUNT} className={styleForCountLink}>
                     <div className={s.item}
                          onClick={startHWDoing}
                     >
@@ -128,6 +166,9 @@ export const HomeWork: FC = () => {
                     </div>
                 </NavLink>
             </div>
+        </div>
+        <div className={s.finish}>
+            {finishCardsHW && finishCountHW && <FinishedHomework text={text}/>}
         </div>
     </div>
 }
