@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/arifmetik/static/css/main.133034f4.css",
-    "main.js": "/arifmetik/static/js/main.9ac72c96.js",
+    "main.css": "/arifmetik/static/css/main.793db6dd.css",
+    "main.js": "/arifmetik/static/js/main.cd201288.js",
     "static/js/845.e424f3ca.chunk.js": "/arifmetik/static/js/845.e424f3ca.chunk.js",
     "static/js/787.f327c594.chunk.js": "/arifmetik/static/js/787.f327c594.chunk.js",
     "static/media/rocket_tony.gif": "/arifmetik/static/media/rocket_tony.047d9538b361333ac730.gif",
@@ -11,6 +11,7 @@
     "static/media/digits_1.jpg": "/arifmetik/static/media/digits_1.90f99c99f999f6d7c40b.jpg",
     "static/media/right_answer_sound.mp3": "/arifmetik/static/media/right_answer_sound.33039f0d456ce6b79a1a.mp3",
     "static/media/dominoes_2.jpg": "/arifmetik/static/media/dominoes_2.e3f067576db0b7428e1c.jpg",
+    "static/media/finish_smile.jpg": "/arifmetik/static/media/finish_smile.b3cab1ccf6e0a6319856.jpg",
     "static/media/+3.mp3": "/arifmetik/static/media/+3.2430bedcabe4a650e111.mp3",
     "static/media/rocket_2sec.mp3": "/arifmetik/static/media/rocket_2sec.fb5cacb8b8a6f288b721.mp3",
     "static/media/Miron.jpg": "/arifmetik/static/media/Miron.597a7fdcd0ab93a649c1.jpg",
@@ -97,6 +98,7 @@
     "static/media/-7.mp3": "/arifmetik/static/media/-7.d4da27d151e431fb9c22.mp3",
     "static/media/+4.mp3": "/arifmetik/static/media/+4.1ff21a3a607d7c17e09e.mp3",
     "static/media/+8.mp3": "/arifmetik/static/media/+8.6398fa9d29d8052f84ba.mp3",
+    "static/media/check-mark.png": "/arifmetik/static/media/check-mark.1dbc4d6773c1c3a35cd4.png",
     "static/media/+1.mp3": "/arifmetik/static/media/+1.55854ed0fbca254c0688.mp3",
     "static/media/+2.mp3": "/arifmetik/static/media/+2.f22f18017bcc0c229f75.mp3",
     "static/media/+6.mp3": "/arifmetik/static/media/+6.f69044fb4580fe5ec2c9.mp3",
@@ -105,13 +107,13 @@
     "static/media/+7.mp3": "/arifmetik/static/media/+7.364f13e914a3b62be4fd.mp3",
     "static/media/+9.mp3": "/arifmetik/static/media/+9.b7285f6964a5dcebc62e.mp3",
     "index.html": "/arifmetik/index.html",
-    "main.133034f4.css.map": "/arifmetik/static/css/main.133034f4.css.map",
-    "main.9ac72c96.js.map": "/arifmetik/static/js/main.9ac72c96.js.map",
+    "main.793db6dd.css.map": "/arifmetik/static/css/main.793db6dd.css.map",
+    "main.cd201288.js.map": "/arifmetik/static/js/main.cd201288.js.map",
     "845.e424f3ca.chunk.js.map": "/arifmetik/static/js/845.e424f3ca.chunk.js.map",
     "787.f327c594.chunk.js.map": "/arifmetik/static/js/787.f327c594.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.133034f4.css",
-    "static/js/main.9ac72c96.js"
+    "static/css/main.793db6dd.css",
+    "static/js/main.cd201288.js"
   ]
 }
