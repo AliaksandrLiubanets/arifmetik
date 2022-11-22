@@ -17,6 +17,7 @@ import {NavLink, useLocation} from 'react-router-dom'
 import {PATH} from '../../../enums/paths'
 import {HeadButtons} from '../../commonComponents/HeadButtons/HeadButtons'
 import {FinishedHomework} from '../../commonComponents/FinishedHomework/FinishedHomework'
+import check_mark from '../../../assets/main-icons/check-mark.png'
 
 
 export const HomeWork: FC = () => {
@@ -28,7 +29,7 @@ export const HomeWork: FC = () => {
     if (!currentUserId) {
         index = 1
     } else {
-        index = homeWork.findIndex((data: HomeWorkType) =>  data.userId === currentUserId )
+        index = homeWork.findIndex((data: HomeWorkType) => data.userId === currentUserId)
     }
 
     const cards = homeWork[index].cards
@@ -41,9 +42,9 @@ export const HomeWork: FC = () => {
 
     // find rightAnswerAmount with userId === currentUserId
     let rightAnswerAmountOfCards
-    if(currentUserId === homeWork[index].userId) rightAnswerAmountOfCards = cardsTasks.filter(task => task.isDone).length
+    if (currentUserId === homeWork[index].userId) rightAnswerAmountOfCards = cardsTasks.filter(task => task.isDone).length
     let rightAnswerAmountOfCount
-    if(currentUserId === homeWork[index].userId) rightAnswerAmountOfCount = countTasks.filter(task => task.isDone).length
+    if (currentUserId === homeWork[index].userId) rightAnswerAmountOfCount = countTasks.filter(task => task.isDone).length
 
     const {
         firstCardsCompositionHW,
@@ -145,26 +146,31 @@ export const HomeWork: FC = () => {
         <HeadButtons callBack={stopHWDoing}/>
         <div className={s.content}>
             <div className={styleForCardsIcon}>
-                <NavLink to={PATH.HOMEWORK_FLASH} className={styleForCardsLink}>
-                    <div className={s.item}
-                         onClick={startHWDoing}
-                    >
-                        <div>Задание</div>
-                        <img src={dominoes} alt={'dominoes_icon'}/>
-                        <div>Флэшкарты</div>
-                    </div>
-                </NavLink>
+                <div className={s.block}>
+                    <NavLink to={PATH.HOMEWORK_FLASH} className={styleForCardsLink}>
+                        <div className={s.item}
+                             onClick={startHWDoing}
+                        >
+                            <div>Флэшкарты</div>
+                            <img src={dominoes} alt={'dominoes_icon'}/>
+                        </div>
+                    </NavLink>
+                    {finishCardsHW && <img className={s.check_mark} src={check_mark} alt={'finished'}/>}
+                </div>
             </div>
             <div className={styleForCountIcon}>
-                <NavLink to={PATH.HOMEWORK_COUNT} className={styleForCountLink}>
-                    <div className={s.item}
-                         onClick={startHWDoing}
-                    >
-                        <div>Задание</div>
-                        <img src={digits} alt={'digits_icon'}/>
-                        <div>Счёт</div>
-                    </div>
-                </NavLink>
+                <div className={s.block}>
+                    <NavLink to={PATH.HOMEWORK_COUNT} className={styleForCountLink}>
+                        <div className={s.item}
+                             onClick={startHWDoing}
+                        >
+                            <div>Счёт</div>
+                            <img src={digits} alt={'digits_icon'}/>
+
+                        </div>
+                    </NavLink>
+                    {finishCountHW && <img className={s.check_mark} src={check_mark} alt={'finished'}/>}
+                </div>
             </div>
         </div>
         <div className={s.finish}>
@@ -172,3 +178,5 @@ export const HomeWork: FC = () => {
         </div>
     </div>
 }
+
+

@@ -10,6 +10,11 @@
 .icon {
     cursor: pointer;
 }
+.block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .item {
     display: flex;
     flex-direction: column;
@@ -28,9 +33,14 @@
     color: #6a7c81;
     text-shadow: 0 0 3px 2px gray;
 }
+.check_mark {
+    height: 40px;
+    border-radius: 1px;
+    box-shadow: 0 0 0 0 #d90202;
+}
 .link {
     pointer-events: none;
-    opacity: 50%;
+    opacity: 60%;
 
 }
 .finish {
