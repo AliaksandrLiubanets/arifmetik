@@ -13,13 +13,14 @@ import {
     setSecondCardsComp
 } from '../../../store/flashCardsGameReducer'
 import {setActionsCount, setNumberComp, setSpeed, switchSound} from '../../../store/countGameReducer'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
 import {PATH} from '../../../enums/paths'
 import {HeadButtons} from '../../commonComponents/HeadButtons/HeadButtons'
 
 
 export const HomeWork: FC = () => {
     const dispatch = useDispatch()
+    const location = useLocation()
     const {homeWork, currentUserId} = useSelector((state: AppRootStateType) => state.homework)
     let index: number
     if (!currentUserId) {
@@ -27,6 +28,13 @@ export const HomeWork: FC = () => {
     } else {
         index = homeWork.findIndex((data: HomeWorkType) =>  data.userId === currentUserId )
     }
+    const cards = homeWork[index].cards
+    const tasks = cards.tasks
+    const numberOfExercises = cards.numberOfExercises
+
+    // find rightAnswerAmount with userId === currentUserId
+    let rightAnswerAmount
+    if(currentUserId === homeWork[index].userId) rightAnswerAmount = tasks.filter(task => task.isDone).length
 
     const {
         firstCardsCompositionHW,
@@ -85,14 +93,21 @@ export const HomeWork: FC = () => {
     }, [currentUserId, onChangeCardsTimeOutValue, onChangeIsSpeedOn, changeCardNumber, onChangeFirstCardsComp,
         onChangeSecondCardsComp, onChangeCountNumberComp, onChangeCountTimeOutValue, onChangeCountActionsCount, onChangeSound])
 
+    const isShowAnswersCount = location.pathname.includes('homework')
+    const isHomeworkFinished = numberOfExercises === rightAnswerAmount
+    const finishHW = isShowAnswersCount && isHomeworkFinished
+
     const stopHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: false}))
     const startHWDoing = () => dispatch(setStartHWDoing({isStartHWDoing: true}))
+
+    const linkStyle = finishHW ? `${s.link}` : ''
+    const iconStyle = finishHW ? '' : `${s.icon}` // cursor: default if finishHW
 
     return <div className={s.container}>
         <HeadButtons callBack={stopHWDoing}/>
         <div className={s.content}>
-            <div className={s.icon}>
-                <NavLink to={PATH.HOMEWORK_FLASH}>
+            <div className={iconStyle}>
+                <NavLink to={PATH.HOMEWORK_FLASH} className={linkStyle}>
                     <div className={s.item}
                          onClick={startHWDoing}
                     >

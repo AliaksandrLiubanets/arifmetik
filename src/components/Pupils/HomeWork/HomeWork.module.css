@@ -27,3 +27,11 @@
     color: #6a7c81;
     text-shadow: 0 0 3px 2px gray;
 }
+.link {
+    pointer-events: none;
+    opacity: 50%;
+
+}
+/*.disable_cursor {*/
+/*    cursor: cell;*/
+/*}*/
