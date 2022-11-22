@@ -47,9 +47,10 @@ export const FlashCardsBlock = () => {
         {
             isShowAnswersCount && <RightAnswerCount tasks={tasks}/>
         }
-        {!finishHW && <FlashCardsContainer />}
         {
-            finishHW && <FinishedHomework text={text}/>
+            finishHW
+                ? <FinishedHomework text={text}/>
+                : <FlashCardsContainer />
         }
     </div>
 }
