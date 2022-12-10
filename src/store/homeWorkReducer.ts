@@ -32,22 +32,22 @@ const HWInitialState = {
             userId: 2,
             count: {
                 rightAnswersAmount: 0,
-                numberOfExercises: 3,
+                numberOfExercises: 10,
                 tasks: [{isDone: false}],
                 numberComposition: 10,
-                speedCount: 1.5,
-                actionsAmount: 2,
+                speedCount: 4.5,
+                actionsAmount: 8,
                 isVoiceOn: true
             },
             cards: {
                 rightAnswersAmount: 0,
-                numberOfExercises: 3,
+                numberOfExercises: 10,
                 tasks: [{isDone: false}],
                 numberOfFlashCardsHW: 2,
-                firstCardsCompositionHW: 4,
+                firstCardsCompositionHW: 5,
                 secondCardsCompositionHW: 5,
                 isSpeedOnHW: true,
-                speedCardsHW: 1.5,
+                speedCardsHW: 1.8,
                 maxSpeedHW: 8
             }
         }
